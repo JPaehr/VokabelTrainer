@@ -104,8 +104,11 @@ class NeuesBuch(WindowBuchAnlegen, QtGui.QWidget):
     def anlegen(self):
         print self.cBSprache.currentIndex()
         
-        daten = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
-        self.Datenbank.setData("insert into Buecher (name, id_sprache) values('"+str(self.tfBuchtitel.text())+"', '"+str(daten[0][1])+"')")
+        daten = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
+        limit '"+str(self.cBSprache.currentIndex())+"', \
+        '"+str(self.cBSprache.currentIndex()+1)+"'") 
+        self.Datenbank.setData("insert into Buecher (name, id_sprache) \
+        values('"+str(self.tfBuchtitel.text())+"', '"+str(daten[0][1])+"')")
         self.close()
  
 class NeueLektion(WindowLektionAnlegen, QtGui.QWidget):
@@ -146,9 +149,9 @@ class NeueLektion(WindowLektionAnlegen, QtGui.QWidget):
         limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'")
         idSprache = datenidSprache[0][1]
         idBuch = int(datenidBuch[0][1])
-        #print str(self.tfLektion.text().toUtf8()).decode('utf-8')
-        #print "insert into Lektionen (name, idBuch) values ('"+str(self.tfLektion.text().toUtf8()).decode('utf-8')+"', "+str(idBuch)+")"
-        self.Datenbank.setData(u"insert into Lektionen (name, idBuch) values ('"+str(self.tfLektion.text().toUtf8()).decode('utf-8')+"', '"+str(idBuch)+"')")
+        
+        self.Datenbank.setData(u"insert into Lektionen (name, idBuch) \
+        values ('"+str(self.tfLektion.text().toUtf8()).decode('utf-8')+"', '"+str(idBuch)+"')")
     
     def LektionAnlegenUndSchliessen(self):
         self.LektionAnlegen()
