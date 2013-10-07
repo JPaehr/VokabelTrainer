@@ -84,7 +84,8 @@ class NeueSprache(WindowSpracheAnlgen, QtGui.QWidget):
         self.connect(self.btnAnlegen, QtCore.SIGNAL("clicked()"), self.anlegen)
 
     def anlegen(self):
-        self.Datenbank.setData("insert into sprache (Fremdsprache) values ('"+str(self.tfNeueSprache.text())+"')")
+        sprache = str(self.tfNeueSprache.text().toUtf8()).decode('utf-8')
+        self.Datenbank.setData("insert into sprache (Fremdsprache) values ('"+sprache+"')")
         self.close()
         
 class NeuesBuch(WindowBuchAnlegen, QtGui.QWidget):
@@ -179,20 +180,26 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         
     def BuecherNeuSchreiben(self):
         
-        datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
+        datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
+        limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
         
-        datenBuch = self.Datenbank.getDataAsQStringList("select Buecher.name, Buecher.id from Buecher join sprache on (sprache.id=Buecher.id_sprache) where Sprache.id like "+str(datenidSprache[0][1]))
+        datenBuch = self.Datenbank.getDataAsQStringList("select Buecher.name, Buecher.id from Buecher \
+        join sprache on (sprache.id=Buecher.id_sprache) \
+        where Sprache.id like "+str(datenidSprache[0][1]))
         modelBuch = QtGui.QStringListModel(datenBuch)
         self.cBBuch.setModel(modelBuch)
         self.TabelleNeuZeichnen()
   
     def TabelleNeuZeichnen(self):
-        datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
+        datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
+        limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
         
         suchString = str(self.tfSuche.text().toUtf8()).decode("utf-8")
         
         if self.chBBuch.isChecked():
-            datenidBuch =  self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher join sprache on (sprache.id=Buecher.id_sprache) where Sprache.id like "+str(datenidSprache[0][1])+" limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'")
+            datenidBuch =  self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher \
+            join sprache on (sprache.id=Buecher.id_sprache) where Sprache.id like "+str(datenidSprache[0][1])+" \
+            limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'")
             print datenidBuch
             
             self.statement = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd from sprache \
@@ -347,7 +354,8 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
     def IndexBuchFinden(self, id):
         datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
         limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
-        daten = self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher join Sprache on (buecher.id_sprache=sprache.id) \
+        daten = self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher \
+        join Sprache on (buecher.id_sprache=sprache.id) \
         where sprache.id like "+str(datenidSprache[0][1]))
         liste = []
         for i in daten:
@@ -356,7 +364,8 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
     def IndexLektionFinden(self, id):
         datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
         limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
-        datenidBuch = self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher join Sprache on (buecher.id_sprache=sprache.id) \
+        datenidBuch = self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher \
+        join Sprache on (buecher.id_sprache=sprache.id) \
         where sprache.id like "+str(datenidSprache[0][1])+"\
         limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'")
         daten = self.Datenbank.getDataAsList("select Lektionen.name, lektionen.id from Buecher \
@@ -383,7 +392,8 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         where buecher.id like "+str(neuesBuchId)+" \
         limit '"+str(self.cBLekion.currentIndex())+"', '"+str(self.cBLekion.currentIndex()+1)+"'")[0][1]
         
-        updateStatementVokabeln = "update vokabeln set idlektion="+str(neueLektionId)+", Deutsch='"+str(self.tfDeutsch.text())+"', Fremd='"+str(self.tfFremd.text())+"' \
+        updateStatementVokabeln = "update vokabeln set idlektion="+str(neueLektionId)+", \
+        Deutsch='"+str(self.tfDeutsch.text())+"', Fremd='"+str(self.tfFremd.text())+"' \
         where id like "+str(self.VokabelID)
         self.Datenbank.setData(updateStatementVokabeln)
         
