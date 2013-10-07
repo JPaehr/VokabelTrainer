@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LektionAnlegen</class>
+ <widget class="QWidget" name="LektionAnlegen">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Lektion Anlegen</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Lektion anlegen</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>371</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Sprache</string>
+   </property>
+   <widget class="QComboBox" name="cBSprache">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>341</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>371</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Buch</string>
+   </property>
+   <widget class="QComboBox" name="cBBuch">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>341</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>190</y>
+     <width>371</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Lektion</string>
+   </property>
+   <widget class="QLineEdit" name="tfLektion">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>341</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>250</y>
+     <width>371</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="btnAbbrechn">
+      <property name="text">
+       <string>Abbrechen</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnAnwenden">
+      <property name="text">
+       <string>Anwenden</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnAnwendenSchliessen">
+      <property name="text">
+       <string>Anwenden und Schließen</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>cBSprache</tabstop>
+  <tabstop>cBBuch</tabstop>
+  <tabstop>tfLektion</tabstop>
+  <tabstop>btnAnwenden</tabstop>
+  <tabstop>btnAnwendenSchliessen</tabstop>
+  <tabstop>btnAbbrechn</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>821</width>
+    <height>482</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Wörterbuch</string>
+  </property>
+  <widget class="QTableView" name="tVWoerterbuch">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>90</y>
+     <width>781</width>
+     <height>331</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>171</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Sprache</string>
+   </property>
+   <widget class="QComboBox" name="cBSprache">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>151</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>20</y>
+     <width>261</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Buch</string>
+   </property>
+   <widget class="QComboBox" name="cBBuch">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>221</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="chBBuch">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>16</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>20</y>
+     <width>331</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Suche</string>
+   </property>
+   <widget class="QLineEdit" name="tfSuche">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>311</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="btnBearbeiten">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>440</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Bearbeiten</string>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>cBSprache</tabstop>
+  <tabstop>chBBuch</tabstop>
+  <tabstop>cBBuch</tabstop>
+  <tabstop>tfSuche</tabstop>
+  <tabstop>tVWoerterbuch</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

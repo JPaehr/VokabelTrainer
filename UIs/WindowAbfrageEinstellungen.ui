@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>791</width>
+    <height>656</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Abfrageeinstellungen</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>281</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Sprache wählen</string>
+   </property>
+   <widget class="QComboBox" name="cbSprache">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>231</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>281</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Buch</string>
+   </property>
+   <widget class="QComboBox" name="cBBuch">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>231</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>329</x>
+     <y>219</y>
+     <width>281</width>
+     <height>221</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Gewählte Lektionen</string>
+   </property>
+   <widget class="QListView" name="lvGewaehlteLektionen">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>261</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>220</y>
+     <width>281</width>
+     <height>221</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Lektionen</string>
+   </property>
+   <widget class="QListView" name="lvLektionen">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>261</width>
+      <height>191</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QCheckBox" name="chBMeintenSie">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>20</y>
+     <width>180</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&quot;Meinten Sie&quot; Hinweis einblenden</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="chBRichtigGeschriebeneAnzeigen">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>43</y>
+     <width>210</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>richtig geschriebene Vokabeln anzeigen</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="tfZeitWarten">
+   <property name="geometry">
+    <rect>
+     <x>331</x>
+     <y>67</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="tfHaeufigkeit">
+   <property name="geometry">
+    <rect>
+     <x>331</x>
+     <y>95</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>389</x>
+     <y>71</y>
+     <width>140</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Zeit in ms warten pro Vokabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>389</x>
+     <y>99</y>
+     <width>109</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Häufigkeit der Abfrage</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_5">
+   <property name="geometry">
+    <rect>
+     <x>329</x>
+     <y>129</y>
+     <width>251</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Abfragerichtung</string>
+   </property>
+   <widget class="QComboBox" name="cBAbfragerichtung">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>221</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="btnLektionZuAbfrageHinzu">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>520</y>
+     <width>271</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Lektion zu Abfrage hinzufügen</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnLektionLoeschen">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>560</y>
+     <width>271</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>markierte Lektion nicht abfragen</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>336</x>
+     <y>479</y>
+     <width>311</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="btnAbbrechen">
+      <property name="text">
+       <string>Abbrechen</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnAbfrageStarten">
+      <property name="text">
+       <string>Abfrage starten</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="btnBuchZuAbfrage">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>480</y>
+     <width>271</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Buch zu Abfrage hinzufügen</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labAnzahlVokabeln">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>400</y>
+     <width>141</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Anzahl Vokabeln: 0</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labAnzahlAbfragen">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>420</y>
+     <width>141</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Anzahl Abfragen: 0</string>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>cbSprache</tabstop>
+  <tabstop>cBBuch</tabstop>
+  <tabstop>btnLektionZuAbfrageHinzu</tabstop>
+  <tabstop>btnLektionLoeschen</tabstop>
+  <tabstop>chBMeintenSie</tabstop>
+  <tabstop>chBRichtigGeschriebeneAnzeigen</tabstop>
+  <tabstop>tfZeitWarten</tabstop>
+  <tabstop>tfHaeufigkeit</tabstop>
+  <tabstop>cBAbfragerichtung</tabstop>
+  <tabstop>lvGewaehlteLektionen</tabstop>
+  <tabstop>btnAbbrechen</tabstop>
+  <tabstop>btnAbfrageStarten</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
