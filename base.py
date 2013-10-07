@@ -9,7 +9,7 @@ class base:
 	def create(self, statement):
 		self.cursor.execute(statement)
 
-		print "DB create: ", statement
+		#print "DB create: ", statement
 	def getDataAsTupel(self, statement):
 	
 		return self.cursor.execute(statement)
