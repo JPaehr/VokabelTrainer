@@ -565,7 +565,11 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         daten = self.Datenbank.getDataAsList(selectLektion)
         liste = []
         for i in daten:
-            liste.append(i[0])
+            #Vokabeln dahinter schreiben
+            selection = self.Datenbank.getDataAsList("select count(*) from vokabeln \
+            join lektionen on (lektionen.id=vokabeln.idlektion)\
+            where idlektion like "+str(i[1]))
+            liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
         model = Markierung(liste)
         self.lvLektionen.setModel(model) 
         self.lvLektionen.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
