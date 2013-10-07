@@ -145,8 +145,10 @@ class NeueLektion(WindowLektionAnlegen, QtGui.QWidget):
         join sprache on (sprache.id=Buecher.id_sprache) where Sprache.id like "+str(datenidSprache[0][1])+"\
         limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'")
         idSprache = datenidSprache[0][1]
-        idBuch = datenidBuch[0][1]
-        self.Datenbank.setData("insert into Lektionen (name, idBuch) values ('"+str(self.tfLektion.text())+"', '"+str(idBuch)+"')")
+        idBuch = int(datenidBuch[0][1])
+        #print str(self.tfLektion.text().toUtf8()).decode('utf-8')
+        #print "insert into Lektionen (name, idBuch) values ('"+str(self.tfLektion.text().toUtf8()).decode('utf-8')+"', "+str(idBuch)+")"
+        self.Datenbank.setData(u"insert into Lektionen (name, idBuch) values ('"+str(self.tfLektion.text().toUtf8()).decode('utf-8')+"', '"+str(idBuch)+"')")
     
     def LektionAnlegenUndSchliessen(self):
         self.LektionAnlegen()
