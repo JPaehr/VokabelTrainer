@@ -6,9 +6,9 @@ Created on 25.09.2013
 '''
 from PyQt4 import QtGui, QtCore
 import sys
-from time import sleep
+
 from windows.MainWindow import Ui_MainWindow as MainWindow
-#from windows.WindowSpracheAnlegen import Ui_Form as WindowSpracheAnlgen
+
 import oberfaechen.NeueSprache as NeueSprache
 import oberfaechen.NeuesBuch as NeuesBuch
 import oberfaechen.NeueLektion as NeueLektion
@@ -18,25 +18,11 @@ import oberfaechen.AbfrageEinstellungen as AbfrageEinstellungen
 import oberfaechen.LektionAendern as LektionAendern
 import oberfaechen.BuchAendern as BuchAendern
 import oberfaechen.SpracheAendern as SpracheAendern
-from windows.WindowBuchAnlegen import Ui_Form as WindowBuchAnlegen
-from windows.WindowLektionAnlegen import Ui_LektionAnlegen as WindowLektionAnlegen
-from windows.WindowWoerterbuch import Ui_Form as WindowWoerterbuch
-from windows.WindowAbfrageEinstellungen import Ui_Form as WindowAbfrageEinstellungen
-from windows.WindowWoerterbuchBearbeiten import Ui_Form as WindowWoerterbuchBearbeiten
-from windows.WindowVokabelAnlegen import Ui_Form as WindowVokabelAnlegen
-from windows.WindowAbfrage import Ui_Form as WindowAbfrage
-from windows.WindowSpracheAendern import Ui_Form as WindowSpracheAendern
-from windows.WindowBuchAendern import Ui_Form as WindowBuchAendern
-from windows.WindowLektionAendern import  Ui_Form as WindowLektionAendern
 
 
-from models.ListModel import Markierung
-from random import shuffle as zufall
 
-import models.Leve as leve
 import models.base as Datenbank
-import models.WoerterbuchModel as WoerterbuchModel
-from dummy_thread import start_new_thread
+
 
 class Programm(MainWindow, QtGui.QMainWindow):
     def __init__(self):
@@ -81,16 +67,6 @@ class Programm(MainWindow, QtGui.QMainWindow):
     def Woerterbuch(self):
         test = Woerterbuch.Woerterbuch(self)
         test.show()
-     
-    
-
- 
-
-
-        
-
-
-
 
 app = QtGui.QApplication(sys.argv) 
 dialog = Programm() 
