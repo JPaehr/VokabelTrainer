@@ -28,7 +28,7 @@ class Markierung(QtCore.QAbstractTableModel):
             self.data[index.row()] = value
     def flags(self, index):
         
-        return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsDragEnabled
+        return QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsDragEnabled
     
     def headerData(self, section, orientation, role):
         
