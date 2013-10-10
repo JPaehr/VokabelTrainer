@@ -30,7 +30,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")   
         
-        Voreinstellungen = self.Datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen from Einstellungen \
+        Voreinstellungen = self.Datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, distanz from Einstellungen \
         where id like 1")
         
         if Voreinstellungen[0][0] == "True":
@@ -45,6 +45,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         
         self.tfZeitWarten.setText(str(Voreinstellungen[0][2]))
         self.tfHaeufigkeit.setText(str(Voreinstellungen[0][3]))
+        self.tfDistanz.setText(str(Voreinstellungen[0][6]))
         
         self.richtung = Voreinstellungen[0][4]
         
@@ -58,13 +59,14 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         rgva = '"+str(self.chBRichtigGeschriebeneAnzeigen.isChecked())+"', \
         warteZeit = "+str(int(self.tfZeitWarten.text()))+", \
         haeufigkeit = "+str(int(self.tfHaeufigkeit.text()))+", \
-        richtung = "+str(int(int(self.cBAbfragerichtung.currentIndex())+1))+" \
+        richtung = "+str(int(int(self.cBAbfragerichtung.currentIndex())+1))+", \
+        distanz = "+str(int(self.tfDistanz.text()))+" \
         where id like 1"
         self.Datenbank.setData(updateStatement)
         
         
         test = Abfrage.Abfrage(self, self.lektionsListe, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(), self.chBMeintenSie.isChecked(), 
-                       self.chBRichtigGeschriebeneAnzeigen.isChecked(), self.cBAbfragerichtung.currentIndex()+1)
+                       self.chBRichtigGeschriebeneAnzeigen.isChecked(), self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text())
         test.show()
     def Abfragerichtung(self):
         #1 ist von Deutsch nach Fremd, 2 von Fremd nach Deutsch
