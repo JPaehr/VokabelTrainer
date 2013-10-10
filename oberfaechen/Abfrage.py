@@ -11,6 +11,7 @@ import models.Leve as leve
 import thread
 from time import sleep
 from random import shuffle as zufall
+from oberfaechen.MeintenSie import MeintenSie
 
 class ZeitThread(QtCore.QThread):
     def __init__(self, zeit):
@@ -116,7 +117,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     liste = self.Datenbank.getDataAsList("select fremd, id from vokabeln")# \
                     #where deutsch like '"+str(self.tfInput)+"'")
                     #print liste
-                    self.Treffer.setAktVergleich(liste, unicode(self.tfInput.text()), self.vokabelIds[self.idAktuell], 1)
+                    self.Treffer.setAktVergleich(liste, unicode(self.tfInput.text()), self.vokabelIds[self.idAktuell-1], 1)
                     
                    
                     daten = self.Datenbank.getDataAsList("select fremd, deutsch from vokabeln \
@@ -133,7 +134,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         
                     
                     else:
-                        print "Fensterding"
+                        liste = []
+                        for i in daten:
+                            liste.append(str(i[1])+" - "+str(i[0]))
+                        print "Fenster auf"
+                        test = MeintenSie(self, liste)
+                        test.show()
+                        
                     """
                     daten = self.Datenbank.getDataAsList(u"select fremd, deutsch from vokabeln \
                     where fremd like '"+str(self.tfInput.text().toUtf8).decode('utf-8')+"' or deutsch like '"+str(self.tfInput.text().toUtf8()).decode("utf-8")+"'")
@@ -153,7 +160,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     liste = self.Datenbank.getDataAsList("select deutsch, id from vokabeln")# \
                     #where deutsch like '"+str(self.tfInput)+"'")
                     #print liste
-                    self.Treffer.setAktVergleich(liste, unicode(self.tfInput.text()), self.vokabelIds[self.idAktuell], 2)
+                    self.Treffer.setAktVergleich(liste, unicode(self.tfInput.text()), self.vokabelIds[self.idAktuell-1], 2)
                     
                 
                     
