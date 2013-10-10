@@ -137,7 +137,7 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         limit '"+str(self.cBLekion.currentIndex())+"', '"+str(self.cBLekion.currentIndex()+1)+"'")[0][1]
         
         updateStatementVokabeln = "update vokabeln set idlektion="+str(neueLektionId)+", \
-        Deutsch='"+str(self.tfDeutsch.text()).strip()+"', Fremd='"+str(self.tfFremd.text()).strip()+"' \
+        Deutsch='"+str(self.tfDeutsch.text().toUtf8()).strip()+"', Fremd='"+str(self.tfFremd.text().toUtf8()).strip()+"' \
         where id like "+str(self.VokabelID)
         self.Datenbank.setData(updateStatementVokabeln)
         
