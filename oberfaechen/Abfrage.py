@@ -24,12 +24,12 @@ class ZeitThread(QtCore.QThread):
  
 
 class Abfrage(WindowAbfrage, QtGui.QWidget):
-    def __init__(self, parent, lektionenIds, AbfrageHaeufigkeit, verzoegerung, meintenSie, RichtigeAnzeigen, Richtung):
+    def __init__(self, parent, lektionenIds, AbfrageHaeufigkeit, verzoegerung, meintenSie, RichtigeAnzeigen, Richtung, distanz):
         super(Abfrage, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
         
-        self.Treffer = leve.Treffer()
+        self.Treffer = leve.Treffer(distanz)
            
         zeit = float(verzoegerung)*10**(-3)  
         self.thread = ZeitThread(zeit)
@@ -107,7 +107,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             #print type(str(self.tfInput.text().toUtf8()).decode("utf-8"))
             if self.vokabelFremd == str(self.tfInput.text().toUtf8()).decode("utf-8"):
                 self.labRichtigFalsch.setText("Richtig")
-                self.labPunkte.setText(str(int(self.labPunkte.text()) + 1))
+                self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
             else:
                 self.labRichtigFalsch.setText("Falsch")
                 if self.RichtigeAnzeigen:
@@ -116,17 +116,24 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     liste = self.Datenbank.getDataAsList("select fremd, id from vokabeln")# \
                     #where deutsch like '"+str(self.tfInput)+"'")
                     #print liste
-                    self.Treffer.setAktVergleich(liste, unicode(self.tfInput.text()))
+                    self.Treffer.setAktVergleich(liste, unicode(self.tfInput.text()), self.vokabelIds[self.idAktuell], 1)
                     
-                    #print self.Treffer.getTreffer()
-                    
+                   
                     daten = self.Datenbank.getDataAsList("select fremd, deutsch from vokabeln \
                     "+ self.ListeZuSql(self.Treffer.getTreffer(), " id "))
                     
                     
                     if(len(daten) > 0):
                         self.labMeintenSie.setText("Meinten Sie: "+unicode(daten[0][1])+" - "+unicode(daten[0][0]))
-        
+                    
+                    if self.Treffer.directStrike():
+                        print "direkterTreffer"
+                        self.labRichtigFalsch.setText("fast richtig")
+                        self.labPunkte.setText(str(float(self.labPunkte.text()) + 0.5))
+                        
+                    
+                    else:
+                        print "Fensterding"
                     """
                     daten = self.Datenbank.getDataAsList(u"select fremd, deutsch from vokabeln \
                     where fremd like '"+str(self.tfInput.text().toUtf8).decode('utf-8')+"' or deutsch like '"+str(self.tfInput.text().toUtf8()).decode("utf-8")+"'")
@@ -136,7 +143,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         else:
             if self.vokabelDeutsch == self.tfInput.text():
                 self.labRichtigFalsch.setText("Richtig")
-                self.labPunkte.setText(str(int(self.labPunkte.text()) + 1))
+                self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
             else:
                 self.labRichtigFalsch.setText("Falsch")
                 if self.RichtigeAnzeigen:
@@ -146,18 +153,24 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     liste = self.Datenbank.getDataAsList("select deutsch, id from vokabeln")# \
                     #where deutsch like '"+str(self.tfInput)+"'")
                     #print liste
-                    self.Treffer.setAktVergleich(liste, unicode(self.tfInput.text()))
+                    self.Treffer.setAktVergleich(liste, unicode(self.tfInput.text()), self.vokabelIds[self.idAktuell], 2)
                     
-                    #print self.Treffer.getTreffer()
+                
                     
+                
                     daten = self.Datenbank.getDataAsList("select fremd, deutsch from vokabeln \
                     "+ self.ListeZuSql(self.Treffer.getTreffer(), " id "))
                     
                     
                     if(len(daten) > 0):
                         self.labMeintenSie.setText("Meinten Sie: "+unicode(daten[0][0])+" - "+unicode(daten[0][1]))
-        
-        
+    
+                    if self.Treffer.directStrike():
+                        print "direkter treffer"
+                        self.labRichtigFalsch.setText("fast richtig")
+                        self.labPunkte.setText(str(float(self.labPunkte.text()) + 0.5))
+                    else:
+                        print "das Fensterding"
         
         
     def ListeZuSql(self, liste, args, where=True):
