@@ -128,7 +128,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         self.labMeintenSie.setText("Meinten Sie: "+unicode(daten[0][1])+" - "+unicode(daten[0][0]))
                     
                     if self.Treffer.directStrike():
-                        print "direkterTreffer"
+                        #print "direkterTreffer"
                         self.labRichtigFalsch.setText("fast richtig")
                         self.labPunkte.setText(str(float(self.labPunkte.text()) + 0.5))
                         
@@ -137,7 +137,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         liste = []
                         for i in daten:
                             liste.append(str(i[1])+" - "+str(i[0]))
-                        print "Fenster auf"
+                        #print "Fenster auf"
                         test = MeintenSie(self, liste)
                         test.show()
                         
@@ -173,12 +173,18 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         self.labMeintenSie.setText("Meinten Sie: "+unicode(daten[0][0])+" - "+unicode(daten[0][1]))
     
                     if self.Treffer.directStrike():
-                        print "direkter treffer"
+                        #print "direkter treffer"
                         self.labRichtigFalsch.setText("fast richtig")
                         self.labPunkte.setText(str(float(self.labPunkte.text()) + 0.5))
                     else:
-                        print "das Fensterding"
+                        #print "das Fensterding"
         
+                        liste = []
+                        for i in daten:
+                            liste.append(str(i[1])+" - "+str(i[0]))
+                        #print "Fenster auf"
+                        test = MeintenSie(self, liste)
+                        test.show()
         
     def ListeZuSql(self, liste, args, where=True):
         if where:

@@ -14,7 +14,7 @@ class Treffer(object):
         self.distanz = distanz
     
     def setAktVergleich(self, liste, wort, ids, richtung):
-        print "Akutelle id "+str(ids)
+        #print "Akutelle id "+str(ids)
         #liste vokabeln und id
         self.ids = ids
         self.richtung = richtung
@@ -23,29 +23,29 @@ class Treffer(object):
         self.direktTreffer = False
     def directStrike(self):
         if self.direktTreffer:
-            print "directStrike gemacht"
+            #print "directStrike gemacht"
             return True
         else:
-            print "directStrike gefailt"
+            #print "directStrike gefailt"
             return False
         
     def getTreffer(self): 
         #liste von ids wird zurückgegeben
-        print "get Treffer"
+        #print "get Treffer"
         
         daten = self.Datenbank.getDataAsList("select deutsch, fremd from vokabeln where id like "+ str(self.ids))
         
-        print "vergleich zwischen "+str(daten[0][1]) +" und "+str(self.wort)
+        #print "vergleich zwischen "+str(daten[0][1]) +" und "+str(self.wort)
         
         if self.richtung == 1:
             if leve.distance(daten[0][1], self.wort) <= int(self.distanz):
                 self.direktTreffer = True
-                print self.ids
+                #print self.ids
                 return [self.ids]
         else:
             if leve.distance(daten[0][0], self.wort) <= int(self.distanz):
                 self.direktTreffer = True
-                print self.id
+                #print self.id
                 return [self.ids] 
 
        
