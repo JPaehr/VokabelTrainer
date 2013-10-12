@@ -156,7 +156,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             else:
                 self.labRichtigFalsch.setText("Falsch")
                 if self.RichtigeAnzeigen:
-                    self.labBitteEingeben.setText(unicode("Richtig währe: ")+str(self.vokabelDeutsch))
+                    self.labBitteEingeben.setText(unicode(u"Richtig währe: ")+str(self.vokabelDeutsch))
                 if self.meintenSie:
                     #print "meintenSie Aktiv"
                     liste = self.Datenbank.getDataAsList("select deutsch, id from vokabeln")# \
