@@ -18,7 +18,8 @@ class MeintenSie(WindowMeintenSie, QtGui.QWidget):
         self.setupUi(self)
         self.setMouseTracking(True)
         self.lvMeintenSieSatz.setMouseTracking(True)
-        
+        if self.lvMeintenSieSatz.mouseMoveEvent():
+            print "ausgeloeast"
         
         model = ListModelMeintenSie.ListModelMeintenSie(daten)
         self.lvMeintenSieSatz.setModel(model)

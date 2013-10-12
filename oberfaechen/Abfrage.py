@@ -63,7 +63,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             join buecher on (buecher.id=lektionen.idBuch) \
             where vokabeln.id like "+str(self.vokabelIds[self.idAktuell]))
             self.lektion = daten[0][0]
-            self.vokabelDeutsch = daten[0][1]
+            self.vokabelDeutsch = unicode(daten[0][1])
             self.vokabelFremd = daten[0][2]
             self.Buch = daten[0][3]
             
@@ -148,7 +148,9 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         self.labMeintenSie.setText(u"Meinten Sie: "+daten[0][1]+" - "+daten[0][0])
                         """
         else:
-            if self.vokabelDeutsch == self.tfInput.text():
+            print "vergleich zwischen " + self.Vergeleichsfaehigkeit(self.vokabelDeutsch)
+            print self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8'))
+            if self.Vergeleichsfaehigkeit(self.vokabelDeutsch) == self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8')):
                 self.labRichtigFalsch.setText("Richtig")
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
             else:
@@ -185,7 +187,21 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         #print "Fenster auf"
                         test = MeintenSie(self, liste)
                         test.show()
+    def Vergeleichsfaehigkeit(self, kette):
         
+        print "typen type:" + str(type(kette))
+        
+        if "(" in kette:
+            kette = kette[:kette.find("(")]
+        kette = kette.replace(",", "")
+        kette = kette.replace(".", "")
+        kette = kette.replace("!", "")
+        kette = kette.replace("?", "")
+        kette = kette.lower()
+        kette = kette.strip()
+        
+        return kette
+         
     def ListeZuSql(self, liste, args, where=True):
         if where:
             statement = "where "
