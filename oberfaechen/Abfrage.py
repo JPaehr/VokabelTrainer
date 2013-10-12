@@ -67,7 +67,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.vokabelFremd = daten[0][2]
             self.Buch = daten[0][3]
             
-            print "Richtung: ", self.Richtung
+            #print "Richtung: ", self.Richtung
             
             if self.Richtung == 1:
                 self.labVokabelMeintenSie.setText(self.vokabelDeutsch)
@@ -148,8 +148,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         self.labMeintenSie.setText(u"Meinten Sie: "+daten[0][1]+" - "+daten[0][0])
                         """
         else:
-            print "vergleich zwischen " + self.Vergeleichsfaehigkeit(self.vokabelDeutsch)
-            print self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8'))
+            #print "vergleich zwischen " + self.Vergeleichsfaehigkeit(self.vokabelDeutsch)
+            #print self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8'))
             if self.Vergeleichsfaehigkeit(self.vokabelDeutsch) == self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8')):
                 self.labRichtigFalsch.setText("Richtig")
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
@@ -189,7 +189,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         test.show()
     def Vergeleichsfaehigkeit(self, kette):
         
-        print "typen type:" + str(type(kette))
+        #print "typen type:" + str(type(kette))
         
         if "(" in kette:
             kette = kette[:kette.find("(")]

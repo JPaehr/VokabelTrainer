@@ -44,7 +44,7 @@ class Treffer(object):
                 return [self.ids]
         else:
             if leve.distance(self.Vergeleichsfaehigkeit(daten[0][0]), self.Vergeleichsfaehigkeit(self.wort)) <= int(self.distanz):
-                print "Leven Vergleich zwischen "+ str(daten[0][0])+ " und "+ str(self.wort)
+                #print "Leven Vergleich zwischen "+ str(daten[0][0])+ " und "+ str(self.wort)
                 self.direktTreffer = True
                 #print self.id
                 return [self.ids] 
@@ -58,7 +58,7 @@ class Treffer(object):
         return rueckgabe
     def Vergeleichsfaehigkeit(self, kette):
         
-        print "typen type:" + str(type(kette))
+        #print "typen type:" + str(type(kette))
         
         if "(" in kette:
             kette = kette[:kette.find("(")]
