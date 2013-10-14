@@ -28,6 +28,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.connect(self.tfHaeufigkeit, QtCore.SIGNAL("textChanged(QString)"), self.AnzahlAbfragenPaint)
         self.connect(self.btnBuchZuAbfrage, QtCore.SIGNAL("clicked()"), self.BuchZuAbfrageHinzu)
         
+        
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")   
         
         Voreinstellungen = self.Datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, distanz from Einstellungen \

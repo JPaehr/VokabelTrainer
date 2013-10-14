@@ -30,6 +30,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
         
+        self.fontDick = QtGui.QFont()
+        self.fontDick.setBold(True)
+        self.fontNormal = QtGui.QFont()
+        
+        
         self.Treffer = leve.Treffer(distanz)
            
         zeit = float(verzoegerung)*10**(-3)  

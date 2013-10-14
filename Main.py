@@ -18,6 +18,7 @@ import oberfaechen.AbfrageEinstellungen as AbfrageEinstellungen
 import oberfaechen.LektionAendern as LektionAendern
 import oberfaechen.BuchAendern as BuchAendern
 import oberfaechen.SpracheAendern as SpracheAendern
+import oberfaechen.Vorsichtig as Vorsichtig
 
 
 
@@ -32,7 +33,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.connect(self.btnNeuesBuch, QtCore.SIGNAL("clicked()"), self.NeuesBuch)
         self.connect(self.btnNeueLektion, QtCore.SIGNAL("clicked()"), self.NeueLektion)
         self.connect(self.btnWoerterbuch, QtCore.SIGNAL("clicked()"), self.Woerterbuch)
-        self.connect(self.btnNeueVok, QtCore.SIGNAL("clicked()"), self.NeueVokabel)
+        self.connect(self.btnNeueVok, QtCore.SIGNAL("clicked()"), self.VorsichtigSein)
         self.connect(self.btnAbfrageStarten, QtCore.SIGNAL("clicked()"), self.AbfrageEinstellungen)
         self.connect(self.btnSpracheBeareiten, QtCore.SIGNAL("clicked()"), self.SpracheAendern)
         self.connect(self.btnBuecherBearbeiten, QtCore.SIGNAL("clicked()"), self.BuchAendern)
@@ -42,6 +43,11 @@ class Programm(MainWindow, QtGui.QMainWindow):
     def LektioenAendern(self):
         test = LektionAendern.LektionAendern(self)
         test.show()
+        
+    def VorsichtigSein(self):
+        test = Vorsichtig.VorsichtigSein(self)
+        test.show()
+        
     def BuchAendern(self):
         test = BuchAendern.BuchAendern(self)
         test.show()
