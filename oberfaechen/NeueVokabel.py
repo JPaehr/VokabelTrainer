@@ -22,6 +22,7 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         self.connect(self.btnAnwenden, QtCore.SIGNAL("clicked()"), self.speichern)
         
         self.btnAnwenden.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
+        self.labFelderAusfuellen.setText("")
         
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         self.SpracheZeichnen()
@@ -29,19 +30,23 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         deutsch = str(self.tfDeutsch.text().toUtf8()).decode("utf-8").strip()
         
         fremd = str(self.tfFremd.text().toUtf8()).decode("utf-8").strip()
-         
-        #deutsch = str(self.tfDeutsch.text())
-        #fremd = str(self.tfFremd.text())       
         
-        insertVokabel = "insert into vokabeln (deutsch, fremd, idlektion) values ('"+deutsch+"', '"+fremd+"', '"+str(self.getIdLektion())+"')"
-        print type(insertVokabel)
-        self.Datenbank.setData(insertVokabel)
-        self.tfDeutsch.setText("")
-        self.tfFremd.setText("")
-        self.tfDeutsch.setFocus()
-        
-        self.AnzVokabelnZeichen()
-        
+        if len(fremd) < 1 or len(deutsch) < 1:
+            self.labFelderAusfuellen.setText(u"Bitte alle Felder ausfüllen")
+        else:
+            self.labFelderAusfuellen.setText("")
+            #deutsch = str(self.tfDeutsch.text())
+            #fremd = str(self.tfFremd.text())       
+            
+            insertVokabel = "insert into vokabeln (deutsch, fremd, idlektion) values ('"+deutsch+"', '"+fremd+"', '"+str(self.getIdLektion())+"')"
+            print type(insertVokabel)
+            self.Datenbank.setData(insertVokabel)
+            self.tfDeutsch.setText("")
+            self.tfFremd.setText("")
+            self.tfDeutsch.setFocus()
+            
+            self.AnzVokabelnZeichen()
+            
     def speichernUndSchliessen(self):
         self.speichern()
         self.close()
