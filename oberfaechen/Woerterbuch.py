@@ -101,7 +101,10 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.daten = self.Datenbank.getDataAsList(self.statement)
         model = WoerterbuchModel.ModelListe(self.daten, self.headerDaten)
         
+        
         self.tVWoerterbuch.setModel(model)
+        #tableview.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+        self.tVWoerterbuch.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
     def IndexIdZuordnung(self, ids):
         self.IndexListe = []
         for i in ids:
