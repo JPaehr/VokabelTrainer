@@ -18,7 +18,7 @@ class ModelListe(QtCore.QAbstractTableModel):
             
             return self.__daten[index.row()][index.column()]
     def flags(self, index):
-        return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
+        return  QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
     
     def setData(self, index, value, role=QtCore.Qt.EditRole):
         if role != QtCore.Qt.EditRole:
