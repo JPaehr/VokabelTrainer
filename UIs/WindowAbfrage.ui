@@ -6,202 +6,144 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>669</width>
-    <height>427</height>
+    <width>689</width>
+    <height>278</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Abfrage</string>
   </property>
-  <widget class="QLabel" name="labWeitereVokabeln">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>291</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>weitere Vokabeln</string>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBox">
-   <property name="geometry">
-    <rect>
-     <x>460</x>
-     <y>30</y>
-     <width>101</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Punkte</string>
-   </property>
-   <widget class="QLabel" name="labPunkte">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>61</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>PunkteStand</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_2">
-   <property name="geometry">
-    <rect>
-     <x>460</x>
-     <y>100</y>
-     <width>191</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Lektion</string>
-   </property>
-   <widget class="QLabel" name="labLektion">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>171</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>vonWoHerLektion</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_3">
-   <property name="geometry">
-    <rect>
-     <x>460</x>
-     <y>170</y>
-     <width>191</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Buch</string>
-   </property>
-   <widget class="QLabel" name="labBuch">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>171</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>vonWoBuch</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_4">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>190</y>
-     <width>431</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string/>
-   </property>
-   <widget class="QLineEdit" name="tfInput">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>411</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QLabel" name="labBitteEingeben">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>110</y>
-     <width>421</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Bitte eingeben</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labRichtigFalsch">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>250</y>
-     <width>421</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Richtig Falsch</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labVokabelMeintenSie">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>140</y>
-     <width>421</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Vokabel</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnWeiter">
-   <property name="geometry">
-    <rect>
-     <x>474</x>
-     <y>380</y>
-     <width>151</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Weiter</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labMeintenSie">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>170</y>
-     <width>421</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Meinten Sie</string>
-   </property>
-  </widget>
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,1">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="3,0,0,0,0,5">
+       <item alignment="Qt::AlignTop">
+        <widget class="QLabel" name="labWeitereVokabeln">
+         <property name="text">
+          <string>weitere Vokabeln</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labBitteEingeben">
+         <property name="text">
+          <string>Bitte eingeben</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labVokabelMeintenSie">
+         <property name="text">
+          <string>Vokabel</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labMeintenSie">
+         <property name="text">
+          <string>Meinten Sie</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLineEdit" name="tfInput">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignTop">
+        <widget class="QLabel" name="labRichtigFalsch">
+         <property name="text">
+          <string>Richtig Falsch</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,1">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <item>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>Punkte</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QLabel" name="labPunkte">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>PunkteStand</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="title">
+            <string>Lektion</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLabel" name="labLektion">
+              <property name="text">
+               <string>vonWoHerLektion</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_3">
+           <property name="title">
+            <string>Buch</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QLabel" name="labBuch">
+              <property name="text">
+               <string>vonWoBuch</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnWeiter">
+         <property name="text">
+          <string>Weiter</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>
