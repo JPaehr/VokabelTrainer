@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>695</width>
-    <height>501</height>
+    <width>671</width>
+    <height>370</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -137,7 +137,7 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>360</y>
+     <y>330</y>
      <width>311</width>
      <height>25</height>
     </rect>
@@ -165,6 +165,24 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="lbAnzVokabeln">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>160</y>
+     <width>271</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
   </widget>
  </widget>
  <tabstops>

@@ -39,6 +39,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         
         self.connect(self.thread, QtCore.SIGNAL("finished()"), self.weitereVokabel)
         self.connect(self.btnWeiter, QtCore.SIGNAL("clicked()"), self.weitereVokabelKlick)
+        self.btnWeiter.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
         
         self.meintenSie = meintenSie
         self.Lektionsliste = []
@@ -112,7 +113,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             else:
                 self.labRichtigFalsch.setText("Falsch")
                 if self.RichtigeAnzeigen:
-                    self.labBitteEingeben.setText(u"Richtig währe: "+self.vokabelFremd)
+                    self.labBitteEingeben.setText(u"Richtig wäre: "+self.vokabelFremd)
                 if self.meintenSie:
                     liste = self.Datenbank.getDataAsList("select fremd, id from vokabeln")# \
                     #where deutsch like '"+str(self.tfInput)+"'")
@@ -124,8 +125,6 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     "+ self.ListeZuSql(self.Treffer.getTreffer(), " id "))
                     
                     
-                    if(len(daten) > 0):
-                        self.labMeintenSie.setText("Meinten Sie: "+unicode(daten[0][1])+" - "+unicode(daten[0][0]))
                     
                     if self.Treffer.directStrike():
                         #print "direkterTreffer"
@@ -134,12 +133,19 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         
                     
                     else:
+                        """if(len(daten) == 1):
+                            self.labMeintenSie.setText("Meinten Sie: "+unicode(daten[0][1])+" - "+unicode(daten[0][0]))
+                        """    
                         liste = []
                         for i in daten:
-                            liste.append(str(i[1])+" - "+str(i[0]))
+                            liste.append(unicode(i[1])+" - "+unicode(i[0]))
                         #print "Fenster auf"
-                        test = MeintenSie(self, liste)
-                        test.show()
+                        
+                        if len(liste) > 1:
+                            test = MeintenSie(self, liste)
+                            test.show()
+                        if len(liste) == 1:
+                            self.labMeintenSie.setText("Meinten Sie: "+unicode(liste[0]))
                         
                     """
                     daten = self.Datenbank.getDataAsList(u"select fremd, deutsch from vokabeln \
@@ -156,7 +162,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             else:
                 self.labRichtigFalsch.setText("Falsch")
                 if self.RichtigeAnzeigen:
-                    self.labBitteEingeben.setText(unicode(u"Richtig währe: ")+str(self.vokabelDeutsch))
+                    self.labBitteEingeben.setText(unicode(u"Richtig wäre: ")+str(self.vokabelDeutsch))
                 if self.meintenSie:
                     #print "meintenSie Aktiv"
                     liste = self.Datenbank.getDataAsList("select deutsch, id from vokabeln")# \
@@ -170,10 +176,10 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     daten = self.Datenbank.getDataAsList("select fremd, deutsch from vokabeln \
                     "+ self.ListeZuSql(self.Treffer.getTreffer(), " id "))
                     
-                    
+                    """
                     if(len(daten) > 0):
                         self.labMeintenSie.setText("Meinten Sie: "+unicode(daten[0][0])+" - "+unicode(daten[0][1]))
-    
+                    """
                     if self.Treffer.directStrike():
                         #print "direkter treffer"
                         self.labRichtigFalsch.setText("fast richtig")
@@ -183,10 +189,14 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         
                         liste = []
                         for i in daten:
-                            liste.append(str(i[1])+" - "+str(i[0]))
+                            liste.append(unicode(i[1])+" - "+unicode(i[0]))
                         #print "Fenster auf"
-                        test = MeintenSie(self, liste)
-                        test.show()
+                        if len(liste) > 1:
+                            test = MeintenSie(self, liste)
+                            test.show()
+                        if len(liste) == 1:
+                            self.labMeintenSie.setText("Meinten Sie: "+unicode(liste[0]))
+                            
     def Vergeleichsfaehigkeit(self, kette):
         
         #print "typen type:" + str(type(kette))

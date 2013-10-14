@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>791</width>
-    <height>656</height>
+    <width>740</width>
+    <height>515</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>20</y>
+     <x>18</x>
+     <y>4</y>
      <width>281</width>
      <height>80</height>
     </rect>
@@ -39,8 +39,8 @@
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>110</y>
+     <x>18</x>
+     <y>94</y>
      <width>281</width>
      <height>80</height>
     </rect>
@@ -62,8 +62,8 @@
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>329</x>
-     <y>269</y>
+     <x>327</x>
+     <y>253</y>
      <width>281</width>
      <height>221</height>
     </rect>
@@ -85,8 +85,8 @@
   <widget class="QGroupBox" name="groupBox_4">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>270</y>
+     <x>18</x>
+     <y>254</y>
      <width>281</width>
      <height>221</height>
     </rect>
@@ -108,8 +108,8 @@
   <widget class="QCheckBox" name="chBMeintenSie">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>20</y>
+     <x>328</x>
+     <y>4</y>
      <width>180</width>
      <height>17</height>
     </rect>
@@ -121,8 +121,8 @@
   <widget class="QCheckBox" name="chBRichtigGeschriebeneAnzeigen">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>43</y>
+     <x>328</x>
+     <y>27</y>
      <width>210</width>
      <height>17</height>
     </rect>
@@ -134,8 +134,8 @@
   <widget class="QLineEdit" name="tfZeitWarten">
    <property name="geometry">
     <rect>
-     <x>331</x>
-     <y>67</y>
+     <x>329</x>
+     <y>51</y>
      <width>51</width>
      <height>20</height>
     </rect>
@@ -144,8 +144,8 @@
   <widget class="QLineEdit" name="tfHaeufigkeit">
    <property name="geometry">
     <rect>
-     <x>331</x>
-     <y>95</y>
+     <x>329</x>
+     <y>79</y>
      <width>51</width>
      <height>20</height>
     </rect>
@@ -154,8 +154,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>389</x>
-     <y>71</y>
+     <x>387</x>
+     <y>55</y>
      <width>140</width>
      <height>16</height>
     </rect>
@@ -167,8 +167,8 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>389</x>
-     <y>99</y>
+     <x>387</x>
+     <y>83</y>
      <width>109</width>
      <height>16</height>
     </rect>
@@ -180,8 +180,8 @@
   <widget class="QGroupBox" name="groupBox_5">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>170</y>
+     <x>328</x>
+     <y>154</y>
      <width>251</width>
      <height>81</height>
     </rect>
@@ -203,8 +203,8 @@
   <widget class="QPushButton" name="btnLektionZuAbfrageHinzu">
    <property name="geometry">
     <rect>
-     <x>306</x>
-     <y>350</y>
+     <x>304</x>
+     <y>334</y>
      <width>20</width>
      <height>23</height>
     </rect>
@@ -225,8 +225,8 @@
   <widget class="QPushButton" name="btnLektionLoeschen">
    <property name="geometry">
     <rect>
-     <x>306</x>
-     <y>380</y>
+     <x>304</x>
+     <y>364</y>
      <width>20</width>
      <height>21</height>
     </rect>
@@ -248,9 +248,9 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>336</x>
-     <y>529</y>
-     <width>311</width>
+     <x>334</x>
+     <y>483</y>
+     <width>281</width>
      <height>25</height>
     </rect>
    </property>
@@ -274,9 +274,9 @@
   <widget class="QPushButton" name="btnBuchZuAbfrage">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>530</y>
-     <width>271</width>
+     <x>18</x>
+     <y>484</y>
+     <width>281</width>
      <height>23</height>
     </rect>
    </property>
@@ -287,8 +287,8 @@
   <widget class="QLabel" name="labAnzahlVokabeln">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>450</y>
+     <x>618</x>
+     <y>434</y>
      <width>141</width>
      <height>16</height>
     </rect>
@@ -300,8 +300,8 @@
   <widget class="QLabel" name="labAnzahlAbfragen">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>470</y>
+     <x>618</x>
+     <y>454</y>
      <width>141</width>
      <height>16</height>
     </rect>
@@ -313,21 +313,21 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>130</y>
+     <x>388</x>
+     <y>114</y>
      <width>241</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Toleranz beim Vergleich</string>
+    <string>Fehlertoleranz beim Vergleich</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="tfDistanz">
    <property name="geometry">
     <rect>
-     <x>332</x>
-     <y>126</y>
+     <x>330</x>
+     <y>110</y>
      <width>51</width>
      <height>20</height>
     </rect>

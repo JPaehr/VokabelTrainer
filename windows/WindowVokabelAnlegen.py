@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'c:\Users\Johannes\Documents\Python\VokabelTrainer\UIs\WindowVokabelAnlegen.ui'
 #
-# Created: Sat Sep 28 15:47:11 2013
+# Created: Mon Oct 14 13:57:00 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName(_fromUtf8("Form"))
-        Form.resize(695, 501)
+        Form.resize(671, 370)
         self.groupBox_5 = QtGui.QGroupBox(Form)
         self.groupBox_5.setGeometry(QtCore.QRect(343, 220, 311, 81))
         self.groupBox_5.setObjectName(_fromUtf8("groupBox_5"))
@@ -67,7 +67,7 @@ class Ui_Form(object):
         self.cBBuch.setObjectName(_fromUtf8("cBBuch"))
         self.horizontalLayout.addWidget(self.groupBox_2)
         self.layoutWidget_2 = QtGui.QWidget(Form)
-        self.layoutWidget_2.setGeometry(QtCore.QRect(340, 360, 311, 25))
+        self.layoutWidget_2.setGeometry(QtCore.QRect(340, 330, 311, 25))
         self.layoutWidget_2.setObjectName(_fromUtf8("layoutWidget_2"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.layoutWidget_2)
         self.horizontalLayout_2.setMargin(0)
@@ -81,6 +81,12 @@ class Ui_Form(object):
         self.btnAnwendenUndSchliessen = QtGui.QPushButton(self.layoutWidget_2)
         self.btnAnwendenUndSchliessen.setObjectName(_fromUtf8("btnAnwendenUndSchliessen"))
         self.horizontalLayout_2.addWidget(self.btnAnwendenUndSchliessen)
+        self.lbAnzVokabeln = QtGui.QLabel(Form)
+        self.lbAnzVokabeln.setGeometry(QtCore.QRect(360, 160, 271, 21))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.lbAnzVokabeln.setFont(font)
+        self.lbAnzVokabeln.setObjectName(_fromUtf8("lbAnzVokabeln"))
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -102,4 +108,5 @@ class Ui_Form(object):
         self.btnAbbrechen.setText(_translate("Form", "Abbrechen", None))
         self.btnAnwenden.setText(_translate("Form", "Anwenden", None))
         self.btnAnwendenUndSchliessen.setText(_translate("Form", "Anwenden und Schließen", None))
+        self.lbAnzVokabeln.setText(_translate("Form", "TextLabel", None))
 

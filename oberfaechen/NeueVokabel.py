@@ -16,9 +16,12 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         
         self.connect(self.cBSprache, QtCore.SIGNAL("activated(int)"), self.BuchZeichnen)
         self.connect(self.cBBuch, QtCore.SIGNAL("activated(int)"), self.LektionZeichnen)
+        self.connect(self.cBLekion, QtCore.SIGNAL("activated(int)"), self.AnzVokabelnZeichen)
         self.connect(self.btnAbbrechen, QtCore.SIGNAL("clicked()"), self.close)
         self.connect(self.btnAnwendenUndSchliessen, QtCore.SIGNAL("clicked()"), self.speichernUndSchliessen)
         self.connect(self.btnAnwenden, QtCore.SIGNAL("clicked()"), self.speichern)
+        
+        self.btnAnwenden.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
         
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         self.SpracheZeichnen()
@@ -36,6 +39,9 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         self.tfDeutsch.setText("")
         self.tfFremd.setText("")
         self.tfDeutsch.setFocus()
+        
+        self.AnzVokabelnZeichen()
+        
     def speichernUndSchliessen(self):
         self.speichern()
         self.close()
@@ -64,7 +70,20 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         daten = self.Datenbank.getDataAsQStringList(selectLektion)
         model = QtGui.QStringListModel(daten)
         self.cBLekion.setModel(model) 
+        self.AnzVokabelnZeichen()
         
+    def AnzVokabelnZeichen(self):
+        
+        #Anzahl vokabeln berechen und zeichen
+        
+        daten = self.Datenbank.getDataAsList("select count(*) from vokabeln \
+        join lektionen on (lektionen.id = vokabeln.idlektion) \
+        where lektionen.id like "+str(self.getIdLektion()))
+        if len(daten) < 1:
+            self.lbAnzVokabeln.setText("0 Vokabeln in dieser Lektion")
+        else:
+            self.lbAnzVokabeln.setText(str(daten[0][0])+" Vokabeln in dieser Lektion")
+                
     
     def getIdSprache(self):
         selectSprache = "select fremdsprache, id from sprache \
@@ -85,3 +104,8 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         where buecher.id like "+str(self.getIdBuch())+" \
         limit '"+str(self.cBLekion.currentIndex())+"', '"+str(self.cBLekion.currentIndex()+1)+"'"
         return self.Datenbank.getDataAsList(selectLektion)[0][1]
+    
+    """def enterEvent(self, event):
+        self.speichern()
+        return QtGui.QWidget.enterEvent(self, event)
+    """
