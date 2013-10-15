@@ -47,7 +47,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
     def VorsichtigSein(self):
         test = Vorsichtig.VorsichtigSein(self)
         test.show()
-        
+
     def BuchAendern(self):
         test = BuchAendern.BuchAendern(self)
         test.show()
