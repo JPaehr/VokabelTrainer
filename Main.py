@@ -9,16 +9,17 @@ import sys
 
 from windows.MainWindow import Ui_MainWindow as MainWindow
 
-import oberfaechen.NeueSprache as NeueSprache
-import oberfaechen.NeuesBuch as NeuesBuch
-import oberfaechen.NeueLektion as NeueLektion
-import oberfaechen.Woerterbuch as Woerterbuch
-import oberfaechen.NeueVokabel as NeueVokabel
-import oberfaechen.AbfrageEinstellungen as AbfrageEinstellungen
-import oberfaechen.LektionAendern as LektionAendern
-import oberfaechen.BuchAendern as BuchAendern
-import oberfaechen.SpracheAendern as SpracheAendern
-import oberfaechen.Vorsichtig as Vorsichtig
+import oberflaechen.NeueSprache as NeueSprache
+import oberflaechen.NeuesBuch as NeuesBuch
+import oberflaechen.NeueLektion as NeueLektion
+import oberflaechen.Woerterbuch as Woerterbuch
+import oberflaechen.NeueVokabel as NeueVokabel
+import oberflaechen.AbfrageEinstellungen as AbfrageEinstellungen
+import oberflaechen.LektionAendern as LektionAendern
+import oberflaechen.BuchAendern as BuchAendern
+import oberflaechen.SpracheAendern as SpracheAendern
+import oberflaechen.Vorsichtig as Vorsichtig
+import oberflaechen.Statistik as Statistik
 import models.base as Datenbank
 
 
@@ -36,8 +37,16 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.connect(self.btnSpracheBeareiten, QtCore.SIGNAL("clicked()"), self.sprache_aendern)
         self.connect(self.btnBuecherBearbeiten, QtCore.SIGNAL("clicked()"), self.buch_aendern)
         self.connect(self.btnLektionbearbeiten, QtCore.SIGNAL("clicked()"), self.lektioen_aendern)
+        self.connect(self.btnStatistik, QtCore.SIGNAL("clicked()"), self.statistik_oeffnen)
         
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
+
+    def statistik_oeffnen(self):
+        """
+        öffnet die Statistik
+        """
+        test = Statistik.Statistik(self)
+        test.show()
 
     def lektioen_aendern(self):
         """soll Fenster für Lektion ändern anzeigen
@@ -89,6 +98,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
         """fenster für Wörterbuch"""
         test = Woerterbuch.Woerterbuch(self)
         test.show()
+
 
 app = QtGui.QApplication(sys.argv) 
 dialog = Programm() 
