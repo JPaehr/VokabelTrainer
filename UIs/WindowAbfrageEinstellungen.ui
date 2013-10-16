@@ -6,333 +6,250 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>740</width>
-    <height>515</height>
+    <width>935</width>
+    <height>489</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Abfrageeinstellungen</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
-   <property name="geometry">
-    <rect>
-     <x>18</x>
-     <y>4</y>
-     <width>281</width>
-     <height>80</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Sprache wählen</string>
-   </property>
-   <widget class="QComboBox" name="cbSprache">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>231</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_2">
-   <property name="geometry">
-    <rect>
-     <x>18</x>
-     <y>94</y>
-     <width>281</width>
-     <height>80</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Buch</string>
-   </property>
-   <widget class="QComboBox" name="cBBuch">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>231</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_3">
-   <property name="geometry">
-    <rect>
-     <x>327</x>
-     <y>253</y>
-     <width>281</width>
-     <height>221</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Gewählte Lektionen</string>
-   </property>
-   <widget class="QListView" name="lvGewaehlteLektionen">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>261</width>
-      <height>192</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_4">
-   <property name="geometry">
-    <rect>
-     <x>18</x>
-     <y>254</y>
-     <width>281</width>
-     <height>221</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Lektionen</string>
-   </property>
-   <widget class="QListView" name="lvLektionen">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>261</width>
-      <height>191</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QCheckBox" name="chBMeintenSie">
-   <property name="geometry">
-    <rect>
-     <x>328</x>
-     <y>4</y>
-     <width>180</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>&quot;Meinten Sie&quot; Hinweis einblenden</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="chBRichtigGeschriebeneAnzeigen">
-   <property name="geometry">
-    <rect>
-     <x>328</x>
-     <y>27</y>
-     <width>210</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>richtig geschriebene Vokabeln anzeigen</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="tfZeitWarten">
-   <property name="geometry">
-    <rect>
-     <x>329</x>
-     <y>51</y>
-     <width>51</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="tfHaeufigkeit">
-   <property name="geometry">
-    <rect>
-     <x>329</x>
-     <y>79</y>
-     <width>51</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>387</x>
-     <y>55</y>
-     <width>140</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Zeit in ms warten pro Vokabel</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>387</x>
-     <y>83</y>
-     <width>109</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Häufigkeit der Abfrage</string>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_5">
-   <property name="geometry">
-    <rect>
-     <x>328</x>
-     <y>154</y>
-     <width>251</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Abfragerichtung</string>
-   </property>
-   <widget class="QComboBox" name="cBAbfragerichtung">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>221</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QPushButton" name="btnLektionZuAbfrageHinzu">
-   <property name="geometry">
-    <rect>
-     <x>304</x>
-     <y>334</y>
-     <width>20</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color:rgb(0, 255, 0)</string>
-   </property>
-   <property name="text">
-    <string>&gt;</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnLektionLoeschen">
-   <property name="geometry">
-    <rect>
-     <x>304</x>
-     <y>364</y>
-     <width>20</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: red
+  <layout class="QVBoxLayout" name="verticalLayout_11">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_10">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,1">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>Sprache wählen</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QComboBox" name="cbSprache"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="title">
+            <string>Buch</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QComboBox" name="cBBuch"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <item>
+          <widget class="QCheckBox" name="chBMeintenSie">
+           <property name="text">
+            <string>&quot;Meinten Sie&quot; Hinweis einblenden</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chBRichtigGeschriebeneAnzeigen">
+           <property name="text">
+            <string>richtig geschriebene Vokabeln anzeigen</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,5">
+           <item>
+            <widget class="QLineEdit" name="tfZeitWarten"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Zeit in ms warten pro Vokabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,5">
+           <item>
+            <widget class="QLineEdit" name="tfHaeufigkeit"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Häufigkeit der Abfrage</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,5">
+           <item>
+            <widget class="QLineEdit" name="tfDistanz"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Fehlertoleranz beim Vergleich</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_5">
+           <property name="title">
+            <string>Abfragerichtung</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QComboBox" name="cBAbfragerichtung"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="5,1,5,1">
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="title">
+          <string>Lektionen</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QListView" name="lvLektionen"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,1">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <item alignment="Qt::AlignBottom">
+          <widget class="QPushButton" name="btnLektionZuAbfrageHinzu">
+           <property name="maximumSize">
+            <size>
+             <width>23</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(0, 255, 0)</string>
+           </property>
+           <property name="text">
+            <string>&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignTop">
+          <widget class="QPushButton" name="btnLektionLoeschen">
+           <property name="maximumSize">
+            <size>
+             <width>23</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: red
 </string>
-   </property>
-   <property name="text">
-    <string>x</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>334</x>
-     <y>483</y>
-     <width>281</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QPushButton" name="btnAbbrechen">
-      <property name="text">
-       <string>Abbrechen</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="btnAbfrageStarten">
-      <property name="text">
-       <string>Abfrage starten</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QPushButton" name="btnBuchZuAbfrage">
-   <property name="geometry">
-    <rect>
-     <x>18</x>
-     <y>484</y>
-     <width>281</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Buch zu Abfrage hinzufügen</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labAnzahlVokabeln">
-   <property name="geometry">
-    <rect>
-     <x>618</x>
-     <y>434</y>
-     <width>141</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Anzahl Vokabeln: 0</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labAnzahlAbfragen">
-   <property name="geometry">
-    <rect>
-     <x>618</x>
-     <y>454</y>
-     <width>141</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Anzahl Abfragen: 0</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>388</x>
-     <y>114</y>
-     <width>241</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Fehlertoleranz beim Vergleich</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="tfDistanz">
-   <property name="geometry">
-    <rect>
-     <x>330</x>
-     <y>110</y>
-     <width>51</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Gewählte Lektionen</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QListView" name="lvGewaehlteLektionen"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout" stretch="8,1">
+         <item alignment="Qt::AlignBottom">
+          <widget class="QLabel" name="labAnzahlVokabeln">
+           <property name="text">
+            <string>Anzahl Vokabeln: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labAnzahlAbfragen">
+           <property name="text">
+            <string>Anzahl Abfragen: 0</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QPushButton" name="btnBuchZuAbfrage">
+         <property name="text">
+          <string>Buch zu Abfrage hinzufügen</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="btnAbbrechen">
+           <property name="text">
+            <string>Abbrechen</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnAbfrageStarten">
+           <property name="text">
+            <string>Abfrage starten</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <tabstops>
   <tabstop>cbSprache</tabstop>
