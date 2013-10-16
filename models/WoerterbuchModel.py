@@ -27,6 +27,7 @@ class ModelListe(QtCore.QAbstractTableModel):
         self.__daten[index.row()][index.column()] = value
         self.dataChanged.emit(index, index)
         return True
+
     def headerData(self, section, orientation, role):
         
         if role == QtCore.Qt.DisplayRole:
@@ -39,4 +40,3 @@ class ModelListe(QtCore.QAbstractTableModel):
                     return "not implemented"
 
                 
-        
