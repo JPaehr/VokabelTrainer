@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'c:\Users\Johannes\Documents\Python\VokabelTrainer\UIs\MainWindow.ui'
 #
-# Created: Thu Sep 26 21:29:39 2013
+# Created: Wed Oct 16 21:40:11 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,7 +30,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.layoutWidget = QtGui.QWidget(self.centralwidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(280, 40, 87, 83))
+        self.layoutWidget.setGeometry(QtCore.QRect(280, 40, 87, 112))
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.layoutWidget)
         self.verticalLayout_2.setMargin(0)
@@ -44,6 +44,9 @@ class Ui_MainWindow(object):
         self.btnWoerterbuch = QtGui.QPushButton(self.layoutWidget)
         self.btnWoerterbuch.setObjectName(_fromUtf8("btnWoerterbuch"))
         self.verticalLayout_2.addWidget(self.btnWoerterbuch)
+        self.btnStatistik = QtGui.QPushButton(self.layoutWidget)
+        self.btnStatistik.setObjectName(_fromUtf8("btnStatistik"))
+        self.verticalLayout_2.addWidget(self.btnStatistik)
         self.layoutWidget1 = QtGui.QWidget(self.centralwidget)
         self.layoutWidget1.setGeometry(QtCore.QRect(41, 21, 127, 112))
         self.layoutWidget1.setObjectName(_fromUtf8("layoutWidget1"))
@@ -87,6 +90,8 @@ class Ui_MainWindow(object):
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
+        self.actionStatistik = QtGui.QAction(MainWindow)
+        self.actionStatistik.setObjectName(_fromUtf8("actionStatistik"))
         self.menubar.addAction(self.menuDateu.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -97,6 +102,7 @@ class Ui_MainWindow(object):
         self.btnAbfrageStarten.setText(_translate("MainWindow", "Abfrage starten", None))
         self.btnZuruecksetzen.setText(_translate("MainWindow", "Zurücksetzen", None))
         self.btnWoerterbuch.setText(_translate("MainWindow", "Wörterbuch", None))
+        self.btnStatistik.setText(_translate("MainWindow", "Statistik", None))
         self.btnNeueSprache.setText(_translate("MainWindow", "Neue Sprache anlegen", None))
         self.btnNeuesBuch.setText(_translate("MainWindow", "Neues Buch anlegen", None))
         self.btnNeueLektion.setText(_translate("MainWindow", "Neue Lektion anlegen", None))
@@ -105,4 +111,5 @@ class Ui_MainWindow(object):
         self.btnLektionbearbeiten.setText(_translate("MainWindow", "Lektionen bearbeiten", None))
         self.btnBuecherBearbeiten.setText(_translate("MainWindow", "Bücher bearbeiten", None))
         self.menuDateu.setTitle(_translate("MainWindow", "Datei", None))
+        self.actionStatistik.setText(_translate("MainWindow", "Statistik", None))
 
