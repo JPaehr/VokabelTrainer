@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 Created on 08.10.2013
 
 @author: Johannes
-'''
+"""
 from PyQt4 import QtGui, QtCore
 from windows.WindowAbfrageEinstellungen import Ui_Form as WindowAbfrageEinstellungen
 import Abfrage as Abfrage
 import models.base as Datenbank
 import models.ListModel as Markierung
 
+
 class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
     def __init__(self, parent):
         super(AbfrageEinstellungen, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)   
-        self.AbfrageEinstellung = 0
-        self.lektionsListe = []
+        self.abfrage_einstellung = 0
+        self.lektions_liste = []
         
         self.connect(self.btnAbbrechen, QtCore.SIGNAL("clicked()"), self.close)
         self.connect(self.cbSprache, QtCore.SIGNAL("activated(int)"), self.BuchZeichnen)
@@ -27,28 +28,27 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.connect(self.btnAbfrageStarten, QtCore.SIGNAL("clicked()"), self.AbfrageStarten)
         self.connect(self.tfHaeufigkeit, QtCore.SIGNAL("textChanged(QString)"), self.AnzahlAbfragenPaint)
         self.connect(self.btnBuchZuAbfrage, QtCore.SIGNAL("clicked()"), self.BuchZuAbfrageHinzu)
+
+        self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         
-        
-        self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")   
-        
-        Voreinstellungen = self.Datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, distanz from Einstellungen \
+        voreinstellungen = self.datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, distanz from Einstellungen \
         where id like 1")
         
-        if Voreinstellungen[0][0] == "True":
+        if voreinstellungen[0][0] == "True":
             self.chBMeintenSie.setChecked(True)
         else:
             self.chBMeintenSie.setChecked(False)
         
-        if Voreinstellungen[0][1] == "True":
+        if voreinstellungen[0][1] == "True":
             self.chBRichtigGeschriebeneAnzeigen.setChecked(True)
         else:
             self.chBRichtigGeschriebeneAnzeigen.setChecked(False)
         
-        self.tfZeitWarten.setText(str(Voreinstellungen[0][2]))
-        self.tfHaeufigkeit.setText(str(Voreinstellungen[0][3]))
-        self.tfDistanz.setText(str(Voreinstellungen[0][6]))
+        self.tfZeitWarten.setText(str(voreinstellungen[0][2]))
+        self.tfHaeufigkeit.setText(str(voreinstellungen[0][3]))
+        self.tfDistanz.setText(str(voreinstellungen[0][6]))
         
-        self.richtung = Voreinstellungen[0][4]
+        self.richtung = voreinstellungen[0][4]
         
         self.SpracheZeichnen()
         self.Abfragerichtung()
@@ -63,10 +63,10 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         richtung = "+str(int(int(self.cBAbfragerichtung.currentIndex())+1))+", \
         distanz = "+str(int(self.tfDistanz.text()))+" \
         where id like 1"
-        self.Datenbank.setData(updateStatement)
+        self.datenbank.setData(updateStatement)
         
         
-        test = Abfrage.Abfrage(self, self.lektionsListe, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(), self.chBMeintenSie.isChecked(), 
+        test = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(), self.chBMeintenSie.isChecked(),
                        self.chBRichtigGeschriebeneAnzeigen.isChecked(), self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text())
         test.show()
     def Abfragerichtung(self):
@@ -78,31 +78,31 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.cBAbfragerichtung.setModel(model)
         self.cBAbfragerichtung.setCurrentIndex(self.richtung-1)
     def SpracheZeichnen(self):
-        selectSprache = "select fremdsprache, id from sprache"
-        spracheDaten = self.Datenbank.getDataAsQStringList(selectSprache)
-        modelSprache = QtGui.QStringListModel(spracheDaten)
-        self.cbSprache.setModel(modelSprache)
+        select_sprache = "select fremdsprache, id from sprache"
+        sprache_daten = self.datenbank.getDataAsQStringList(select_sprache)
+        model_sprache = QtGui.QStringListModel(sprache_daten)
+        self.cbSprache.setModel(model_sprache)
         self.BuchZeichnen()
         
     def BuchZeichnen(self):
-        selectBuch = "select buecher.name, buecher.id from buecher \
+        select_buch = "select buecher.name, buecher.id from buecher \
         join sprache on (sprache.id=buecher.id_sprache) \
         where sprache.id like '"+str(self.getIdSprache())+"'"
-        buchDaten = self.Datenbank.getDataAsQStringList(selectBuch)
-        modelBuch = QtGui.QStringListModel(buchDaten)
-        self.cBBuch.setModel(modelBuch)
+        buch_daten = self.datenbank.getDataAsQStringList(select_buch)
+        model_buch = QtGui.QStringListModel(buch_daten)
+        self.cBBuch.setModel(model_buch)
         self.LektionZeichnen()
         
     def LektionZeichnen(self):
-        selectLektion = "select lektionen.name, lektionen.id from lektionen \
+        select_lektion = "select lektionen.name, lektionen.id from lektionen \
         join Buecher on (Buecher.id = lektionen.idBuch) \
         join Sprache on (sprache.id = buecher.id_sprache) \
         where buecher.id like "+str(self.getIdBuch())
-        daten = self.Datenbank.getDataAsList(selectLektion)
+        daten = self.datenbank.getDataAsList(select_lektion)
         liste = []
         for i in daten:
             #Vokabeln dahinter schreiben
-            selection = self.Datenbank.getDataAsList("select count(*) from vokabeln \
+            selection = self.datenbank.getDataAsList("select count(*) from vokabeln \
             join lektionen on (lektionen.id=vokabeln.idlektion)\
             where idlektion like "+str(i[1]))
             liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
@@ -112,35 +112,35 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         
     
     def getIdSprache(self):
-        selectSprache = "select fremdsprache, id from sprache \
+        select_sprache = "select fremdsprache, id from sprache \
         limit '"+str(self.cbSprache.currentIndex())+"', '"+str(self.cbSprache.currentIndex()+1)+"'" 
-        spracheId = self.Datenbank.getDataAsList(selectSprache)[0][1]
-        return spracheId
+        sprache_id = self.datenbank.getDataAsList(select_sprache)[0][1]
+        return sprache_id
     
     def getIdBuch(self):
-        selectBuch = "select buecher.name, buecher.id from buecher \
+        select_buch = "select buecher.name, buecher.id from buecher \
         join sprache on (sprache.id=buecher.id_sprache) \
         where sprache.id like '"+str(self.getIdSprache())+"' \
         limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'"
-        return self.Datenbank.getDataAsList(selectBuch)[0][1]
+        return self.datenbank.getDataAsList(select_buch)[0][1]
     def getIdLektionen(self):
-        selectLektion = "select lektionen.name, lektionen.id from lektionen \
+        select_lektion = "select lektionen.name, lektionen.id from lektionen \
         join Buecher on (Buecher.id = lektionen.idBuch) \
         join Sprache on (sprache.id = buecher.id_sprache) \
         where buecher.id like "+str(self.getIdBuch())
-        daten = self.Datenbank.getDataAsList(selectLektion)
+        daten = self.datenbank.getDataAsList(select_lektion)
         liste = []
         for i in self.lvLektionen.selectedIndexes():
             liste.append(daten[i.row()][1])
         return liste
     def LektionZuAbfrageHinzu(self):
-        self.lektionsListe.extend(self.getIdLektionen())
+        self.lektions_liste.extend(self.getIdLektionen())
         self.AbfrageNeuZeichen()
     def AbfrageNeuZeichen(self):
         #print self.lektionsListe
         datenliste = []
-        for i in self.lektionsListe:
-            daten = self.Datenbank.getDataAsList("select Buecher.name, lektionen.name from lektionen \
+        for i in self.lektions_liste:
+            daten = self.datenbank.getDataAsList("select Buecher.name, lektionen.name from lektionen \
             join buecher on (buecher.id=lektionen.idbuch) \
             where lektionen.id like "+str(i))
             datenliste.append(str(daten[0][0])+" - "+str(daten[0][1]))
@@ -150,14 +150,14 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.lvGewaehlteLektionen.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
         self.AnzahlVokabelnPaint()
     def BuchZuAbfrageHinzu(self):
-        daten = self.Datenbank.getDataAsList("select lektionen.id from buecher \
+        daten = self.datenbank.getDataAsList("select lektionen.id from buecher \
         join Lektionen on (lektionen.idbuch = buecher.id) \
         where buecher.id like "+str(self.getIdBuch()))
-        listeZumHinzufuegen = []
+        liste_zum_hinzufuegen = []
         for i in daten:
-            listeZumHinzufuegen.append(i[0])
+            liste_zum_hinzufuegen.append(i[0])
         
-        self.lektionsListe.extend(listeZumHinzufuegen)
+        self.lektions_liste.extend(liste_zum_hinzufuegen)
         #print self.lektionsListe
         
         self.AbfrageNeuZeichen()
@@ -170,25 +170,25 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             statement += args+" like "+str(i)+" or "
         return statement[:-3]
     def LektionTrennen(self):
-        popListe = []
+        pop_liste = []
         for i in reversed(self.lvGewaehlteLektionen.selectedIndexes()):
-            popListe.append(i.row())
-        for i in popListe:
-            self.lektionsListe.pop(i)
+            pop_liste.append(i.row())
+        for i in pop_liste:
+            self.lektions_liste.pop(i)
         
         self.AbfrageNeuZeichen()
     def AnzahlVokabelnPaint(self):
         counter = 0
-        for i in self.lektionsListe:
-            counter += self.Datenbank.getDataAsList("select count(*) from lektionen \
+        for i in self.lektions_liste:
+            counter += self.datenbank.getDataAsList("select count(*) from lektionen \
             join vokabeln on (vokabeln.idlektion=lektionen.id) \
             where lektionen.id like "+str(i))[0][0]
         self.labAnzahlVokabeln.setText(u"Anzahl Vokabeln:"+str(counter))
         self.AnzahlAbfragenPaint()
     def AnzahlAbfragenPaint(self):
         counter = 0
-        for i in self.lektionsListe:
-            counter += self.Datenbank.getDataAsList("select count(*) from lektionen \
+        for i in self.lektions_liste:
+            counter += self.datenbank.getDataAsList("select count(*) from lektionen \
             join vokabeln on (vokabeln.idlektion=lektionen.id) \
             where lektionen.id like "+str(i))[0][0]
             
