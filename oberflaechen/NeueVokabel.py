@@ -87,9 +87,11 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         if len(daten) < 1:
             self.lbAnzVokabeln.setText("0 Vokabeln in dieser Lektion")
         else:
-            self.lbAnzVokabeln.setText(str(daten[0][0])+" Vokabeln in dieser Lektion")
-                
-    
+            if int(daten[0][0]) == 1:
+                self.lbAnzVokabeln.setText(str(daten[0][0])+" Vokabel in dieser Lektion")
+            else:
+                self.lbAnzVokabeln.setText(str(daten[0][0])+" Vokabeln in dieser Lektion")
+
     def getIdSprache(self):
         selectSprache = "select fremdsprache, id from sprache \
         limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'" 
