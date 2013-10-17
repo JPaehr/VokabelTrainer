@@ -49,6 +49,9 @@ class NeueLektion(WindowLektionAnlegen, QtGui.QWidget):
         
         self.Datenbank.setData(u"insert into Lektionen (name, idBuch) \
         values ('"+str(self.tfLektion.text().toUtf8()).decode('utf-8')+"', '"+str(idBuch)+"')")
+
+        self.tfLektion.setText("")
+        self.tfLektion.setFocus()
     
     def LektionAnlegenUndSchliessen(self):
         self.LektionAnlegen()
