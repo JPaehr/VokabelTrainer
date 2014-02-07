@@ -42,6 +42,7 @@ class Auswertung(WindowAuswertung, QtGui.QWidget):
     def fenster_schliessen(self):
         self.parent.close()
         self.close()
+
     def __liste_to_string(self, liste):
         string = ""
         for i in liste:

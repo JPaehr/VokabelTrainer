@@ -27,6 +27,8 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         modelSprache = QtGui.QStringListModel(datenSprache)
         self.cBSprache.setModel(modelSprache)
         self.BuecherNeuSchreiben()
+        self.tVWoerterbuch.setSelectionBehavior(QtGui.QTableView.SelectRows)
+        self.tVWoerterbuch.setSelectionMode(QtGui.QTableView.SingleSelection)
         
     def BuecherNeuSchreiben(self):
         
