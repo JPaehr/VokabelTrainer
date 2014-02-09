@@ -29,6 +29,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.BuecherNeuSchreiben()
         self.tVWoerterbuch.setSelectionBehavior(QtGui.QTableView.SelectRows)
         self.tVWoerterbuch.setSelectionMode(QtGui.QTableView.SingleSelection)
+        self.tVWoerterbuch.doubleClicked.connect(self.MarkierungBearbeiten)
         
     def BuecherNeuSchreiben(self):
         
