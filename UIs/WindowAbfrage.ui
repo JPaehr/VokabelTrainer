@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>689</width>
-    <height>278</height>
+    <width>881</width>
+    <height>408</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,1">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout" stretch="3,0,0,0,0,5">
-       <item alignment="Qt::AlignTop">
+       <item>
         <widget class="QLabel" name="labWeitereVokabeln">
          <property name="text">
           <string>weitere Vokabeln</string>
@@ -84,16 +84,51 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
-             <widget class="QLabel" name="labPunkte">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>PunkteStand</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QCheckBox" name="cBBar">
+                <property name="text">
+                 <string>Bar</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QProgressBar" name="pBFortschritt">
+                <property name="minimumSize">
+                 <size>
+                  <width>166</width>
+                  <height>21</height>
+                 </size>
+                </property>
+                <property name="value">
+                 <number>24</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <widget class="QCheckBox" name="cBPunkte">
+                <property name="text">
+                 <string>Punkte</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="labPunkte">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>PunkteStand</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>

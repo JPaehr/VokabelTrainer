@@ -20,7 +20,7 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         self.connect(self.btnAbbrechen, QtCore.SIGNAL("clicked()"), self.close)
         self.connect(self.btnAnwendenUndSchliessen, QtCore.SIGNAL("clicked()"), self.speichernUndSchliessen)
         self.connect(self.btnAnwenden, QtCore.SIGNAL("clicked()"), self.speichern)
-        
+
         self.btnAnwenden.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
         self.labFelderAusfuellen.setText("")
         

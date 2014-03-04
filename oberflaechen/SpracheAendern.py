@@ -17,8 +17,8 @@ class SpracheAendern(WindowSpracheAendern, QtGui.QWidget):
         self.connect(self.cBSpracheAuswaehlen, QtCore.SIGNAL("activated(int)"), self.TextfeldNeuZeichen)
         self.connect(self.btnAbbrechen, QtCore.SIGNAL("clicked()"), QtCore.SLOT('close()'))
         self.connect(self.btnSpeichernUndSchliessen, QtCore.SIGNAL("clicked()"), self.Speichern)
-        
-        self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite") 
+
+        self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         
         daten = self.Datenbank.getDataAsQStringList("select fremdsprache, id from Sprache")
         model = QtGui.QStringListModel(daten)
@@ -28,6 +28,7 @@ class SpracheAendern(WindowSpracheAendern, QtGui.QWidget):
     def TextfeldNeuZeichen(self):
         self.tfNeuerName.setText(self.cBSpracheAuswaehlen.currentText())
         self.tfNeuerName.setFocus()
+
     def Speichern(self):
         neuerName = str(self.tfNeuerName.text().toUtf8()).decode("utf-8")
         #print neuerName

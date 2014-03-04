@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import division
 """
 Created on 08.10.2013
 
@@ -36,6 +37,20 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         super(Abfrage, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
+
+        #self.pBFortschritt.clicked(0).connect(self.test)
+        #self.connect(self.pBFortschritt, QtCore.SIGNAL("clicked()"), self.test)
+
+        self.cBBar.setCheckState(QtCore.Qt.Checked)
+        self.cBPunkte.setCheckState(QtCore.Qt.Checked)
+
+        self.cBBar.stateChanged.connect(self.sichtbarBar)
+
+        self.cBPunkte.stateChanged.connect(self.sichtbarPunkte)
+
+
+
+        self.pBFortschritt.setValue(0)
         
         self.font_dick = QtGui.QFont()
         self.font_dick.setBold(True)
@@ -67,10 +82,29 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         
         self.vokabel_ids = self.lektionsid_to_vokid(lektionen_ids, int(abfrage_haeufigkeit))
 
+        #print "Vokabeln: "+ str(len(self.vokabel_ids))
+        #print "Häufigkeit: " +str(abfrage_haeufigkeit)
+
+        self.abfragenGesamt = int(len(self.vokabel_ids)*int(abfrage_haeufigkeit))
+        #print "Abfragen: " + str(self.abfragenGesamt)
+
         self.lektion_ids = lektionen_ids
 
         self.weitere_vokabel()
-        
+
+    def sichtbarBar(self):
+        if self.cBBar.checkState():
+            self.pBFortschritt.setVisible(1)
+        else:
+            self.pBFortschritt.hide()
+
+    def sichtbarPunkte(self):
+        if self.cBPunkte.checkState():
+            self.labPunkte.setVisible(1)
+        else:
+            self.labPunkte.hide()
+
+
     def weitere_vokabel(self):
         """
         weitere Vokabel ziehen
@@ -98,6 +132,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.labRichtigFalsch.setText("")
             self.labBitteEingeben.setText("Bitte eingeben")
             self.labWeitereVokabeln.setText("Noch "+str(len(self.vokabel_ids)-self.id_aktuell-1)+" weitere Vokabeln")
+
+            print str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell-1)) / self.abfragenGesamt*100)
+
+            self.pBFortschritt.setValue(int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)))))
+
             self.tfInput.setText("")
             self.tfInput.setFocus()    
             self.labMeintenSie.setText("")

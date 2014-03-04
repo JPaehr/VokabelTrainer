@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Johannes\Documents\Python\VokabelTrainer\UIs\WindowAbfrage.ui'
+# Form implementation generated from reading ui file 'UIs\WindowAbfrage.ui'
 #
-# Created: Mon Oct 14 21:34:00 2013
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Tue Mar 04 19:52:31 2014
+#      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName(_fromUtf8("Form"))
-        Form.resize(702, 288)
+        Form.resize(881, 408)
         self.horizontalLayout_2 = QtGui.QHBoxLayout(Form)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.horizontalLayout = QtGui.QHBoxLayout()
@@ -71,12 +71,29 @@ class Ui_Form(object):
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.groupBox)
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
+        self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        self.cBBar = QtGui.QCheckBox(self.groupBox)
+        self.cBBar.setObjectName(_fromUtf8("cBBar"))
+        self.horizontalLayout_3.addWidget(self.cBBar)
+        self.pBFortschritt = QtGui.QProgressBar(self.groupBox)
+        self.pBFortschritt.setMinimumSize(QtCore.QSize(166, 21))
+        self.pBFortschritt.setProperty("value", 24)
+        self.pBFortschritt.setObjectName(_fromUtf8("pBFortschritt"))
+        self.horizontalLayout_3.addWidget(self.pBFortschritt)
+        self.verticalLayout_6.addLayout(self.horizontalLayout_3)
+        self.horizontalLayout_4 = QtGui.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
+        self.cBPunkte = QtGui.QCheckBox(self.groupBox)
+        self.cBPunkte.setObjectName(_fromUtf8("cBPunkte"))
+        self.horizontalLayout_4.addWidget(self.cBPunkte)
         self.labPunkte = QtGui.QLabel(self.groupBox)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.labPunkte.setFont(font)
         self.labPunkte.setObjectName(_fromUtf8("labPunkte"))
-        self.verticalLayout_6.addWidget(self.labPunkte)
+        self.horizontalLayout_4.addWidget(self.labPunkte)
+        self.verticalLayout_6.addLayout(self.horizontalLayout_4)
         self.verticalLayout_8.addWidget(self.groupBox)
         self.groupBox_2 = QtGui.QGroupBox(Form)
         self.groupBox_2.setObjectName(_fromUtf8("groupBox_2"))
@@ -98,6 +115,7 @@ class Ui_Form(object):
         self.btnWeiter = QtGui.QPushButton(Form)
         self.btnWeiter.setObjectName(_fromUtf8("btnWeiter"))
         self.verticalLayout_3.addWidget(self.btnWeiter)
+        self.verticalLayout_3.setStretch(1, 1)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
         self.horizontalLayout.setStretch(0, 3)
         self.horizontalLayout.setStretch(1, 1)
@@ -114,6 +132,8 @@ class Ui_Form(object):
         self.labMeintenSie.setText(_translate("Form", "Meinten Sie", None))
         self.labRichtigFalsch.setText(_translate("Form", "Richtig Falsch", None))
         self.groupBox.setTitle(_translate("Form", "Punkte", None))
+        self.cBBar.setText(_translate("Form", "Bar", None))
+        self.cBPunkte.setText(_translate("Form", "Punkte", None))
         self.labPunkte.setText(_translate("Form", "PunkteStand", None))
         self.groupBox_2.setTitle(_translate("Form", "Lektion", None))
         self.labLektion.setText(_translate("Form", "vonWoHerLektion", None))
