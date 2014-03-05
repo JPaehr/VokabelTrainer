@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'UIs\WindowAbfrage.ui'
 #
-# Created: Tue Mar 04 19:52:31 2014
+# Created: Wed Mar 05 16:33:19 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -74,10 +74,11 @@ class Ui_Form(object):
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         self.cBBar = QtGui.QCheckBox(self.groupBox)
+        self.cBBar.setMinimumSize(QtCore.QSize(70, 21))
         self.cBBar.setObjectName(_fromUtf8("cBBar"))
         self.horizontalLayout_3.addWidget(self.cBBar)
         self.pBFortschritt = QtGui.QProgressBar(self.groupBox)
-        self.pBFortschritt.setMinimumSize(QtCore.QSize(166, 21))
+        self.pBFortschritt.setMinimumSize(QtCore.QSize(70, 21))
         self.pBFortschritt.setProperty("value", 24)
         self.pBFortschritt.setObjectName(_fromUtf8("pBFortschritt"))
         self.horizontalLayout_3.addWidget(self.pBFortschritt)
@@ -85,6 +86,7 @@ class Ui_Form(object):
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
         self.cBPunkte = QtGui.QCheckBox(self.groupBox)
+        self.cBPunkte.setMinimumSize(QtCore.QSize(70, 30))
         self.cBPunkte.setObjectName(_fromUtf8("cBPunkte"))
         self.horizontalLayout_4.addWidget(self.cBPunkte)
         self.labPunkte = QtGui.QLabel(self.groupBox)
