@@ -17,7 +17,7 @@ class Statistik(WindowStatistik, QtGui.QWidget):
         self.setupUi(self)
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
-        statement = "select datum, richtig, gesamt, lektionen from statistik"
+        statement = "select datum, richtig, gesamt, lektionen from statistik order by datum desc"
         daten = self.datenbank.getDataAsList(statement)
         #print daten
         header = ['datum', 'richtig/von', 'in Prozent', 'lektionen']
