@@ -38,13 +38,16 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
 
-        #self.pBFortschritt.clicked(0).connect(self.test)
-        #self.connect(self.pBFortschritt, QtCore.SIGNAL("clicked()"), self.test)
+        self.pBFortschritt.hilfsWidgets(self.hilfsWidget1, self.hilfsWidget2)
 
-        self.cBBar.setCheckState(QtCore.Qt.Checked)
+
         self.cBPunkte.setCheckState(QtCore.Qt.Checked)
 
-        self.cBBar.stateChanged.connect(self.sichtbarBar)
+        self.labWeitereVokabeln.addWidgetToShow(self.pBFortschritt, self.hilfsWidget1, self.hilfsWidget2)
+
+        self.labWeitereVokabeln.hide()
+        self.pBFortschritt.addWidgetToShow(self.labWeitereVokabeln)
+
 
         self.cBPunkte.stateChanged.connect(self.sichtbarPunkte)
 

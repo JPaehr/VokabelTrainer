@@ -2,13 +2,14 @@
 
 # Form implementation generated from reading ui file 'UIs\WindowAbfrage.ui'
 #
-# Created: Wed Mar 05 16:33:19 2014
+# Created: Mon Mar 10 00:26:50 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-
+from models.ProgessBar import Progessbar
+from models.LabWeitereVok import LabWeitereVok
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -33,9 +34,37 @@ class Ui_Form(object):
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.labWeitereVokabeln = QtGui.QLabel(Form)
+        self.verticalLayout_9 = QtGui.QVBoxLayout()
+        self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
+        self.verticalLayout_11 = QtGui.QVBoxLayout()
+        self.verticalLayout_11.setObjectName(_fromUtf8("verticalLayout_11"))
+        self.hilfsWidget1 = QtGui.QWidget(Form)
+        self.hilfsWidget1.setObjectName(_fromUtf8("hilfsWidget1"))
+        self.verticalLayout_11.addWidget(self.hilfsWidget1)
+        self.pBFortschritt = Progessbar(Form)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pBFortschritt.sizePolicy().hasHeightForWidth())
+        self.pBFortschritt.setSizePolicy(sizePolicy)
+        self.pBFortschritt.setMinimumSize(QtCore.QSize(0, 0))
+        self.pBFortschritt.setProperty("value", 24)
+        self.pBFortschritt.setObjectName(_fromUtf8("pBFortschritt"))
+        self.verticalLayout_11.addWidget(self.pBFortschritt)
+        self.hilfsWidget2 = QtGui.QWidget(Form)
+        self.hilfsWidget2.setObjectName(_fromUtf8("hilfsWidget2"))
+        self.verticalLayout_11.addWidget(self.hilfsWidget2)
+        self.verticalLayout_9.addLayout(self.verticalLayout_11)
+        self.labWeitereVokabeln = LabWeitereVok(Form)
         self.labWeitereVokabeln.setObjectName(_fromUtf8("labWeitereVokabeln"))
-        self.verticalLayout.addWidget(self.labWeitereVokabeln)
+        self.verticalLayout_9.addWidget(self.labWeitereVokabeln)
+        self.verticalLayout_9.setStretch(0, 1)
+        self.verticalLayout_9.setStretch(1, 1)
+        self.verticalLayout.addLayout(self.verticalLayout_9)
+        self.widgetWeitereVok = QtGui.QWidget(Form)
+        self.widgetWeitereVok.setMinimumSize(QtCore.QSize(0, 0))
+        self.widgetWeitereVok.setObjectName(_fromUtf8("widgetWeitereVok"))
+        self.verticalLayout.addWidget(self.widgetWeitereVok)
         self.labBitteEingeben = QtGui.QLabel(Form)
         self.labBitteEingeben.setObjectName(_fromUtf8("labBitteEingeben"))
         self.verticalLayout.addWidget(self.labBitteEingeben)
@@ -61,7 +90,7 @@ class Ui_Form(object):
         self.labRichtigFalsch.setObjectName(_fromUtf8("labRichtigFalsch"))
         self.verticalLayout.addWidget(self.labRichtigFalsch)
         self.verticalLayout.setStretch(0, 3)
-        self.verticalLayout.setStretch(5, 5)
+        self.verticalLayout.setStretch(6, 5)
         self.horizontalLayout.addLayout(self.verticalLayout)
         self.verticalLayout_3 = QtGui.QVBoxLayout()
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
@@ -71,18 +100,6 @@ class Ui_Form(object):
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.groupBox)
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
-        self.horizontalLayout_3 = QtGui.QHBoxLayout()
-        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
-        self.cBBar = QtGui.QCheckBox(self.groupBox)
-        self.cBBar.setMinimumSize(QtCore.QSize(70, 21))
-        self.cBBar.setObjectName(_fromUtf8("cBBar"))
-        self.horizontalLayout_3.addWidget(self.cBBar)
-        self.pBFortschritt = QtGui.QProgressBar(self.groupBox)
-        self.pBFortschritt.setMinimumSize(QtCore.QSize(70, 21))
-        self.pBFortschritt.setProperty("value", 24)
-        self.pBFortschritt.setObjectName(_fromUtf8("pBFortschritt"))
-        self.horizontalLayout_3.addWidget(self.pBFortschritt)
-        self.verticalLayout_6.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
         self.cBPunkte = QtGui.QCheckBox(self.groupBox)
@@ -134,7 +151,6 @@ class Ui_Form(object):
         self.labMeintenSie.setText(_translate("Form", "Meinten Sie", None))
         self.labRichtigFalsch.setText(_translate("Form", "Richtig Falsch", None))
         self.groupBox.setTitle(_translate("Form", "Punkte", None))
-        self.cBBar.setText(_translate("Form", "Bar", None))
         self.cBPunkte.setText(_translate("Form", "Punkte", None))
         self.labPunkte.setText(_translate("Form", "PunkteStand", None))
         self.groupBox_2.setTitle(_translate("Form", "Lektion", None))
