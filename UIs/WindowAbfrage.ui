@@ -26,7 +26,7 @@
             <widget class="QWidget" name="hilfsWidget1" native="true"/>
            </item>
            <item>
-            <widget class="QProgressBar" name="pBFortschritt">
+            <widget class="Progressbar" name="pBFortschritt">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -50,7 +50,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QLabel" name="labWeitereVokabeln">
+          <widget class="LabWeitereVok" name="labWeitereVokabeln">
            <property name="text">
             <string>weitere Vokabeln</string>
            </property>
@@ -205,6 +205,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Progressbar</class>
+   <extends>QProgressBar</extends>
+   <header>models.Progressbar.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LabWeitereVok</class>
+   <extends>QLabel</extends>
+   <header>models.LabWeitereVok</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

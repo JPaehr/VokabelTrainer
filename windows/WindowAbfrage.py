@@ -2,14 +2,13 @@
 
 # Form implementation generated from reading ui file 'UIs\WindowAbfrage.ui'
 #
-# Created: Mon Mar 10 00:26:50 2014
+# Created: Mon Mar 10 10:23:43 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-from models.ProgessBar import Progessbar
-from models.LabWeitereVok import LabWeitereVok
+
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -41,7 +40,7 @@ class Ui_Form(object):
         self.hilfsWidget1 = QtGui.QWidget(Form)
         self.hilfsWidget1.setObjectName(_fromUtf8("hilfsWidget1"))
         self.verticalLayout_11.addWidget(self.hilfsWidget1)
-        self.pBFortschritt = Progessbar(Form)
+        self.pBFortschritt = Progressbar(Form)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -159,3 +158,5 @@ class Ui_Form(object):
         self.labBuch.setText(_translate("Form", "vonWoBuch", None))
         self.btnWeiter.setText(_translate("Form", "Weiter", None))
 
+from models.Progressbar import Progressbar
+from models.LabWeitereVok import LabWeitereVok
