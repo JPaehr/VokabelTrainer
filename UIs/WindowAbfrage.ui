@@ -117,7 +117,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,1">
+      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,1">
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
@@ -193,9 +193,16 @@
         </layout>
        </item>
        <item>
+        <widget class="QPushButton" name="btnSaveExit">
+         <property name="text">
+          <string>speichern und beenden</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="btnWeiter">
          <property name="text">
-          <string>Weiter</string>
+          <string>weiter</string>
          </property>
         </widget>
        </item>

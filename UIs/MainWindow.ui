@@ -19,11 +19,18 @@
      <rect>
       <x>280</x>
       <y>40</y>
-      <width>87</width>
-      <height>112</height>
+      <width>134</width>
+      <height>141</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QPushButton" name="btnFortsetzen">
+       <property name="text">
+        <string>letzte Abfrage fortsetzen</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QPushButton" name="btnAbfrageStarten">
        <property name="text">

@@ -6,6 +6,8 @@ Created on 25.09.2013
 """
 from PyQt4 import QtGui, QtCore
 import sys
+import os
+
 
 from windows.MainWindow import Ui_MainWindow as MainWindow
 
@@ -21,11 +23,13 @@ import oberflaechen.SpracheAendern as SpracheAendern
 import oberflaechen.Vorsichtig as Vorsichtig
 import oberflaechen.Statistik as Statistik
 import models.base as Datenbank
+import oberflaechen.Abfrage as Abfrage
 
 
 class Programm(MainWindow, QtGui.QMainWindow):
     """MainKlasse"""
     def __init__(self):
+        #self.r
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
         self.connect(self.btnNeueSprache, QtCore.SIGNAL("clicked()"), self.neue_sprache)
@@ -38,8 +42,18 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.connect(self.btnBuecherBearbeiten, QtCore.SIGNAL("clicked()"), self.buch_aendern)
         self.connect(self.btnLektionbearbeiten, QtCore.SIGNAL("clicked()"), self.lektioen_aendern)
         self.connect(self.btnStatistik, QtCore.SIGNAL("clicked()"), self.statistik_oeffnen)
+        self.connect(self.btnFortsetzen, QtCore.SIGNAL("clicked()"), self.AbfrageFortsetzen)
+
+
+        if os.stat('zwischenSpeicher.fs').st_size == 0:
+            self.btnFortsetzen.hide()
+        else:
+            self.btnFortsetzen.setVisible(True)
+
         
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
+
+
 
     def statistik_oeffnen(self):
         """
@@ -52,6 +66,10 @@ class Programm(MainWindow, QtGui.QMainWindow):
         """soll Fenster für Lektion ändern anzeigen
         """
         test = LektionAendern.LektionAendern(self)
+        test.show()
+    def AbfrageFortsetzen(self):
+
+        test = Abfrage.Abfrage(self, '', '', '', '', '', '', '', '1')
         test.show()
         
     def vorsichtig_sein(self):

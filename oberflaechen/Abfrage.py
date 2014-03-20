@@ -13,6 +13,8 @@ from time import sleep
 from random import shuffle as zufall
 from oberflaechen.MeintenSie import MeintenSie
 from oberflaechen.Auswertung import Auswertung
+from models.Speicher import Speicher
+import pickle
 
 
 class ZeitThread(QtCore.QThread):
@@ -33,13 +35,15 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
     """
     Fenster für die Abfrage
     """
-    def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, meintenSie, RichtigeAnzeigen, Richtung, distanz):
+    def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, meintenSie, RichtigeAnzeigen, Richtung, distanz, speicher='None'):
         super(Abfrage, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
+        self.parent = parent
+
+        self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
         self.pBFortschritt.hilfsWidgets(self.hilfsWidget1, self.hilfsWidget2)
-
 
         self.cBPunkte.setCheckState(QtCore.Qt.Checked)
 
@@ -51,55 +55,105 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         self.cBPunkte.stateChanged.connect(self.sichtbarPunkte)
 
-
-
-        self.pBFortschritt.setValue(0)
-        
         self.font_dick = QtGui.QFont()
         self.font_dick.setBold(True)
         self.font_normal = QtGui.QFont()
 
-        self.treffer = leve.Treffer(distanz)
-           
-        zeit = float(verzoegerung)*10**(-3)  
-        self.thread = ZeitThread(zeit)
-        
+
+        if speicher is 'None':
+            open('zwischenSpeicher.fs', 'w').close()
+            self.pBFortschritt.setValue(0)
+            self.distance = distanz
+            self.treffer = leve.Treffer(distanz)
+            zeit = float(verzoegerung)*10**(-3)
+            self.thread = ZeitThread(zeit)
+            self.meinten_sie = meintenSie
+            self.lektionsliste = []
+            self.verzoegerung = verzoegerung
+            self.id_aktuell = 0
+            self.vokabel_fremd = ""
+            self.richtige_anzeigen = RichtigeAnzeigen
+            self.richtung = Richtung
+            self.labPunkte.setText('0')
+            self.lektion = ""
+            self.buch = ""
+            self.vokabel_deutsch = ""
+            self.vokabel_ids = self.lektionsid_to_vokid(lektionen_ids, int(abfrage_haeufigkeit))
+            self.abfragenGesamt = int(len(self.vokabel_ids)*int(abfrage_haeufigkeit))
+            self.lektion_ids = lektionen_ids
+        else:
+            file = open('zwischenSpeicher.fs', 'r')
+            speicher = pickle.load(file)
+            file.close()
+
+            self.pBFortschritt.setValue(speicher.Fortschritt)
+            self.distance = speicher.distance
+            self.treffer = leve.Treffer(speicher.distance)
+            zeit = float(speicher.verzoegerung)*10**(-3)
+            self.thread = ZeitThread(zeit)
+            self.meinten_sie = speicher.meinten_sie
+            self.lektionsliste = []
+            self.verzoegerung = speicher.verzoegerung
+            self.id_aktuell = speicher.id_aktuell
+            print "danach: "+str(speicher.id_aktuell)
+            self.vokabel_fremd = ""
+            self.richtige_anzeigen = speicher.richtige_anzeigen
+            self.richtung = speicher.richtung
+            self.labPunkte.setText(speicher.labPunkte)
+            self.lektion = ""
+            self.buch = ""
+            self.vokabel_deutsch = ""
+            self.vokabel_ids = speicher.vokabel_ids
+            self.abfragenGesamt = speicher.abfragenGesamt
+            self.lektion_ids = speicher.lektion_ids
+            self.vokabel_fremd = speicher.vokabel_fremd
+            self.vokabel_deutsch = speicher.vokabel_deutsch
+            self.buch = speicher.buch
+            self.lektion = speicher.lektion
+
+            self.labLektion.setText(str(self.lektion))
+            self.labBuch.setText(str(self.buch))
+            self.labRichtigFalsch.setText("")
+            self.labBitteEingeben.setText("Bitte eingeben")
+            self.labWeitereVokabeln.setText("Noch "+str(len(self.vokabel_ids)-self.id_aktuell-1)+" weitere Vokabeln")
+
+            if self.richtung == 1:
+                self.labVokabelMeintenSie.setText(self.vokabel_deutsch)
+            else:
+                self.labVokabelMeintenSie.setText(self.vokabel_fremd)
+            self.labMeintenSie.setText("")
+            self.labMeintenSie.setText("")
+            speicher.Info()
+
         self.parent = parent
-        
+
+        self.connect(self.btnSaveExit, QtCore.SIGNAL("clicked()"), self.SaveAndExit)
         self.connect(self.thread, QtCore.SIGNAL("finished()"), self.weitere_vokabel)
         self.connect(self.btnWeiter, QtCore.SIGNAL("clicked()"), self.weitereVokabelKlick)
         self.btnWeiter.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
-        
-        self.meinten_sie = meintenSie
-        self.lektionsliste = []
-        self.verzoegerung = verzoegerung
-        self.id_aktuell = 0
-        self.vokabel_fremd = ""
-        self.richtige_anzeigen = RichtigeAnzeigen
-        self.richtung = Richtung
-        self.labPunkte.setText('0')
-        self.lektion = ""
-        self.buch = ""
-        self.vokabel_deutsch = ""
-        self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
-        
-        self.vokabel_ids = self.lektionsid_to_vokid(lektionen_ids, int(abfrage_haeufigkeit))
 
-        #print "Vokabeln: "+ str(len(self.vokabel_ids))
-        #print "Häufigkeit: " +str(abfrage_haeufigkeit)
 
-        self.abfragenGesamt = int(len(self.vokabel_ids)*int(abfrage_haeufigkeit))
-        #print "Abfragen: " + str(self.abfragenGesamt)
-
-        self.lektion_ids = lektionen_ids
-
-        self.weitere_vokabel()
+        if speicher is 'None':
+            self.weitere_vokabel()
 
     def sichtbarBar(self):
         if self.cBBar.checkState():
             self.pBFortschritt.setVisible(1)
         else:
             self.pBFortschritt.hide()
+    def SaveAndExit(self):
+        #self,pBFortschritt, distance, meintenSie, verzoegerung, id_aktuell, richtige_anzeigen, richtung, labPunkte, vokIds, abfragenGesamt, lektionen_ids, lektion, vokabel_deutsch, vokabel_fremd, buch
+        print type(self.distance)
+        meinSpeicher = Speicher(self.pBFortschritt.value(), str(self.distance), str(self.meinten_sie), self.verzoegerung, self.id_aktuell, self.richtige_anzeigen, self.richtung,
+                                self.labPunkte.text(), self.vokabel_ids, self.abfragenGesamt, self.lektion_ids, self.lektion, self.vokabel_deutsch, self.vokabel_fremd, self.buch)
+
+        f = open("zwischenSpeicher.fs", 'w')
+        pickle.dump(meinSpeicher, f)
+        f.close()
+        print "Dumped"
+        self.parent.parent.btnFortsetzen.setVisible(True)
+        self.parent.hide()
+        self.close()
 
     def sichtbarPunkte(self):
         if self.cBPunkte.checkState():
@@ -122,9 +176,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.vokabel_deutsch = unicode(daten[0][1])
             self.vokabel_fremd = daten[0][2]
             self.buch = daten[0][3]
-            
-            #print "Richtung: ", self.Richtung
-            
+
             if self.richtung == 1:
                 self.labVokabelMeintenSie.setText(self.vokabel_deutsch)
             else:
@@ -137,6 +189,9 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.labWeitereVokabeln.setText("Noch "+str(len(self.vokabel_ids)-self.id_aktuell-1)+" weitere Vokabeln")
 
             print str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell-1)) / self.abfragenGesamt*100)
+            print "AbfrgaenGesamt: "+ str(self.abfragenGesamt)
+            print "id_aktuell: "+ str(self.id_aktuell)
+            print "Vokabelids: "+ str(self.vokabel_ids)
 
             self.pBFortschritt.setValue(int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)))))
 
@@ -147,6 +202,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.id_aktuell += 1
         else:
             print "fertig mit Abfragen"
+            self.parent.parent.btnFortsetzen.hide()
+            self.close()
             test = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids)
             test.show()
 

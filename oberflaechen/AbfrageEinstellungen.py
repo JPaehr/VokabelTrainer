@@ -18,7 +18,8 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
     def __init__(self, parent):
         super(AbfrageEinstellungen, self).__init__(parent)
         QtGui.QWidget.__init__(self)
-        self.setupUi(self)   
+        self.setupUi(self)
+        self.parent = parent
         self.abfrage_einstellung = 0
         self.lektions_liste = []
         
@@ -69,6 +70,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         where id like 1"
         self.datenbank.setData(updateStatement)
         self.close()
+
         test = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(),
                                self.chBMeintenSie.isChecked(), self.chBRichtigGeschriebeneAnzeigen.isChecked(),
                                self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text())

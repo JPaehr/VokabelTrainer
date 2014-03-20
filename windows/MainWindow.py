@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Johannes\Documents\Python\VokabelTrainer\UIs\MainWindow.ui'
+# Form implementation generated from reading ui file '.\UIs\MainWindow.ui'
 #
-# Created: Wed Oct 16 21:40:11 2013
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Thu Mar 20 14:47:13 2014
+#      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -30,11 +30,14 @@ class Ui_MainWindow(object):
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.layoutWidget = QtGui.QWidget(self.centralwidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(280, 40, 87, 112))
+        self.layoutWidget.setGeometry(QtCore.QRect(280, 40, 134, 141))
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.layoutWidget)
         self.verticalLayout_2.setMargin(0)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
+        self.btnFortsetzen = QtGui.QPushButton(self.layoutWidget)
+        self.btnFortsetzen.setObjectName(_fromUtf8("btnFortsetzen"))
+        self.verticalLayout_2.addWidget(self.btnFortsetzen)
         self.btnAbfrageStarten = QtGui.QPushButton(self.layoutWidget)
         self.btnAbfrageStarten.setObjectName(_fromUtf8("btnAbfrageStarten"))
         self.verticalLayout_2.addWidget(self.btnAbfrageStarten)
@@ -99,6 +102,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
+        self.btnFortsetzen.setText(_translate("MainWindow", "letzte Abfrage fortsetzen", None))
         self.btnAbfrageStarten.setText(_translate("MainWindow", "Abfrage starten", None))
         self.btnZuruecksetzen.setText(_translate("MainWindow", "Zurücksetzen", None))
         self.btnWoerterbuch.setText(_translate("MainWindow", "Wörterbuch", None))

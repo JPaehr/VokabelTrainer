@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UIs\WindowAbfrage.ui'
+# Form implementation generated from reading ui file '.\UIs\WindowAbfrage.ui'
 #
-# Created: Mon Mar 10 10:23:43 2014
+# Created: Thu Mar 20 14:36:56 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -130,10 +130,13 @@ class Ui_Form(object):
         self.verticalLayout_7.addWidget(self.labBuch)
         self.verticalLayout_8.addWidget(self.groupBox_3)
         self.verticalLayout_3.addLayout(self.verticalLayout_8)
+        self.btnSaveExit = QtGui.QPushButton(Form)
+        self.btnSaveExit.setObjectName(_fromUtf8("btnSaveExit"))
+        self.verticalLayout_3.addWidget(self.btnSaveExit)
         self.btnWeiter = QtGui.QPushButton(Form)
         self.btnWeiter.setObjectName(_fromUtf8("btnWeiter"))
         self.verticalLayout_3.addWidget(self.btnWeiter)
-        self.verticalLayout_3.setStretch(1, 1)
+        self.verticalLayout_3.setStretch(2, 1)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
         self.horizontalLayout.setStretch(0, 3)
         self.horizontalLayout.setStretch(1, 1)
@@ -156,7 +159,8 @@ class Ui_Form(object):
         self.labLektion.setText(_translate("Form", "vonWoHerLektion", None))
         self.groupBox_3.setTitle(_translate("Form", "Buch", None))
         self.labBuch.setText(_translate("Form", "vonWoBuch", None))
-        self.btnWeiter.setText(_translate("Form", "Weiter", None))
+        self.btnSaveExit.setText(_translate("Form", "speichern und beenden", None))
+        self.btnWeiter.setText(_translate("Form", "weiter", None))
 
 from models.Progressbar import Progressbar
 from models.LabWeitereVok import LabWeitereVok
