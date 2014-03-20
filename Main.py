@@ -36,7 +36,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.connect(self.btnNeuesBuch, QtCore.SIGNAL("clicked()"), self.neues_buch)
         self.connect(self.btnNeueLektion, QtCore.SIGNAL("clicked()"), self.neue_lektion)
         self.connect(self.btnWoerterbuch, QtCore.SIGNAL("clicked()"), self.woerterbuch)
-        self.connect(self.btnNeueVok, QtCore.SIGNAL("clicked()"), self.vorsichtig_sein)
+        self.connect(self.btnNeueVok, QtCore.SIGNAL("clicked()"), self.neue_vokabel)
         self.connect(self.btnAbfrageStarten, QtCore.SIGNAL("clicked()"), self.abfrage_einstellungen)
         self.connect(self.btnSpracheBeareiten, QtCore.SIGNAL("clicked()"), self.sprache_aendern)
         self.connect(self.btnBuecherBearbeiten, QtCore.SIGNAL("clicked()"), self.buch_aendern)
