@@ -152,7 +152,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         f.close()
         print "Dumped"
         self.parent.btnFortsetzen.setVisible(True)
-        self.parent.hide()
+        #self.parent.hide()
         self.close()
 
     def sichtbarPunkte(self):
