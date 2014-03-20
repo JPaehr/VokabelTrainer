@@ -9,6 +9,7 @@ class Speicher(object):
         self.vokabel_fremd = vokabel_fremd
         self.buch = buch
 
+
         self.Fortschritt = pBFortschritt
         self.distance = distance
 

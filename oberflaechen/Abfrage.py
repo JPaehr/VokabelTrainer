@@ -13,6 +13,8 @@ from time import sleep
 from random import shuffle as zufall
 from oberflaechen.MeintenSie import MeintenSie
 from oberflaechen.Auswertung import Auswertung
+import oberflaechen.AbfrageEinstellungen
+
 from models.Speicher import Speicher
 import pickle
 
@@ -123,6 +125,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 self.labVokabelMeintenSie.setText(self.vokabel_fremd)
             self.labMeintenSie.setText("")
             self.labMeintenSie.setText("")
+
             #speicher.Info()
 
         self.parent = parent
@@ -151,7 +154,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         pickle.dump(meinSpeicher, f)
         f.close()
         print "Dumped"
-        self.parent.btnFortsetzen.setVisible(True)
+
+        if isinstance(self.parent, oberflaechen.AbfrageEinstellungen.AbfrageEinstellungen):
+            self.parent.parent.btnFortsetzen.setVisible(True)
+        else:
+            self.parent.btnFortsetzen.setVisible(True)
+        #self.parent.btnFortsetzen.setVisible(True)
+
         #self.parent.hide()
         self.close()
 
@@ -202,7 +211,10 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.id_aktuell += 1
         else:
             print "fertig mit Abfragen"
-            self.parent.parent.btnFortsetzen.hide()
+            if isinstance(self.parent, oberflaechen.AbfrageEinstellungen.AbfrageEinstellungen):
+                self.parent.parent.btnFortsetzen.hide()
+            else:
+                self.parent.btnFortsetzen.hide()
             self.close()
             test = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids)
             test.show()
