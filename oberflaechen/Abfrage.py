@@ -95,7 +95,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.lektionsliste = []
             self.verzoegerung = speicher.verzoegerung
             self.id_aktuell = speicher.id_aktuell
-            print "danach: "+str(speicher.id_aktuell)
+            #print "danach: "+str(speicher.id_aktuell)
             self.vokabel_fremd = ""
             self.richtige_anzeigen = speicher.richtige_anzeigen
             self.richtung = speicher.richtung
@@ -123,7 +123,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 self.labVokabelMeintenSie.setText(self.vokabel_fremd)
             self.labMeintenSie.setText("")
             self.labMeintenSie.setText("")
-            speicher.Info()
+            #speicher.Info()
 
         self.parent = parent
 
@@ -151,7 +151,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         pickle.dump(meinSpeicher, f)
         f.close()
         print "Dumped"
-        self.parent.parent.btnFortsetzen.setVisible(True)
+        self.parent.btnFortsetzen.setVisible(True)
         self.parent.hide()
         self.close()
 
