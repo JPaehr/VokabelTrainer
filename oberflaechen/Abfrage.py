@@ -41,7 +41,6 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         super(Abfrage, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
-        self.parent = parent
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
@@ -144,6 +143,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.pBFortschritt.setVisible(1)
         else:
             self.pBFortschritt.hide()
+
     def SaveAndExit(self):
         #self,pBFortschritt, distance, meintenSie, verzoegerung, id_aktuell, richtige_anzeigen, richtung, labPunkte, vokIds, abfragenGesamt, lektionen_ids, lektion, vokabel_deutsch, vokabel_fremd, buch
         print type(self.distance)
@@ -155,10 +155,12 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         f.close()
         print "Dumped"
 
-        if isinstance(self.parent, oberflaechen.AbfrageEinstellungen.AbfrageEinstellungen):
+        """if isinstance(self.parent, oberflaechen.AbfrageEinstellungen.AbfrageEinstellungen):
             self.parent.parent.btnFortsetzen.setVisible(True)
         else:
             self.parent.btnFortsetzen.setVisible(True)
+        """
+        self.FortsetzenEnable()
         #self.parent.btnFortsetzen.setVisible(True)
 
         #self.parent.hide()
@@ -235,6 +237,10 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         print vokabelIds
         return vokabelIds
 
+    def FortsetzenDisable(self):
+        self.parent.FortsetzenDisable()
+    def FortsetzenEnable(self):
+        self.parent.FortsetzenEnable()
     def weitereVokabelKlick(self):
         
         self.thread.start()

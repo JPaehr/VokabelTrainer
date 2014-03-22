@@ -56,7 +56,10 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         
         self.SpracheZeichnen()
         self.Abfragerichtung()
-
+    def FortsetzenDisable(self):
+        self.parent.FortsetzenDisable()
+    def FortsetzenEnable(self):
+        self.parent.FortsetzenEnable()
     def AbfrageStarten(self):
         #Einstellungen Speichern
         

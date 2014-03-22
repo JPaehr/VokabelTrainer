@@ -46,9 +46,9 @@ class Programm(MainWindow, QtGui.QMainWindow):
 
 
         if os.stat('zwischenSpeicher.fs').st_size == 0:
-            self.btnFortsetzen.hide()
+            self.btnFortsetzen.setEnabled(False)
         else:
-            self.btnFortsetzen.setVisible(True)
+            self.btnFortsetzen.setEnabled(True)
 
         
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
@@ -117,6 +117,10 @@ class Programm(MainWindow, QtGui.QMainWindow):
         test = Woerterbuch.Woerterbuch(self)
         test.show()
 
+    def FortsetzenDisable(self):
+        self.btnFortsetzen.setEnabled(False)
+    def FortsetzenEnable(self):
+        self.btnFortsetzen.setEnabled(True)
 
 app = QtGui.QApplication(sys.argv) 
 dialog = Programm() 
