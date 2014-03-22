@@ -155,11 +155,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         f.close()
         print "Dumped"
 
-        """if isinstance(self.parent, oberflaechen.AbfrageEinstellungen.AbfrageEinstellungen):
-            self.parent.parent.btnFortsetzen.setVisible(True)
-        else:
-            self.parent.btnFortsetzen.setVisible(True)
-        """
+        self.datenbank.setData("update AbfrageFortsetzen set datum = datetime() where id like 1")
+
         self.FortsetzenEnable()
         #self.parent.btnFortsetzen.setVisible(True)
 
@@ -213,10 +210,10 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.id_aktuell += 1
         else:
             print "fertig mit Abfragen"
-            if isinstance(self.parent, oberflaechen.AbfrageEinstellungen.AbfrageEinstellungen):
-                self.parent.parent.btnFortsetzen.hide()
-            else:
-                self.parent.btnFortsetzen.hide()
+            self.FortsetzenDisable()
+            open("zwischenSpeicher.fs", 'w').close()
+
+
             self.close()
             test = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids)
             test.show()

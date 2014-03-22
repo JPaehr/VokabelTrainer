@@ -24,6 +24,7 @@ import oberflaechen.Vorsichtig as Vorsichtig
 import oberflaechen.Statistik as Statistik
 import models.base as Datenbank
 import oberflaechen.Abfrage as Abfrage
+import models.base as Datenbank
 
 
 class Programm(MainWindow, QtGui.QMainWindow):
@@ -44,11 +45,13 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.connect(self.btnStatistik, QtCore.SIGNAL("clicked()"), self.statistik_oeffnen)
         self.connect(self.btnFortsetzen, QtCore.SIGNAL("clicked()"), self.AbfrageFortsetzen)
 
+        self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
+
 
         if os.stat('zwischenSpeicher.fs').st_size == 0:
-            self.btnFortsetzen.setEnabled(False)
+            self.FortsetzenDisable()
         else:
-            self.btnFortsetzen.setEnabled(True)
+            self.FortsetzenEnable()
 
         
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
@@ -119,8 +122,12 @@ class Programm(MainWindow, QtGui.QMainWindow):
 
     def FortsetzenDisable(self):
         self.btnFortsetzen.setEnabled(False)
+        self.btnFortsetzen.setToolTip('')
+
     def FortsetzenEnable(self):
         self.btnFortsetzen.setEnabled(True)
+        text = self.datenbank.getDataAsList('select datum from AbfrageFortsetzen where id like 1')
+        self.btnFortsetzen.setToolTip(text[0][0])
 
 app = QtGui.QApplication(sys.argv) 
 dialog = Programm() 
