@@ -127,7 +127,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
     def FortsetzenEnable(self):
         self.btnFortsetzen.setEnabled(True)
         text = self.datenbank.getDataAsList('select datum from AbfrageFortsetzen where id like 1')
-        self.btnFortsetzen.setToolTip(text[0][0])
+        self.btnFortsetzen.setToolTip(str(text[0][0]))
 
 app = QtGui.QApplication(sys.argv) 
 dialog = Programm() 
