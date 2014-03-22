@@ -29,7 +29,7 @@ class ZeitThread(QtCore.QThread):
         überschrieben runMethode aus QThread
         """
         sleep(self.zeit)
-        print "Thread ist fertig"
+        #print "Thread ist fertig"
         return  
  
 
@@ -80,7 +80,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.buch = ""
             self.vokabel_deutsch = ""
             self.vokabel_ids = self.lektionsid_to_vokid(lektionen_ids, int(abfrage_haeufigkeit))
-            self.abfragenGesamt = int(len(self.vokabel_ids)*int(abfrage_haeufigkeit))
+            #self.abfragenGesamt = int(len(self.vokabel_ids)*int(abfrage_haeufigkeit))
+            self.abfragenGesamt = len(self.vokabel_ids)
             self.lektion_ids = lektionen_ids
         else:
             file = open('zwischenSpeicher.fs', 'r')
@@ -196,12 +197,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.labBitteEingeben.setText("Bitte eingeben")
             self.labWeitereVokabeln.setText("Noch "+str(len(self.vokabel_ids)-self.id_aktuell-1)+" weitere Vokabeln")
 
-            print str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell-1)) / self.abfragenGesamt*100)
+            print str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)
             print "AbfrgaenGesamt: "+ str(self.abfragenGesamt)
             print "id_aktuell: "+ str(self.id_aktuell)
             print "Vokabelids: "+ str(self.vokabel_ids)
 
-            self.pBFortschritt.setValue(int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)))))
+            print "progressbar wird gesetzt auf:", int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)), 0))
+            self.pBFortschritt.setValue(int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)), 0)))
 
             self.tfInput.setText("")
             self.tfInput.setFocus()    

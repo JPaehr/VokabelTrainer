@@ -20,7 +20,7 @@ class Statistik(WindowStatistik, QtGui.QWidget):
         self.tvStatistik.setSelectionMode(QtGui.QTableView.SingleSelection)
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
-        statement = "select datum, richtig, gesamt, lektionen from statistik order by datum desc"
+        statement = "select datum, richtig, gesamt, lektionen from statistik order by id desc"
         daten = self.datenbank.getDataAsList(statement)
         #print daten
         header = ['datum', 'richtig/von', 'in Prozent', 'lektionen']
