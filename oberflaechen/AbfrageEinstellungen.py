@@ -53,7 +53,8 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.tfDistanz.setText(str(voreinstellungen[0][6]))
         
         self.richtung = voreinstellungen[0][4]
-        
+
+
         self.SpracheZeichnen()
         self.Abfragerichtung()
     def FortsetzenDisable(self):
@@ -153,7 +154,9 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             daten = self.datenbank.getDataAsList("select Buecher.name, lektionen.name from lektionen \
             join buecher on (buecher.id=lektionen.idbuch) \
             where lektionen.id like "+str(i))
-            datenliste.append(str(daten[0][0])+" - "+str(daten[0][1]))
+            #deutsch = str(self.tfDeutsch.text().toUtf8()).decode("utf-8").strip()
+            print daten[0][0], daten[0][1]
+            datenliste.append(unicode(daten[0][0])+" - "+unicode(daten[0][1]))
         
         model = Markierung.Markierung(datenliste)
         self.lvGewaehlteLektionen.setModel(model)

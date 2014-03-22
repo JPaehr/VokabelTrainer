@@ -127,6 +127,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.labMeintenSie.setText("")
 
             #speicher.Info()
+        spracheid_statement = "select sprache.id from sprache \
+            join buecher on (sprache.id=buecher.id_sprache) \
+            join lektionen on (lektionen.idBuch = buecher.id) \
+            join vokabeln on (vokabeln.idlektion=lektionen.id) where vokabeln.id like " +str(self.vokabel_ids[0]) +" limit 1"
+        #print self.spracheid_statement
+
+        self.spracheid = self.datenbank.getDataAsList(spracheid_statement)[0][0]
 
         self.parent = parent
 
@@ -191,7 +198,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             else:
                 self.labVokabelMeintenSie.setText(self.vokabel_fremd)
             
-            self.labLektion.setText(str(self.lektion))
+            self.labLektion.setText(unicode(self.lektion))
             self.labBuch.setText(str(self.buch))
             self.labRichtigFalsch.setText("")
             self.labBitteEingeben.setText("Bitte eingeben")
@@ -254,7 +261,12 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 if self.richtige_anzeigen:
                     self.labBitteEingeben.setText(u"Richtig wäre: "+self.vokabel_fremd)
                 if self.meinten_sie:
-                    liste = self.datenbank.getDataAsList("select fremd, id from vokabeln")# \
+
+                    statement = "select vokabeln.fremd, vokabeln.id from sprache \
+                                join buecher on (sprache.id=buecher.id_sprache) \
+                                join lektionen on (lektionen.idBuch = buecher.id) \
+                                join vokabeln on (vokabeln.idlektion=lektionen.id) where sprache.id like " +str(self.spracheid)
+                    liste = self.datenbank.getDataAsList(statement)
                     #where deutsch like '"+str(self.tfInput)+"'")
                     #print liste
                     self.treffer.setAktVergleich(liste, unicode(self.tfInput.text()), self.vokabel_ids[self.id_aktuell-1], 1)
@@ -300,7 +312,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     self.labBitteEingeben.setText(unicode(u"Richtig wäre: ")+str(self.vokabel_deutsch))
                 if self.meinten_sie:
                     #print "meintenSie Aktiv"
-                    liste = self.datenbank.getDataAsList("select deutsch, id from vokabeln")# \
+                    statement = "select vokabeln.deutsch, vokabeln.id from sprache \
+                                join buecher on (sprache.id=buecher.id_sprache) \
+                                join lektionen on (lektionen.idBuch = buecher.id) \
+                                join vokabeln on (vokabeln.idlektion=lektionen.id) where sprache.id like " +str(self.spracheid)
+                    liste = self.datenbank.getDataAsList(statement)# \
                     #where deutsch like '"+str(self.tfInput)+"'")
                     #print liste
                     self.treffer.setAktVergleich(liste, unicode(self.tfInput.text()), self.vokabel_ids[self.id_aktuell-1], 2)
