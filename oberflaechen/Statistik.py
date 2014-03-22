@@ -16,6 +16,9 @@ class Statistik(WindowStatistik, QtGui.QWidget):
         QtGui.QWidget.__init__(self)
         self.setupUi(self)
 
+        self.tvStatistik.setSelectionBehavior(QtGui.QTableView.SelectRows)
+        self.tvStatistik.setSelectionMode(QtGui.QTableView.SingleSelection)
+
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         statement = "select datum, richtig, gesamt, lektionen from statistik order by datum desc"
         daten = self.datenbank.getDataAsList(statement)
