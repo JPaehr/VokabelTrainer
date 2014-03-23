@@ -204,10 +204,10 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.labBitteEingeben.setText("Bitte eingeben")
             self.labWeitereVokabeln.setText("Noch "+str(len(self.vokabel_ids)-self.id_aktuell-1)+" weitere Vokabeln")
 
-            print str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)
-            print "AbfrgaenGesamt: "+ str(self.abfragenGesamt)
+            #print str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)
+            #print "AbfrgaenGesamt: "+ str(self.abfragenGesamt)
             print "id_aktuell: "+ str(self.id_aktuell)
-            print "Vokabelids: "+ str(self.vokabel_ids)
+            #print "Vokabelids: "+ str(self.vokabel_ids)
 
             print "progressbar wird gesetzt auf:", int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)), 0))
             self.pBFortschritt.setValue(int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)), 0)))
@@ -240,7 +240,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     vokabelIds.append(n[0])
 
         zufall(vokabelIds)
-        print vokabelIds
+        #print vokabelIds
         return vokabelIds
 
     def FortsetzenDisable(self):
