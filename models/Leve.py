@@ -38,12 +38,13 @@ class Treffer(object):
         #print "vergleich zwischen "+str(daten[0][1]) +" und "+str(self.wort)
         
         if self.richtung == 1:
-            if leve.distance(daten[0][1], self.wort) <= int(self.distanz):
+            if leve.distance(daten[0][1], self.wort) <= int(self.distanz) and leve.jaro(daten[0][1], self.wort) > 0.7:
                 self.direktTreffer = True
                 #print self.ids
                 return [self.ids]
         else:
-            if leve.distance(self.Vergeleichsfaehigkeit(daten[0][0]), self.Vergeleichsfaehigkeit(self.wort)) <= int(self.distanz):
+            if leve.distance(self.Vergeleichsfaehigkeit(daten[0][0]), self.Vergeleichsfaehigkeit(self.wort)) <= int(self.distanz) \
+                    and leve.jaro(self.Vergeleichsfaehigkeit(daten[0][0]), self.Vergeleichsfaehigkeit(self.wort)) > 0.7:
                 #print "Leven Vergleich zwischen "+ str(daten[0][0])+ " und "+ str(self.wort)
                 self.direktTreffer = True
                 #print self.id
@@ -53,7 +54,7 @@ class Treffer(object):
         rueckgabe = []
         for i in self.liste:
             #print "Aktueller vergleich "+unicode(i[0]) +" und "+unicode(self.wort)
-            if leve.distance(i[0], self.wort) <= int(self.distanz):
+            if leve.distance(i[0], self.wort) <= int(self.distanz) and leve.jaro(i[0], self.wort) > 0.7:
                 rueckgabe.append(i[1])
         return rueckgabe
     def Vergeleichsfaehigkeit(self, kette):

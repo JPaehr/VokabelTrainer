@@ -36,7 +36,7 @@ class Statistik(WindowStatistik, QtGui.QWidget):
             statement = "select lektionen.name from lektionen "+self.listeToSql(listeLektionId)
             lektionsAbfrage = self.datenbank.getDataAsList(statement)
             for teil in lektionsAbfrage:
-                lektionen = lektionen+str(teil[0])+", "
+                lektionen = lektionen+unicode(teil[0])+", "
             lektionen = lektionen[:-2]
 
             datenZumAnzeigen.append([datum, richtigVon, inProzent, lektionen])
