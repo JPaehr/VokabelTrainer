@@ -26,8 +26,9 @@ class MeintenSie(WindowMeintenSie, QtGui.QWidget):
         
     def keyPressEvent(self, event):
         key = event.key()
-        if key == QtCore.Qt.Key_Escape:
+        if key == QtCore.Qt.Key_Escape or key == QtCore.Qt.Key_Return:
             self.close()
+
         
     """def mouseMoveEvent(self, event):
         self.close()

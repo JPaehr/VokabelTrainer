@@ -113,7 +113,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.buch = speicher.buch
             self.lektion = speicher.lektion
 
-            self.labLektion.setText(str(self.lektion))
+            self.labLektion.setText(unicode(self.lektion))
             self.labBuch.setText(str(self.buch))
             self.labRichtigFalsch.setText("")
             self.labBitteEingeben.setText("Bitte eingeben")
