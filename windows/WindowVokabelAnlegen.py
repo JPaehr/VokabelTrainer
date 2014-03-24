@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Johannes\Documents\Python\VokabelTrainer\UIs\WindowVokabelAnlegen.ui'
+# Form implementation generated from reading ui file '.\UIs\WindowVokabelAnlegen.ui'
 #
-# Created: Mon Oct 14 20:43:29 2013
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Mon Mar 24 23:10:08 2014
+#      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -100,6 +100,9 @@ class Ui_Form(object):
         self.btnAbbrechen = QtGui.QPushButton(Form)
         self.btnAbbrechen.setObjectName(_fromUtf8("btnAbbrechen"))
         self.horizontalLayout_2.addWidget(self.btnAbbrechen)
+        self.pBFile = QtGui.QPushButton(Form)
+        self.pBFile.setObjectName(_fromUtf8("pBFile"))
+        self.horizontalLayout_2.addWidget(self.pBFile)
         self.btnAnwenden = QtGui.QPushButton(Form)
         self.btnAnwenden.setObjectName(_fromUtf8("btnAnwenden"))
         self.horizontalLayout_2.addWidget(self.btnAnwenden)
@@ -132,7 +135,8 @@ class Ui_Form(object):
         self.groupBox_4.setTitle(_translate("Form", "Deutsch", None))
         self.groupBox_5.setTitle(_translate("Form", "Fremdsprache", None))
         self.labFelderAusfuellen.setText(_translate("Form", "Bitte alle Felder ausfüllen", None))
-        self.btnAbbrechen.setText(_translate("Form", "Abbrechen", None))
+        self.btnAbbrechen.setText(_translate("Form", "schließen", None))
+        self.pBFile.setText(_translate("Form", "Datei laden", None))
         self.btnAnwenden.setText(_translate("Form", "Anwenden", None))
         self.btnAnwendenUndSchliessen.setText(_translate("Form", "Anwenden und Schließen", None))
 

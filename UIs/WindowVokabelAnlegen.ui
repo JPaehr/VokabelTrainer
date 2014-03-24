@@ -123,7 +123,14 @@
        <item>
         <widget class="QPushButton" name="btnAbbrechen">
          <property name="text">
-          <string>Abbrechen</string>
+          <string>schließen</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pBFile">
+         <property name="text">
+          <string>Datei laden</string>
          </property>
         </widget>
        </item>

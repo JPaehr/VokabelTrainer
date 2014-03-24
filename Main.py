@@ -57,7 +57,6 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
 
-
     def statistik_oeffnen(self):
         """
         öffnet die Statistik

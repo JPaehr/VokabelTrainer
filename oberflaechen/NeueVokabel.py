@@ -7,6 +7,7 @@ Created on 08.10.2013
 from PyQt4 import QtGui, QtCore
 from windows.WindowVokabelAnlegen import Ui_Form as WindowVokabelAnlegen
 import models.base as Datenbank
+import models.ReadVoks as ReadVoks
 
 class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
     def __init__(self, parent):
@@ -20,12 +21,25 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         self.connect(self.btnAbbrechen, QtCore.SIGNAL("clicked()"), self.close)
         self.connect(self.btnAnwendenUndSchliessen, QtCore.SIGNAL("clicked()"), self.speichernUndSchliessen)
         self.connect(self.btnAnwenden, QtCore.SIGNAL("clicked()"), self.speichern)
+        self.connect(self.pBFile, QtCore.SIGNAL("clicked()"), self.LoadFile)
 
         self.btnAnwenden.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
         self.labFelderAusfuellen.setText("")
         
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         self.SpracheZeichnen()
+
+    def LoadFile(self):
+        try:
+            filepath = QtGui.QFileDialog.getOpenFileName(self, 'Open File', '.')
+
+            ReadVoks.ReadVoks(filepath, self.getIdLektion())
+        except:
+            print "Keine Datei geladen"
+
+
+        self.AnzVokabelnZeichen()
+
     def speichern(self):
         deutsch = str(self.tfDeutsch.text().toUtf8()).decode("utf-8").strip()
         
