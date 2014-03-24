@@ -23,7 +23,7 @@ class ReadVoks(object):
 
                 statement = "insert into vokabeln ('deutsch', fremd, idlektion) values ('"+str((voks[len(voks)-1]).strip('\n')).decode('utf-8')+"', " \
                             "'"+str(voks[0]).decode('utf-8')+"', "+str(self.idLektion)+")"
-                print statement
+                #print statement
                 self.datenbank.setData(statement)
 
                 #print voks[0].strip("\n"), voks[len(voks)-1].strip("\n")

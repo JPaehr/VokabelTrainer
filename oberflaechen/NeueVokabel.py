@@ -8,6 +8,7 @@ from PyQt4 import QtGui, QtCore
 from windows.WindowVokabelAnlegen import Ui_Form as WindowVokabelAnlegen
 import models.base as Datenbank
 import models.ReadVoks as ReadVoks
+import sys
 
 class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
     def __init__(self, parent):
@@ -36,6 +37,7 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
             ReadVoks.ReadVoks(filepath, self.getIdLektion())
         except:
             print "Keine Datei geladen"
+            print sys.exc_info()[0]
 
 
         self.AnzVokabelnZeichen()
