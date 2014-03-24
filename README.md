@@ -1,4 +1,4 @@
-VokabelTrainer
+﻿VokabelTrainer
 ==============
 
 requirements:
