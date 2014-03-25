@@ -40,7 +40,7 @@ class ReadVoks(object):
                 self.datenbank.setData(statement)
             prozent = round((zeile / gesamt)*100, 0)
 
-            print prozent
+            #print prozent
             self.parent.ProgressBarUpdate(prozent)
 
         self.parent.setProgressBarVisible(False)
