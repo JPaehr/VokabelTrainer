@@ -1,4 +1,5 @@
 #-*- coding: utf-8 -*-
+from __future__ import division
 __author__ = 'JPaehr'
 
 import models.base as Datenbank
@@ -8,17 +9,24 @@ import codecs
 
 class ReadVoks(object):
 
-    def __init__(self, path, IdLektion):
+    def __init__(self, parent, path, IdLektion):
         self.path = path
+        self.parent = parent
         self.idLektion = IdLektion
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
         text = open(self.path).readlines()
 
-        #test = QtGui.QMessageBox()
+        gesamt = len(text)
+        zeile = 0
+
+        self.parent.setProgressBarVisible(True)
+
+        print "bis hier ist es schnell"
 
         for lines in text:
+            zeile += 1
             voks = lines.split("\t")
             if not voks[0] == "\n":
                 #print str(voks[0]).decode('utf-8').replace(u'\ufeff', "")
@@ -30,6 +38,12 @@ class ReadVoks(object):
 
                 #print statement
                 self.datenbank.setData(statement)
+            prozent = round((zeile / gesamt)*100, 0)
+
+            print prozent
+            self.parent.ProgressBarUpdate(prozent)
+
+        self.parent.setProgressBarVisible(False)
 
 #test = ReadVoks("D:\Downloads\\tilo\jay.txt", 1)
 

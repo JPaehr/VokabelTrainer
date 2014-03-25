@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowVokabelAnlegen.ui'
 #
-# Created: Mon Mar 24 23:10:08 2014
+# Created: Tue Mar 25 17:20:55 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -89,6 +89,10 @@ class Ui_Form(object):
         self.verticalLayout_7.addWidget(self.tfFremd)
         self.horizontalLayout_4.addWidget(self.groupBox_5)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
+        self.pBFileVok = QtGui.QProgressBar(Form)
+        self.pBFileVok.setProperty("value", 24)
+        self.pBFileVok.setObjectName(_fromUtf8("pBFileVok"))
+        self.verticalLayout.addWidget(self.pBFileVok)
         self.labFelderAusfuellen = QtGui.QLabel(Form)
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -113,7 +117,7 @@ class Ui_Form(object):
         self.verticalLayout.setStretch(0, 5)
         self.verticalLayout.setStretch(1, 5)
         self.verticalLayout.setStretch(2, 5)
-        self.verticalLayout.setStretch(3, 2)
+        self.verticalLayout.setStretch(4, 2)
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.retranslateUi(Form)

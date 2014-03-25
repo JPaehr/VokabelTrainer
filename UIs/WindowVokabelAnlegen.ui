@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="5,5,5,2,0">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="5,5,5,0,2,0">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
@@ -105,6 +105,13 @@
         </widget>
        </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="pBFileVok">
+       <property name="value">
+        <number>24</number>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="labFelderAusfuellen">

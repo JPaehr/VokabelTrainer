@@ -26,15 +26,25 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
 
         self.btnAnwenden.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
         self.labFelderAusfuellen.setText("")
+
+        self.pBFileVok.hide()
         
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         self.SpracheZeichnen()
 
+    def ProgressBarUpdate(self, prozent):
+        self.pBFileVok.setValue(prozent)
+
+    def setProgressBarVisible(self, option):
+        if option:
+            self.pBFileVok.setVisible(True)
+        else:
+            self.pBFileVok.hide()
     def LoadFile(self):
         try:
             filepath = QtGui.QFileDialog.getOpenFileName(self, 'Open File', '.')
 
-            ReadVoks.ReadVoks(filepath, self.getIdLektion())
+            ReadVoks.ReadVoks(self, filepath, self.getIdLektion())
         except:
             print "Keine Datei geladen"
             print sys.exc_info()[0]
