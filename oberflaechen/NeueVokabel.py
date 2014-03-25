@@ -34,6 +34,7 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
 
     def ProgressBarUpdate(self, prozent):
         self.pBFileVok.setValue(prozent)
+        self.AnzVokabelnZeichen()
 
     def setProgressBarVisible(self, option):
         if option:
@@ -44,10 +45,15 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         try:
             filepath = QtGui.QFileDialog.getOpenFileName(self, 'Open File', '.')
 
-            ReadVoks.ReadVoks(self, filepath, self.getIdLektion())
+            test = ReadVoks.ReadVoks(self, filepath, self.getIdLektion())
+            self.connect(test, test.showBar, self.setProgressBarVisible)
+            self.connect(test, test.ProgressBarUpdate, self.ProgressBarUpdate)
+            test.start()
+
+
         except:
             print "Keine Datei geladen"
-            print sys.exc_info()[0]
+            #print sys.exc_info()[0]
 
 
         self.AnzVokabelnZeichen()

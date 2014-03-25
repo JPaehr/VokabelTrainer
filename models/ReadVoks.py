@@ -3,25 +3,31 @@ from __future__ import division
 __author__ = 'JPaehr'
 
 import models.base as Datenbank
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 import codecs
 
 
-class ReadVoks(object):
+class ReadVoks(QtCore.QThread):
 
     def __init__(self, parent, path, IdLektion):
+        super(ReadVoks, self).__init__(parent)
         self.path = path
-        self.parent = parent
+        #self.parent = parent
         self.idLektion = IdLektion
 
+        self.showBar = QtCore.SIGNAL("signal")
+        self.ProgressBarUpdate = QtCore.SIGNAL("signal")
+
+    def run(self):
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
         text = open(self.path).readlines()
 
+        self.emit(self.showBar, True)
         gesamt = len(text)
         zeile = 0
 
-        self.parent.setProgressBarVisible(True)
+        #self.parent.setProgressBarVisible(True)
 
         print "bis hier ist es schnell"
 
@@ -41,10 +47,11 @@ class ReadVoks(object):
             prozent = round((zeile / gesamt)*100, 0)
 
             #print prozent
-            self.parent.ProgressBarUpdate(prozent)
+            self.emit(self.ProgressBarUpdate, prozent)
+            #self.parent.ProgressBarUpdate(prozent)
 
-        self.parent.setProgressBarVisible(False)
-
+        #self.parent.setProgressBarVisible(False)
+        self.emit(self.showBar, False)
 #test = ReadVoks("D:\Downloads\\tilo\jay.txt", 1)
 
 #deutsch = str(self.tfDeutsch.text().toUtf8()).decode("utf-8").strip()
