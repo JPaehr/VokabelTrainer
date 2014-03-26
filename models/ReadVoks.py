@@ -43,13 +43,13 @@ class ReadVoks(QtCore.QThread):
                             "'"+fremd+"', "+str(self.idLektion)+")"
 
                 #print statement
-                self.datenbank.setData(statement)
+                self.datenbank.setDataWithoutCommit(statement)
             prozent = round((zeile / gesamt)*100, 0)
 
             #print prozent
             self.emit(self.ProgressBarUpdate, prozent)
             #self.parent.ProgressBarUpdate(prozent)
-
+        self.datenbank.commit()
         #self.parent.setProgressBarVisible(False)
         self.emit(self.showBar, False)
 #test = ReadVoks("D:\Downloads\\tilo\jay.txt", 1)
