@@ -147,6 +147,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
     def LektionZuAbfrageHinzu(self):
         self.lektions_liste.extend(self.getIdLektionen())
         self.AbfrageNeuZeichen()
+        self.lvLektionen.clearSelection()
     def AbfrageNeuZeichen(self):
         #print self.lektionsListe
         datenliste = []
@@ -155,7 +156,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             join buecher on (buecher.id=lektionen.idbuch) \
             where lektionen.id like "+str(i))
             #deutsch = str(self.tfDeutsch.text().toUtf8()).decode("utf-8").strip()
-            print daten[0][0], daten[0][1]
+            #print daten[0][0], daten[0][1]
             datenliste.append(unicode(daten[0][0])+" - "+unicode(daten[0][1]))
         
         model = Markierung.Markierung(datenliste)
@@ -209,3 +210,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             self.labAnzahlAbfragen.setText("Anzahl Abfragen: 0")
         else:
             self.labAnzahlAbfragen.setText("Anzahl Abfragen: "+str(int(counter)*int(self.tfHaeufigkeit.text())))
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Right:
+            self.LektionZuAbfrageHinzu()
