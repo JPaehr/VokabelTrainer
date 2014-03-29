@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#! python2.7
+#  -*- coding: utf-8 -*-
 """
 Created on 25.09.2013
 

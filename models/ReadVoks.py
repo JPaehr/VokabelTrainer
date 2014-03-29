@@ -23,26 +23,31 @@ class ReadVoks(QtCore.QThread):
 
         text = open(self.path).readlines()
 
-        self.emit(self.showBar, True)
+        ##self.emit(self.showBar, True)
         gesamt = len(text)
         zeile = 0
-
-        #self.parent.setProgressBarVisible(True)
-
-        print "bis hier ist es schnell"
 
         for lines in text:
             zeile += 1
             voks = lines.split("\t")
+            #print voks,
             if not voks[0] == "\n":
+                #print voks,
                 #print str(voks[0]).decode('utf-8').replace(u'\ufeff', "")
                 fremd = str(voks[0]).decode('utf-8').replace(u'\ufeff', "")
 
+                for i in range(1, len(voks)):
 
-                statement = "insert into vokabeln ('deutsch', fremd, idlektion) values ('"+str((voks[len(voks)-1]).strip('\n')).decode('utf-8')+"', " \
+                    if str((voks[len(voks)-i]).strip('\n')).decode('utf-8') == '':
+                        continue
+
+                    deutsch = str((voks[len(voks)-i]).strip('\n')).decode('utf-8')
+
+
+                statement = "insert into vokabeln ('deutsch', fremd, idlektion) values ('"+deutsch+"', " \
                             "'"+fremd+"', "+str(self.idLektion)+")"
 
-                #print statement
+                #print zeile, statement
                 self.datenbank.setDataWithoutCommit(statement)
             prozent = round((zeile / gesamt)*100, 0)
 
@@ -52,6 +57,6 @@ class ReadVoks(QtCore.QThread):
         self.datenbank.commit()
         #self.parent.setProgressBarVisible(False)
         self.emit(self.showBar, False)
-#test = ReadVoks("D:\Downloads\\tilo\jay.txt", 1)
-
+#test = ReadVoks('', "D:/Mackenbekaempfung29.0.2014/testlade.txt", 1)
+#test.run()
 #deutsch = str(self.tfDeutsch.text().toUtf8()).decode("utf-8").strip()
