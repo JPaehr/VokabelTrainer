@@ -16,5 +16,5 @@ foreign vocabulary  <tab> native language vocabulary
 
 foreign vocabulary  <tab> native language vocabulary
 
-file needs to be encoded by utf-8 
+file needs to be encoded by utf-8 without BOM
 
