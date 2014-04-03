@@ -19,12 +19,60 @@ class BuchAendern(WindowBuchAendern, QtGui.QWidget):
         self.connect(self.cBSpracheAuswaehlen, QtCore.SIGNAL("activated(int)"), self.BuecherNeuZeichen)
         self.connect(self.cbBuchAuswaehlen, QtCore.SIGNAL("activated(int)"), self.TextfeldNeuZeichen)
         self.connect(self.btnSpeichernUndSchliessen, QtCore.SIGNAL("clicked()"), self.Speichern)
-        
+        self.connect(self.btnBuchLoeschen, QtCore.SIGNAL('clicked()'), self.loeschenClicked)
+
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite") 
         
         self.SpracheNeuZeichnen()
         self.TextfeldNeuZeichen()
         self.tfNeuerName.setFocus()
+
+        #self.getIdsLektionen()
+
+    def ListeZuSql(self, liste, args):
+        statement = "where "
+        if len(liste) < 1:
+            statement += args+" like 'nix'   "
+        for i in liste:
+            statement += args+" like "+str(i)+" or "
+        return statement[:-3]
+
+    def loeschenClicked(self):
+
+        buchid = self.getIdBuch()
+        lektionenids = self.getIdsLektionen()
+        anzVokStatement = "select count(*) from vokabeln "+str(self.ListeZuSql(lektionenids, 'idlektion'))
+        anzVok = self.Datenbank.getDataAsList(anzVokStatement)[0][0]
+        #print anzVok
+        delVokStatement = "delete from vokabeln "+str(self.ListeZuSql(lektionenids, 'idlektion'))
+        delLektion = "delete from lektionen "+str(self.ListeZuSql(lektionenids, 'id'))
+        delBuch = "delete from Buecher where id like "+str(buchid)
+
+        #print anzVokStatement
+
+        box = QtGui.QMessageBox()
+        #box.setText("")
+        buchtext = str(self.cbBuchAuswaehlen.currentText()).decode('utf-8')
+        #print u"Soll das Buch "+str(str(self.cbBuchAuswaehlen.currentText()).decode('utf-8'))+u" wirklich gelöscht werden???"
+
+        box.setText(u"Soll das Buch '"+buchtext+u"' wirklich gelöscht werden?")
+
+        box.setInformativeText(u"Es werden "+str(anzVok)+u" Vokabeln gelöscht!")
+
+        #box.setStandardButtons(QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel)
+        btnJa = box.addButton(QtCore.QString(u"Ja"), QtGui.QMessageBox.AcceptRole)
+        btnNein = box.addButton(QtCore.QString(u"Nein"), QtGui.QMessageBox.RejectRole)
+        box.exec_()
+
+        if box.clickedButton() == btnJa:
+            print u"loeschen"
+            self.Datenbank.setData(delVokStatement)
+            self.Datenbank.setData(delLektion)
+            self.Datenbank.setData(delBuch)
+        elif box.clickedButton() == btnNein:
+            print u"nicht loeschen"
+        self.close()
+
     def SpracheNeuZeichnen(self):
         daten = self.Datenbank.getDataAsQStringList("select fremdsprache,id from Sprache")
         model = QtGui.QStringListModel(daten)
@@ -56,12 +104,25 @@ class BuchAendern(WindowBuchAendern, QtGui.QWidget):
         self.cbBuchAuswaehlen.setModel(model)
         self.TextfeldNeuZeichen()
     def getIdBuch(self):
-        daten = self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher \
+        statement = "select Buecher.name, Buecher.id from Buecher \
         join Sprache on (sprache.id = Buecher.id_sprache) \
         where sprache.id like '"+str(self.getIdSpracheAlt())+"' \
-        limit '"+str(self.cbBuchAuswaehlen.currentIndex())+"', '"+str(self.cbBuchAuswaehlen.currentIndex()+1)+"'")
-        
-        return daten[0][1]
+        limit '"+str(self.cbBuchAuswaehlen.currentIndex())+"', '"+str(self.cbBuchAuswaehlen.currentIndex()+1)+"'"
+        #print statement
+        daten = self.Datenbank.getDataAsList(statement)
+
+        if len(daten) > 0:
+            return daten[0][1]
+        else:
+            return []
+    def getIdsLektionen(self):
+        statement = "select lektionen.id from lektionen where idBuch like "+str(self.getIdBuch())
+        daten = self.Datenbank.getDataAsList(statement)
+        liste = list()
+        for i in daten:
+            liste.append(i[0])
+
+        return liste
         
     def TextfeldNeuZeichen(self):
         self.tfNeuerName.setText(self.cbBuchAuswaehlen.currentText())

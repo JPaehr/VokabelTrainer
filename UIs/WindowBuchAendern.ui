@@ -73,11 +73,18 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
        <item>
         <widget class="QPushButton" name="btnAbbrechen">
          <property name="text">
           <string>Abbrechen</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnBuchLoeschen">
+         <property name="text">
+          <string>Buch löschen</string>
          </property>
         </widget>
        </item>

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Johannes\Documents\Python\VokabelTrainer\UIs\WindowBuchAendern.ui'
+# Form implementation generated from reading ui file '.\UIs\WindowBuchAendern.ui'
 #
-# Created: Mon Oct 14 22:14:30 2013
+# Created: Thu Apr 03 14:08:58 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -78,11 +78,15 @@ class Ui_Form(object):
         self.btnAbbrechen = QtGui.QPushButton(Form)
         self.btnAbbrechen.setObjectName(_fromUtf8("btnAbbrechen"))
         self.horizontalLayout.addWidget(self.btnAbbrechen)
+        self.btnBuchLoeschen = QtGui.QPushButton(Form)
+        self.btnBuchLoeschen.setObjectName(_fromUtf8("btnBuchLoeschen"))
+        self.horizontalLayout.addWidget(self.btnBuchLoeschen)
         self.btnSpeichernUndSchliessen = QtGui.QPushButton(Form)
         self.btnSpeichernUndSchliessen.setObjectName(_fromUtf8("btnSpeichernUndSchliessen"))
         self.horizontalLayout.addWidget(self.btnSpeichernUndSchliessen)
         self.horizontalLayout.setStretch(0, 1)
         self.horizontalLayout.setStretch(1, 1)
+        self.horizontalLayout.setStretch(2, 1)
         self.verticalLayout_5.addLayout(self.horizontalLayout)
         self.verticalLayout_6.addLayout(self.verticalLayout_5)
 
@@ -96,5 +100,6 @@ class Ui_Form(object):
         self.groupBox_3.setTitle(_translate("Form", "Buch auswählen", None))
         self.groupBox_2.setTitle(_translate("Form", "Neuer Buchtitel", None))
         self.btnAbbrechen.setText(_translate("Form", "Abbrechen", None))
+        self.btnBuchLoeschen.setText(_translate("Form", "Buch löschen", None))
         self.btnSpeichernUndSchliessen.setText(_translate("Form", "Speichern und Schließen", None))
 
