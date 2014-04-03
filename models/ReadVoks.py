@@ -4,7 +4,7 @@ __author__ = 'JPaehr'
 
 import models.base as Datenbank
 from PyQt4 import QtGui, QtCore
-import codecs
+import models.tsvReader as Reader
 
 
 class ReadVoks(QtCore.QThread):
@@ -21,6 +21,24 @@ class ReadVoks(QtCore.QThread):
     def run(self):
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
+        model = Reader.tsvReader(self.path)
+        vokList = model.getList()
+        zeile = 0
+        gesamt = len(vokList)
+        for i in vokList:
+            zeile += 1
+            fremd = i[0]
+            deutsch = i[1]
+            statement = "insert into vokabeln ('deutsch', fremd, idlektion) values ('"+deutsch+"', " \
+                            "'"+fremd+"', "+str(self.idLektion)+")"
+
+            self.datenbank.setDataWithoutCommit(statement)
+            prozent = round((zeile / gesamt)*100, 0)
+            self.emit(self.ProgressBarUpdate, prozent)
+        self.datenbank.commit()
+        self.emit(self.showBar, False)
+
+        """
         text = open(self.path).readlines()
 
         ##self.emit(self.showBar, True)
@@ -37,12 +55,14 @@ class ReadVoks(QtCore.QThread):
                 fremd = str(voks[0]).decode('utf-8').replace(u'\ufeff', "")
 
                 for i in range(1, len(voks)):
-
+                    print "sch"
+                    print voks
                     if str((voks[len(voks)-i]).strip('\n')).decode('utf-8') == '':
+                        print "continued"
                         continue
 
                     deutsch = str((voks[len(voks)-i]).strip('\n')).decode('utf-8')
-
+                    print deutsch
 
                 statement = "insert into vokabeln ('deutsch', fremd, idlektion) values ('"+deutsch+"', " \
                             "'"+fremd+"', "+str(self.idLektion)+")"
@@ -57,6 +77,7 @@ class ReadVoks(QtCore.QThread):
         self.datenbank.commit()
         #self.parent.setProgressBarVisible(False)
         self.emit(self.showBar, False)
+        """
 #test = ReadVoks('', "D:/Mackenbekaempfung29.0.2014/testlade.txt", 1)
 #test.run()
 #deutsch = str(self.tfDeutsch.text().toUtf8()).decode("utf-8").strip()
