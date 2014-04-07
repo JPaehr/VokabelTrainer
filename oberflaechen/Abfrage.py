@@ -60,6 +60,9 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         self.font_dick.setBold(True)
         self.font_normal = QtGui.QFont()
 
+        self.inGame = True
+
+
 
         if speicher is 'None':
             open('zwischenSpeicher.fs', 'w').close()
@@ -117,7 +120,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.labBuch.setText(str(self.buch))
             self.labRichtigFalsch.setText("")
             self.labBitteEingeben.setText("Bitte eingeben")
-            self.labWeitereVokabeln.setText("Noch "+str(len(self.vokabel_ids)-self.id_aktuell-1)+" weitere Vokabeln")
+            self.labWeitereVokabeln.setText("Noch "+str(len(self.vokabel_ids)-self.id_aktuell)+" weitere Vokabeln")
 
             if self.richtung == 1:
                 self.labVokabelMeintenSie.setText(self.vokabel_deutsch)
@@ -177,7 +180,6 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         else:
             self.labPunkte.hide()
 
-
     def weitere_vokabel(self):
         """
         weitere Vokabel ziehen
@@ -218,6 +220,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             
             self.id_aktuell += 1
         else:
+            self.inGame = False
             print "fertig mit Abfragen"
             self.FortsetzenDisable()
             open("zwischenSpeicher.fs", 'w').close()
@@ -280,9 +283,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         self.labPunkte.setText(str(float(self.labPunkte.text()) + 0.5))
 
                     else:
-                        """if(len(daten) == 1):
-                            self.labMeintenSie.setText("Meinten Sie: "+unicode(daten[0][1])+" - "+unicode(daten[0][0]))
-                        """    
+
                         liste = []
                         for i in daten:
                             liste.append(unicode(i[1])+" - "+unicode(i[0]))
@@ -293,13 +294,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                             test.show()
                         if len(liste) == 1:
                             self.labMeintenSie.setText("Meinten Sie: "+unicode(liste[0]))
-                        
-                    """
-                    daten = self.Datenbank.getDataAsList(u"select fremd, deutsch from vokabeln \
-                    where fremd like '"+str(self.tfInput.text().toUtf8).decode('utf-8')+"' or deutsch like '"+str(self.tfInput.text().toUtf8()).decode("utf-8")+"'")
-                    if(len(daten) > 0):
-                        self.labMeintenSie.setText(u"Meinten Sie: "+daten[0][1]+" - "+daten[0][0])
-                        """
+
         else:
             #print "vergleich zwischen " + self.Vergeleichsfaehigkeit(self.vokabelDeutsch)
             #print self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8'))
@@ -326,11 +321,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 
                     daten = self.datenbank.getDataAsList("select fremd, deutsch from vokabeln \
                     "+ self.ListeZuSql(self.treffer.getTreffer(), " id "))
-                    
-                    """
-                    if(len(daten) > 0):
-                        self.labMeintenSie.setText("Meinten Sie: "+unicode(daten[0][0])+" - "+unicode(daten[0][1]))
-                    """
+
                     if self.treffer.directStrike():
                         #print "direkter treffer"
                         self.labRichtigFalsch.setText("fast richtig")
@@ -347,7 +338,28 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                             test.show()
                         if len(liste) == 1:
                             self.labMeintenSie.setText("Meinten Sie: "+unicode(liste[0]))
-                            
+    def closeEvent(self, event):
+
+        if self.inGame:
+            box = QtGui.QMessageBox()
+
+            boxText = "Wollen Sie die Abfrage sichern?"
+
+            box.setText(boxText)
+
+            btnJa = box.addButton(QtCore.QString(u"Ja"), QtGui.QMessageBox.AcceptRole)
+            btnNein = box.addButton(QtCore.QString(u"Nein"), QtGui.QMessageBox.RejectRole)
+            box.exec_()
+
+            if box.clickedButton() == btnJa:
+                self.SaveAndExit()
+                event.accept()
+            elif box.clickedButton() == btnNein:
+                event.accept()
+
+        else:
+            event.accept()
+
     def Vergeleichsfaehigkeit(self, kette):
         
         #print "typen type:" + str(type(kette))
