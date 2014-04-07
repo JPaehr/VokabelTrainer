@@ -14,6 +14,7 @@ from random import shuffle as zufall
 from oberflaechen.MeintenSie import MeintenSie
 from oberflaechen.Auswertung import Auswertung
 import oberflaechen.AbfrageEinstellungen
+from models.zeiten import Zeiten
 
 from models.Speicher import Speicher
 import pickle
@@ -62,6 +63,9 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         self.inGame = True
 
+        self.zeit = Zeiten(self.labZeit)
+        self.zeit.start()
+
 
 
         if speicher is 'None':
@@ -91,6 +95,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             speicher = pickle.load(file)
             file.close()
 
+            self.zeit.setTimeInSecouds(speicher.zeit)
             self.pBFortschritt.setValue(speicher.Fortschritt)
             self.distance = speicher.distance
             self.treffer = leve.Treffer(speicher.distance)
@@ -157,9 +162,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
     def SaveAndExit(self):
         #self,pBFortschritt, distance, meintenSie, verzoegerung, id_aktuell, richtige_anzeigen, richtung, labPunkte, vokIds, abfragenGesamt, lektionen_ids, lektion, vokabel_deutsch, vokabel_fremd, buch
-        print type(self.distance)
-        meinSpeicher = Speicher(self.pBFortschritt.value(), str(self.distance), str(self.meinten_sie), self.verzoegerung, self.id_aktuell, self.richtige_anzeigen, self.richtung,
-                                self.labPunkte.text(), self.vokabel_ids, self.abfragenGesamt, self.lektion_ids, self.lektion, self.vokabel_deutsch, self.vokabel_fremd, self.buch)
+        #print type(self.distance)
+        meinSpeicher = Speicher(self.pBFortschritt.value(), str(self.distance), str(self.meinten_sie), self.verzoegerung,
+                                self.id_aktuell, self.richtige_anzeigen, self.richtung, self.labPunkte.text(), self.vokabel_ids,
+                                self.abfragenGesamt, self.lektion_ids, self.lektion, self.vokabel_deutsch, self.vokabel_fremd, self.buch,
+                                self.zeit.getTimeInSeconds())
 
         f = open("zwischenSpeicher.fs", 'w')
         pickle.dump(meinSpeicher, f)
@@ -225,6 +232,12 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.FortsetzenDisable()
             open("zwischenSpeicher.fs", 'w').close()
 
+            Zeit10Voks, gewicht = self.datenbank.getDataAsList("select secPro10Vok, gewichtung from zeit")[0]
+
+            zeit10Neu = (Zeit10Voks * gewicht + self.zeit.getTimeInSeconds()/self.abfragenGesamt *10)/(gewicht + 1)
+            zeit10Neu = round(zeit10Neu, 0)
+            updateStatement = "update zeit set secPro10Vok="+str(zeit10Neu)+", gewichtung="+str(gewicht+1)+" where id like 1"
+            self.datenbank.setData(updateStatement)
 
             self.close()
             test = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids)

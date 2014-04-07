@@ -37,6 +37,9 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         
         voreinstellungen = self.datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, distanz from Einstellungen \
         where id like 1")
+
+        self.zeitPro10Voks = self.datenbank.getDataAsList("select secPro10Vok from zeit")[0][0]
+        print self.zeitPro10Voks
         
         if voreinstellungen[0][0] == "True":
             self.chBMeintenSie.setChecked(True)
@@ -53,6 +56,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.tfDistanz.setText(str(voreinstellungen[0][6]))
         
         self.richtung = voreinstellungen[0][4]
+        self.labEstTime.setWordWrap(True)
 
 
         self.SpracheZeichnen()
@@ -209,7 +213,34 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         if self.tfHaeufigkeit.text() == '':
             self.labAnzahlAbfragen.setText("Anzahl Abfragen: 0")
         else:
-            self.labAnzahlAbfragen.setText("Anzahl Abfragen: "+str(int(counter)*int(self.tfHaeufigkeit.text())))
+            mal = int(counter)*int(self.tfHaeufigkeit.text())
+            self.labAnzahlAbfragen.setText("Anzahl Abfragen: "+str(mal))
+            AbfrageZeit = mal * self.zeitPro10Voks/10
+            print AbfrageZeit
+            text = self.zeitRechner(round(AbfrageZeit, 0))
+            self.labEstTime.setText("erwartete Zeit: " +str(text))
+
+    def zeitRechner(self, inSekunden):
+        stunden, rest = divmod(inSekunden, 3600)
+        minuten, rest = divmod(rest, 60)
+        sekunden = rest
+
+        if stunden < 9:
+            stunden = "0"+str(int(stunden))
+        else:
+            stunden = int(stunden)
+
+        if minuten < 9:
+            minuten = "0"+str(int(minuten))
+        else:
+            minuten = int(minuten)
+
+        if sekunden < 9:
+            sekunden = "0"+str(int(sekunden))
+        else:
+            sekunden = int(sekunden)
+        #print str(stunden)+":"+str(minuten)+":"+str(sekunden)
+        return str((stunden))+":"+str((minuten))+":"+str((sekunden))
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_Right:

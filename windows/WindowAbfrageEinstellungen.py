@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Johannes\Documents\Python\VokabelTrainer\UIs\WindowAbfrageEinstellungen.ui'
+# Form implementation generated from reading ui file '.\UIs\WindowAbfrageEinstellungen.ui'
 #
-# Created: Wed Oct 16 16:45:21 2013
+# Created: Mon Apr 07 21:21:38 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -150,14 +150,19 @@ class Ui_Form(object):
         self.horizontalLayout_2.addWidget(self.groupBox_3)
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.widget = QtGui.QWidget(Form)
+        self.widget.setObjectName(_fromUtf8("widget"))
+        self.verticalLayout.addWidget(self.widget)
         self.labAnzahlVokabeln = QtGui.QLabel(Form)
         self.labAnzahlVokabeln.setObjectName(_fromUtf8("labAnzahlVokabeln"))
         self.verticalLayout.addWidget(self.labAnzahlVokabeln)
         self.labAnzahlAbfragen = QtGui.QLabel(Form)
         self.labAnzahlAbfragen.setObjectName(_fromUtf8("labAnzahlAbfragen"))
         self.verticalLayout.addWidget(self.labAnzahlAbfragen)
+        self.labEstTime = QtGui.QLabel(Form)
+        self.labEstTime.setObjectName(_fromUtf8("labEstTime"))
+        self.verticalLayout.addWidget(self.labEstTime)
         self.verticalLayout.setStretch(0, 8)
-        self.verticalLayout.setStretch(1, 1)
         self.horizontalLayout_2.addLayout(self.verticalLayout)
         self.horizontalLayout_2.setStretch(0, 5)
         self.horizontalLayout_2.setStretch(1, 1)
@@ -211,6 +216,7 @@ class Ui_Form(object):
         self.groupBox_3.setTitle(_translate("Form", "Gewählte Lektionen", None))
         self.labAnzahlVokabeln.setText(_translate("Form", "Anzahl Vokabeln: 0", None))
         self.labAnzahlAbfragen.setText(_translate("Form", "Anzahl Abfragen: 0", None))
+        self.labEstTime.setText(_translate("Form", "erwartete Zeit:", None))
         self.btnBuchZuAbfrage.setText(_translate("Form", "Buch zu Abfrage hinzufügen", None))
         self.btnAbbrechen.setText(_translate("Form", "Abbrechen", None))
         self.btnAbfrageStarten.setText(_translate("Form", "Abfrage starten", None))

@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrage.ui'
 #
-# Created: Thu Mar 20 14:36:56 2014
-#      by: PyQt4 UI code generator 4.9.6
+# Created: Mon Apr 07 20:39:23 2014
+#      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -35,6 +35,9 @@ class Ui_Form(object):
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.verticalLayout_9 = QtGui.QVBoxLayout()
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
+        self.labZeit = QtGui.QLabel(Form)
+        self.labZeit.setObjectName(_fromUtf8("labZeit"))
+        self.verticalLayout_9.addWidget(self.labZeit)
         self.verticalLayout_11 = QtGui.QVBoxLayout()
         self.verticalLayout_11.setObjectName(_fromUtf8("verticalLayout_11"))
         self.hilfsWidget1 = QtGui.QWidget(Form)
@@ -57,8 +60,8 @@ class Ui_Form(object):
         self.labWeitereVokabeln = LabWeitereVok(Form)
         self.labWeitereVokabeln.setObjectName(_fromUtf8("labWeitereVokabeln"))
         self.verticalLayout_9.addWidget(self.labWeitereVokabeln)
-        self.verticalLayout_9.setStretch(0, 1)
         self.verticalLayout_9.setStretch(1, 1)
+        self.verticalLayout_9.setStretch(2, 1)
         self.verticalLayout.addLayout(self.verticalLayout_9)
         self.widgetWeitereVok = QtGui.QWidget(Form)
         self.widgetWeitereVok.setMinimumSize(QtCore.QSize(0, 0))
@@ -147,6 +150,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "Abfrage", None))
+        self.labZeit.setText(_translate("Form", "Zeit", None))
         self.labWeitereVokabeln.setText(_translate("Form", "weitere Vokabeln", None))
         self.labBitteEingeben.setText(_translate("Form", "Bitte eingeben", None))
         self.labVokabelMeintenSie.setText(_translate("Form", "Vokabel", None))

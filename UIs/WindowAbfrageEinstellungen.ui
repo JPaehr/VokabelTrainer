@@ -199,7 +199,10 @@
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout" stretch="8,1">
+        <layout class="QVBoxLayout" name="verticalLayout" stretch="8,0,0,0">
+         <item>
+          <widget class="QWidget" name="widget" native="true"/>
+         </item>
          <item alignment="Qt::AlignBottom">
           <widget class="QLabel" name="labAnzahlVokabeln">
            <property name="text">
@@ -211,6 +214,13 @@
           <widget class="QLabel" name="labAnzahlAbfragen">
            <property name="text">
             <string>Anzahl Abfragen: 0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labEstTime">
+           <property name="text">
+            <string>erwartete Zeit:</string>
            </property>
           </widget>
          </item>

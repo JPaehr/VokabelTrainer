@@ -3,11 +3,13 @@ __author__ = 'JPaehr'
 
 class Speicher(object):
 
-    def __init__(self,pBFortschritt, distance, meintenSie, verzoegerung, id_aktuell, richtige_anzeigen, richtung, labPunkte, vokIds, abfragenGesamt, lektionen_ids, lektion, vokabel_deutsch, vokabel_fremd, buch):
+    def __init__(self,pBFortschritt, distance, meintenSie, verzoegerung, id_aktuell, richtige_anzeigen,
+                 richtung, labPunkte, vokIds, abfragenGesamt, lektionen_ids, lektion, vokabel_deutsch, vokabel_fremd, buch, zeit):
         self.lektion = lektion
         self.vokabel_deutsch = vokabel_deutsch
         self.vokabel_fremd = vokabel_fremd
         self.buch = buch
+        self.zeit = zeit
 
 
         self.Fortschritt = pBFortschritt
