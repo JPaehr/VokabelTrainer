@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrageEinstellungen.ui'
 #
-# Created: Tue Apr 08 20:45:22 2014
+# Created: Tue Apr 08 21:07:07 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -172,6 +172,9 @@ class Ui_Form(object):
         self.horizontalLayout_2.setStretch(2, 5)
         self.horizontalLayout_2.setStretch(3, 1)
         self.verticalLayout_10.addLayout(self.horizontalLayout_2)
+        self.labKeineLektionGewaehlt = QtGui.QLabel(Form)
+        self.labKeineLektionGewaehlt.setObjectName(_fromUtf8("labKeineLektionGewaehlt"))
+        self.verticalLayout_10.addWidget(self.labKeineLektionGewaehlt)
         self.horizontalLayout_7 = QtGui.QHBoxLayout()
         self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
         self.btnBuchZuAbfrage = QtGui.QPushButton(Form)
@@ -221,6 +224,7 @@ class Ui_Form(object):
         self.labAnzahlVokabeln.setText(_translate("Form", "Anzahl Vokabeln: 0", None))
         self.labAnzahlAbfragen.setText(_translate("Form", "Anzahl Abfragen: 0", None))
         self.labEstTime.setText(_translate("Form", "erwartete Zeit:", None))
+        self.labKeineLektionGewaehlt.setText(_translate("Form", "Es sind keine Lektionen gewählt worden. Bitte Lektion(en) hinzufügen um Abfrage starten zu können.", None))
         self.btnBuchZuAbfrage.setText(_translate("Form", "Buch zu Abfrage hinzufügen", None))
         self.btnAbbrechen.setText(_translate("Form", "Abbrechen", None))
         self.btnAbfrageStarten.setText(_translate("Form", "Abfrage starten", None))

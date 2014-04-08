@@ -9,6 +9,8 @@ from windows.WindowAbfrageEinstellungen import Ui_Form as WindowAbfrageEinstellu
 import Abfrage as Abfrage
 import models.base as Datenbank
 import models.ListModel as Markierung
+import time
+import thread
 
 
 class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
@@ -22,6 +24,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.parent = parent
         self.abfrage_einstellung = 0
         self.lektions_liste = []
+        self.labKeineLektionGewaehlt.hide()
         
         self.connect(self.btnAbbrechen, QtCore.SIGNAL("clicked()"), self.close)
         self.connect(self.cbSprache, QtCore.SIGNAL("activated(int)"), self.BuchZeichnen)
@@ -66,29 +69,38 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
         self.SpracheZeichnen()
         self.Abfragerichtung()
+
+    def showNoLectionSelected(self):
+
+        time.sleep(5)
+        self.labKeineLektionGewaehlt.hide()
+
     def FortsetzenDisable(self):
         self.parent.FortsetzenDisable()
     def FortsetzenEnable(self):
         self.parent.FortsetzenEnable()
     def AbfrageStarten(self):
         #Einstellungen Speichern
-        
-        updateStatement = "update Einstellungen set \
-        meintenSie='"+str(self.chBMeintenSie.isChecked())+"', \
-        rgva = '"+str(self.chBRichtigGeschriebeneAnzeigen.isChecked())+"', \
-        warteZeit = "+str(int(self.tfZeitWarten.text()))+", \
-        haeufigkeit = "+str(int(self.tfHaeufigkeit.text()))+", \
-        richtung = "+str(int(int(self.cBAbfragerichtung.currentIndex())+1))+", \
-        distanz = "+str(int(self.tfDistanz.text()))+",  \
-        zeitZeigen = '"+str(self.chShowTime.isChecked())+"' \
-        where id like 1"
-        self.datenbank.setData(updateStatement)
-        self.close()
+        if len(self.lektions_liste) > 0:
+            updateStatement = "update Einstellungen set \
+            meintenSie='"+str(self.chBMeintenSie.isChecked())+"', \
+            rgva = '"+str(self.chBRichtigGeschriebeneAnzeigen.isChecked())+"', \
+            warteZeit = "+str(int(self.tfZeitWarten.text()))+", \
+            haeufigkeit = "+str(int(self.tfHaeufigkeit.text()))+", \
+            richtung = "+str(int(int(self.cBAbfragerichtung.currentIndex())+1))+", \
+            distanz = "+str(int(self.tfDistanz.text()))+",  \
+            zeitZeigen = '"+str(self.chShowTime.isChecked())+"' \
+            where id like 1"
+            self.datenbank.setData(updateStatement)
+            self.close()
 
-        test = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(),
-                               self.chBMeintenSie.isChecked(), self.chBRichtigGeschriebeneAnzeigen.isChecked(),
-                               self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text(), self.chShowTime.isChecked())
-        test.show()
+            test = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(),
+                                   self.chBMeintenSie.isChecked(), self.chBRichtigGeschriebeneAnzeigen.isChecked(),
+                                   self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text(), self.chShowTime.isChecked())
+            test.show()
+        else:
+            self.labKeineLektionGewaehlt.setVisible(True)
+            thread.start_new(self.showNoLectionSelected, ())
 
     def Abfragerichtung(self):
         #1 ist von Deutsch nach Fremd, 2 von Fremd nach Deutsch

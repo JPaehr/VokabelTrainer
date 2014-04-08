@@ -236,6 +236,13 @@
       </layout>
      </item>
      <item>
+      <widget class="QLabel" name="labKeineLektionGewaehlt">
+       <property name="text">
+        <string>Es sind keine Lektionen gewählt worden. Bitte Lektion(en) hinzufügen um Abfrage starten zu können.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
         <widget class="QPushButton" name="btnBuchZuAbfrage">
