@@ -96,7 +96,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
             test = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(),
                                    self.chBMeintenSie.isChecked(), self.chBRichtigGeschriebeneAnzeigen.isChecked(),
-                                   self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text(), self.chShowTime.isChecked())
+                                   self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text())
             test.show()
         else:
             self.labKeineLektionGewaehlt.setVisible(True)
@@ -243,17 +243,17 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         minuten, rest = divmod(rest, 60)
         sekunden = rest
 
-        if stunden < 9:
+        if stunden <= 9:
             stunden = "0"+str(int(stunden))
         else:
             stunden = int(stunden)
 
-        if minuten < 9:
+        if minuten <= 9:
             minuten = "0"+str(int(minuten))
         else:
             minuten = int(minuten)
 
-        if sekunden < 9:
+        if sekunden <= 9:
             sekunden = "0"+str(int(sekunden))
         else:
             sekunden = int(sekunden)

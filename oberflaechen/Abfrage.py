@@ -38,11 +38,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
     """
     Fenster für die Abfrage
     """
-    def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, meintenSie, RichtigeAnzeigen, Richtung, distanz, showTime, speicher='None'):
+    def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, meintenSie, RichtigeAnzeigen, Richtung, distanz, speicher='None'):
         super(Abfrage, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
-        self.showTime = showTime
+        #self.showTime = showTime
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
@@ -67,12 +67,15 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         self.zeit = Zeiten(self.labZeit)
         self.zeit.start()
 
-        print "showTime: " +str(showTime)
+        self.showTime = self.datenbank.getDataAsList("select zeitZeigen from einstellungen")[0][0]
 
-        if not showTime:
+        if self.showTime == "True":
+            self.showTime = True
+        else:
+            self.showTime = False
+
+        if not self.showTime:
             self.labZeit.hide()
-            print "zeit wird versteckt!"
-
 
 
         if speicher is 'None':
@@ -103,6 +106,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             file.close()
 
             self.zeit.setTimeInSecouds(speicher.zeit)
+
             self.pBFortschritt.setValue(speicher.Fortschritt)
             self.distance = speicher.distance
             self.treffer = leve.Treffer(speicher.distance)
@@ -133,6 +137,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.labRichtigFalsch.setText("")
             self.labBitteEingeben.setText("Bitte eingeben")
             self.labWeitereVokabeln.setText("Noch "+str(len(self.vokabel_ids)-self.id_aktuell)+" weitere Vokabeln")
+            self.zeit.setRemainVok(len(self.vokabel_ids)-self.id_aktuell+1)
 
             if self.richtung == 1:
                 self.labVokabelMeintenSie.setText(self.vokabel_deutsch)
@@ -177,8 +182,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         f = open("zwischenSpeicher.fs", 'w')
         pickle.dump(meinSpeicher, f)
+        self.zeit.killThread()
         f.close()
-        print "Dumped"
 
         self.datenbank.setData("update AbfrageFortsetzen set datum = datetime() where id like 1")
 
@@ -225,8 +230,10 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             print "id_aktuell: "+ str(self.id_aktuell)
             #print "Vokabelids: "+ str(self.vokabel_ids)
 
-            print "progressbar wird gesetzt auf:", int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)), 0))
+            #print "progressbar wird gesetzt auf:", int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)), 0))
             self.pBFortschritt.setValue(int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)), 0)))
+
+            self.zeit.setRemainVok(self.abfragenGesamt-self.id_aktuell)
 
             self.tfInput.setText("")
             self.tfInput.setFocus()    
@@ -375,10 +382,12 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 self.SaveAndExit()
                 event.accept()
             elif box.clickedButton() == btnNein:
+
                 event.accept()
 
         else:
             event.accept()
+        self.zeit.killThread()
 
     def Vergeleichsfaehigkeit(self, kette):
         
