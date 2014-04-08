@@ -35,7 +35,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         
-        voreinstellungen = self.datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, distanz from Einstellungen \
+        voreinstellungen = self.datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, distanz, zeitZeigen from Einstellungen \
         where id like 1")
 
         self.zeitPro10Voks = self.datenbank.getDataAsList("select secPro10Vok from zeit")[0][0]
@@ -50,7 +50,12 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             self.chBRichtigGeschriebeneAnzeigen.setChecked(True)
         else:
             self.chBRichtigGeschriebeneAnzeigen.setChecked(False)
-        
+
+        if voreinstellungen[0][7] == "True":
+            self.chShowTime.setChecked(True)
+        else:
+            self.chShowTime.setChecked(False)
+
         self.tfZeitWarten.setText(str(voreinstellungen[0][2]))
         self.tfHaeufigkeit.setText(str(voreinstellungen[0][3]))
         self.tfDistanz.setText(str(voreinstellungen[0][6]))
@@ -74,14 +79,15 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         warteZeit = "+str(int(self.tfZeitWarten.text()))+", \
         haeufigkeit = "+str(int(self.tfHaeufigkeit.text()))+", \
         richtung = "+str(int(int(self.cBAbfragerichtung.currentIndex())+1))+", \
-        distanz = "+str(int(self.tfDistanz.text()))+" \
+        distanz = "+str(int(self.tfDistanz.text()))+",  \
+        zeitZeigen = '"+str(self.chShowTime.isChecked())+"' \
         where id like 1"
         self.datenbank.setData(updateStatement)
         self.close()
 
         test = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(),
                                self.chBMeintenSie.isChecked(), self.chBRichtigGeschriebeneAnzeigen.isChecked(),
-                               self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text())
+                               self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text(), self.chShowTime.isChecked())
         test.show()
 
     def Abfragerichtung(self):

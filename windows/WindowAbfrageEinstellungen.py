@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrageEinstellungen.ui'
 #
-# Created: Mon Apr 07 21:21:38 2014
+# Created: Tue Apr 08 20:45:22 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -60,6 +60,9 @@ class Ui_Form(object):
         self.chBRichtigGeschriebeneAnzeigen = QtGui.QCheckBox(Form)
         self.chBRichtigGeschriebeneAnzeigen.setObjectName(_fromUtf8("chBRichtigGeschriebeneAnzeigen"))
         self.verticalLayout_8.addWidget(self.chBRichtigGeschriebeneAnzeigen)
+        self.chShowTime = QtGui.QCheckBox(Form)
+        self.chShowTime.setObjectName(_fromUtf8("chShowTime"))
+        self.verticalLayout_8.addWidget(self.chShowTime)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         self.tfZeitWarten = QtGui.QLineEdit(Form)
@@ -206,6 +209,7 @@ class Ui_Form(object):
         self.groupBox_2.setTitle(_translate("Form", "Buch", None))
         self.chBMeintenSie.setText(_translate("Form", "\"Meinten Sie\" Hinweis einblenden", None))
         self.chBRichtigGeschriebeneAnzeigen.setText(_translate("Form", "richtig geschriebene Vokabeln anzeigen", None))
+        self.chShowTime.setText(_translate("Form", "Zeit anzeigen", None))
         self.label.setText(_translate("Form", "Zeit in ms warten pro Vokabel", None))
         self.label_2.setText(_translate("Form", "Häufigkeit der Abfrage", None))
         self.label_3.setText(_translate("Form", "Fehlertoleranz beim Vergleich", None))

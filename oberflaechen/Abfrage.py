@@ -38,10 +38,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
     """
     Fenster für die Abfrage
     """
-    def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, meintenSie, RichtigeAnzeigen, Richtung, distanz, speicher='None'):
+    def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, meintenSie, RichtigeAnzeigen, Richtung, distanz, showTime, speicher='None'):
         super(Abfrage, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
+        self.showTime = showTime
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
@@ -65,6 +66,12 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         self.zeit = Zeiten(self.labZeit)
         self.zeit.start()
+
+        print "showTime: " +str(showTime)
+
+        if not showTime:
+            self.labZeit.hide()
+            print "zeit wird versteckt!"
 
 
 

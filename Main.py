@@ -72,7 +72,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
         test.show()
     def AbfrageFortsetzen(self):
 
-        test = Abfrage.Abfrage(self, '', '', '', '', '', '', '', '1')
+        test = Abfrage.Abfrage(self, '', '', '', '', '', '', '', "", '1')
         test.show()
         
     def vorsichtig_sein(self):

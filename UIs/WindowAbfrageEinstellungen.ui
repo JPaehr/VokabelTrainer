@@ -63,6 +63,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QCheckBox" name="chShowTime">
+           <property name="text">
+            <string>Zeit anzeigen</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,5">
            <item>
             <widget class="QLineEdit" name="tfZeitWarten"/>
