@@ -42,7 +42,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         where id like 1")
 
         self.zeitPro10Voks = self.datenbank.getDataAsList("select secPro10Vok from zeit")[0][0]
-        print self.zeitPro10Voks
+        #print self.zeitPro10Voks
         
         if voreinstellungen[0][0] == "True":
             self.chBMeintenSie.setChecked(True)
@@ -135,14 +135,34 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         liste = []
         for i in daten:
             #Vokabeln dahinter schreiben
-            selection = self.datenbank.getDataAsList("select count(*) from vokabeln \
-            join lektionen on (lektionen.id=vokabeln.idlektion)\
-            where idlektion like "+str(i[1]))
-            liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
+
+            statement = "select count(*) from vokabeln " \
+                        "join lektionen on (lektionen.id=vokabeln.idlektion) " \
+                        "where idlektion like "+str(i[1])
+
+            selection = self.datenbank.getDataAsList(statement)
+            if not self.querySonderlektion(i[1]):
+                liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
+            else:
+                statement = "select count(*) from sondervokabeln " \
+                        "join lektionen on (lektionen.id=sondervokabeln.idsonderlektion) " \
+                        "where lektionen.id like "+str(i[1])+" " \
+                        " and lektionen.name like 'sonder%' " \
+                        "and sondervokabeln.show like 1"
+                selection = self.datenbank.getDataAsList(statement)
+                liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
+
         model = Markierung.Markierung(liste)
         self.lvLektionen.setModel(model) 
         self.lvLektionen.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
-        
+
+    def querySonderlektion(self, id):
+        statement = "select name from lektionen where id like "+str(id)
+        data = self.datenbank.getDataAsList(statement)
+        if str("sonder") in unicode(data[0][0]).lower():
+            return True
+        else:
+            return False
     
     def getIdSprache(self):
         select_sprache = "select fremdsprache, id from sprache \
@@ -213,20 +233,30 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             self.lektions_liste.pop(i)
         
         self.AbfrageNeuZeichen()
-    def AnzahlVokabelnPaint(self):
+
+    def anzVokabeln(self):
         counter = 0
         for i in self.lektions_liste:
-            counter += self.datenbank.getDataAsList("select count(*) from lektionen \
-            join vokabeln on (vokabeln.idlektion=lektionen.id) \
-            where lektionen.id like "+str(i))[0][0]
+            if not self.querySonderlektion(i):
+                statement = "select count(*) from lektionen " \
+                            "join vokabeln on (vokabeln.idlektion=lektionen.id) " \
+                            "where lektionen.id like "+str(i)
+            else:
+                statement = "select count(*) from lektionen " \
+                            "join sondervokabeln on (sondervokabeln.idsonderlektion=lektionen.id) " \
+                            "where lektionen.id like "+str(i)+" " \
+                            " and sondervokabeln.show like 1"
+                #print statement
+
+
+            counter += self.datenbank.getDataAsList(statement)[0][0]
+        return counter
+    def AnzahlVokabelnPaint(self):
+        counter = self.anzVokabeln()
         self.labAnzahlVokabeln.setText(u"Anzahl Vokabeln:"+str(counter))
         self.AnzahlAbfragenPaint()
     def AnzahlAbfragenPaint(self):
-        counter = 0
-        for i in self.lektions_liste:
-            counter += self.datenbank.getDataAsList("select count(*) from lektionen \
-            join vokabeln on (vokabeln.idlektion=lektionen.id) \
-            where lektionen.id like "+str(i))[0][0]
+        counter = self.anzVokabeln()
             
         if self.tfHaeufigkeit.text() == '':
             self.labAnzahlAbfragen.setText("Anzahl Abfragen: 0")
@@ -234,7 +264,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             mal = int(counter)*int(self.tfHaeufigkeit.text())
             self.labAnzahlAbfragen.setText("Anzahl Abfragen: "+str(mal))
             AbfrageZeit = mal * self.zeitPro10Voks/10
-            print AbfrageZeit
+            #print AbfrageZeit
             text = self.zeitRechner(round(AbfrageZeit, 0))
             self.labEstTime.setText("erwartete Zeit: " +str(text))
 
