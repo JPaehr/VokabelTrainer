@@ -11,6 +11,9 @@ class SonderFall(object):
         else:
             self.debug = True
 
+        if self.debug:
+            print "Vokabelid: " +str(self.vokabelId)
+
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         #sprache finden
 

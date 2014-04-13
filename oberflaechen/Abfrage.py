@@ -18,6 +18,7 @@ from models.zeiten import Zeiten
 
 from models.Speicher import Speicher
 import pickle
+from models.SonderLektion import SonderFall
 
 
 class ZeitThread(QtCore.QThread):
@@ -38,13 +39,15 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
     """
     Fenster für die Abfrage
     """
-    def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, meintenSie, RichtigeAnzeigen, Richtung, distanz, speicher='None'):
+    def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, meintenSie, RichtigeAnzeigen, Richtung,
+                 distanz, sonderlektion, speicher='None'):
         super(Abfrage, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
         #self.showTime = showTime
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
+        self.sonderlektion = sonderlektion
 
         self.pBFortschritt.hilfsWidgets(self.hilfsWidget1, self.hilfsWidget2)
 
@@ -106,6 +109,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             file.close()
 
             self.zeit.setTimeInSecouds(speicher.zeit)
+            self.sonderlektion = self.sonderlektion
 
             self.pBFortschritt.setValue(speicher.Fortschritt)
             self.distance = speicher.distance
@@ -178,7 +182,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         meinSpeicher = Speicher(self.pBFortschritt.value(), str(self.distance), str(self.meinten_sie), self.verzoegerung,
                                 self.id_aktuell, self.richtige_anzeigen, self.richtung, self.labPunkte.text(), self.vokabel_ids,
                                 self.abfragenGesamt, self.lektion_ids, self.lektion, self.vokabel_deutsch, self.vokabel_fremd, self.buch,
-                                self.zeit.getTimeInSeconds())
+                                self.zeit.getTimeInSeconds(), self.sonderlektion)
 
         f = open("zwischenSpeicher.fs", 'w')
         pickle.dump(meinSpeicher, f)
@@ -205,10 +209,10 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         """
         if self.id_aktuell < len(self.vokabel_ids):
 
-            daten = self.datenbank.getDataAsList("select lektionen.name, vokabeln.deutsch, vokabeln.fremd, buecher.name from vokabeln\
-            join lektionen on (lektionen.id=vokabeln.idlektion) \
-            join buecher on (buecher.id=lektionen.idBuch) \
-            where vokabeln.id like "+str(self.vokabel_ids[self.id_aktuell]))
+            daten = self.datenbank.getDataAsList("select lektionen.name, vokabeln.deutsch, vokabeln.fremd, buecher.name from vokabeln "
+                                                 "join lektionen on (lektionen.id=vokabeln.idlektion) "
+                                                 "join buecher on (buecher.id=lektionen.idBuch) "
+                                                 "where vokabeln.id like "+str(self.vokabel_ids[self.id_aktuell]))
             self.lektion = daten[0][0]
             self.vokabel_deutsch = unicode(daten[0][1])
             self.vokabel_fremd = daten[0][2]
@@ -254,17 +258,25 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.datenbank.setData(updateStatement)
 
             self.close()
-            test = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids)
+            test = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids, self.sonderlektion)
             test.show()
 
     def lektionsid_to_vokid(self, idliste, haeufigkeit):
         """
         zu lektions id gibts die Vokabelid
         """
-        vokabelIds = []    
+        vokabelIds = []
+
         for i in idliste:
-            daten = self.datenbank.getDataAsList("select vokabeln.id from vokabeln \
-            join lektionen on (vokabeln.idlektion=lektionen.id) where lektionen.id like "+str(i))
+            if not self.sonderlektion:
+                daten = self.datenbank.getDataAsList("select vokabeln.id from vokabeln "
+                                                     "join lektionen on (vokabeln.idlektion=lektionen.id) "
+                                                     "where lektionen.id like "+str(i))
+            else:
+                daten = self.datenbank.getDataAsList("select sondervokabeln.idvokabeln from sondervokabeln "
+                                                     "join lektionen on (sondervokabeln.idsonderlektion=lektionen.id) "
+                                                     "where lektionen.id like "+str(i))
+
             for n in daten:
                 for k in range(haeufigkeit):
                     vokabelIds.append(n[0])
@@ -286,7 +298,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             if self.vokabel_fremd == str(self.tfInput.text().toUtf8()).decode("utf-8"):
                 self.labRichtigFalsch.setText("Richtig")
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
+                if not self.sonderlektion:
+                    son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
+                    son.richtig()
             else:
+                if not self.sonderlektion:
+                    son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
+                    son.falsch()
                 self.labRichtigFalsch.setText("Falsch")
                 if self.richtige_anzeigen:
                     self.labBitteEingeben.setText(u"Richtig wäre: "+self.vokabel_fremd)

@@ -11,9 +11,10 @@ class Auswertung(WindowAuswertung, QtGui.QWidget):
     """
     Fenster für die Abfrage
     """
-    def __init__(self, parent, float_richtige, int_gesamtanzahl, int_liste_lektionen):
+    def __init__(self, parent, float_richtige, int_gesamtanzahl, int_liste_lektionen, sonderlektion):
         super(Auswertung, self).__init__(parent)
         self.parent = parent
+        self.sonderlektion = sonderlektion
         QtGui.QWidget.__init__(self)
         self.setupUi(self)
         self.connect(self.PbSchliessen, QtCore.SIGNAL("clicked()"), self.fenster_schliessen)
@@ -27,11 +28,13 @@ class Auswertung(WindowAuswertung, QtGui.QWidget):
             self.labInProz.setText("Das entspricht "+str(float_anzahl_richtiger_prozent)+"%")
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
+
         insert = "insert into Statistik (datum, richtig, gesamt, lektionen) \
         values ('"+str(Datum.date.today())+"', '"+str(float_richtige)+"',  '"+str(int_gesamtanzahl)+"',  \
         '"+str(self.__liste_to_string(int_liste_lektionen))+"')"
 
-        self.datenbank.setData(insert)
+        if not self.sonderlektion:
+            self.datenbank.setData(insert)
 
     def statistik_aufrufen(self):
         self.close()

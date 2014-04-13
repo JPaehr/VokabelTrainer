@@ -37,6 +37,9 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.connect(self.btnBuchZuAbfrage, QtCore.SIGNAL("clicked()"), self.BuchZuAbfrageHinzu)
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
+
+        self.sonderCheck = False #keine Sondervokabeln dabei
+        self.normalCheck = False #keine normalen Vokabeln dabei
         
         voreinstellungen = self.datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, distanz, zeitZeigen from Einstellungen \
         where id like 1")
@@ -70,7 +73,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.SpracheZeichnen()
         self.Abfragerichtung()
 
-    def showNoLectionSelected(self):
+    def showBottomWidget(self):
 
         time.sleep(5)
         self.labKeineLektionGewaehlt.hide()
@@ -96,11 +99,12 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
             test = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(),
                                    self.chBMeintenSie.isChecked(), self.chBRichtigGeschriebeneAnzeigen.isChecked(),
-                                   self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text())
+                                   self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text(), self.sonderCheck)
             test.show()
         else:
             self.labKeineLektionGewaehlt.setVisible(True)
-            thread.start_new(self.showNoLectionSelected, ())
+            self.labKeineLektionGewaehlt.setText(u"Es sind keine Lektionen gewählt worden. Bitte Lektion(en) hinzufügen um Abfrage starten zu können.")
+            thread.start_new(self.showBottomWidget, ())
 
     def Abfragerichtung(self):
         #1 ist von Deutsch nach Fremd, 2 von Fremd nach Deutsch
@@ -187,20 +191,41 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             liste.append(daten[i.row()][1])
         return liste
     def LektionZuAbfrageHinzu(self):
-        self.lektions_liste.extend(self.getIdLektionen())
-        self.AbfrageNeuZeichen()
-        self.lvLektionen.clearSelection()
+        #print self.getIdLektionen()
+        for i in self.getIdLektionen():
+            if not self.querySonderlektion(i):
+                self.normalCheck = True
+            else:
+                self.sonderCheck = True
+
+        if (self.normalCheck and not self.sonderCheck) or self.sonderCheck and not self.normalCheck:
+            self.lektions_liste.extend(self.getIdLektionen())
+            #print self.lektions_liste
+            self.AbfrageNeuZeichen()
+            self.lvLektionen.clearSelection()
+        else:
+            self.labKeineLektionGewaehlt.setVisible(True)
+            self.labKeineLektionGewaehlt.setText(u"Sonderlektionen können nicht mit normalen Lektionen vermischt werden!")
+            thread.start_new(self.showBottomWidget, ())
     def AbfrageNeuZeichen(self):
         #print self.lektionsListe
         datenliste = []
         for i in self.lektions_liste:
-            daten = self.datenbank.getDataAsList("select Buecher.name, lektionen.name from lektionen \
-            join buecher on (buecher.id=lektionen.idbuch) \
-            where lektionen.id like "+str(i))
+            daten = self.datenbank.getDataAsList("select Buecher.name, lektionen.name from lektionen "
+                                                 "join buecher on (buecher.id=lektionen.idbuch) "
+                                                 "where lektionen.id like "+str(i))
             #deutsch = str(self.tfDeutsch.text().toUtf8()).decode("utf-8").strip()
             #print daten[0][0], daten[0][1]
             datenliste.append(unicode(daten[0][0])+" - "+unicode(daten[0][1]))
-        
+        #Checks neu lesen
+        self.sonderCheck = False
+        self.normalCheck = False
+        for i in self.getIdLektionen():
+            if not self.querySonderlektion(i):
+                self.normalCheck = True
+            else:
+                self.sonderCheck = True
+
         model = Markierung.Markierung(datenliste)
         self.lvGewaehlteLektionen.setModel(model)
         self.lvGewaehlteLektionen.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
@@ -229,6 +254,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         pop_liste = []
         for i in reversed(self.lvGewaehlteLektionen.selectedIndexes()):
             pop_liste.append(i.row())
+        #print pop_liste
         for i in pop_liste:
             self.lektions_liste.pop(i)
         
