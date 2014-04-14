@@ -231,18 +231,49 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.lvGewaehlteLektionen.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
         self.AnzahlVokabelnPaint()
     def BuchZuAbfrageHinzu(self):
-        daten = self.datenbank.getDataAsList("select lektionen.id from buecher \
-        join Lektionen on (lektionen.idbuch = buecher.id) \
-        where buecher.id like "+str(self.getIdBuch()))
+        daten = self.datenbank.getDataAsList("select lektionen.id from buecher "
+                                             "join Lektionen on (lektionen.idbuch = buecher.id) "
+                                             "where buecher.id like "+str(self.getIdBuch()))
         liste_zum_hinzufuegen = []
-        for i in daten:
-            liste_zum_hinzufuegen.append(i[0])
-        
-        self.lektions_liste.extend(liste_zum_hinzufuegen)
-        #print self.lektionsListe
-        
-        self.AbfrageNeuZeichen()
-        
+
+        statement = "select buecher.name from buecher " \
+                    "where id like "+str(self.getIdBuch())
+        buchname = self.datenbank.getDataAsList(statement)[0][0]
+        if str(buchname).lower()[:6] == "sonder":
+
+            sonderbuch = True
+        else:
+            sonderbuch = False
+        print "sondercheck: "+str(self.sonderCheck)
+        print "sonderbuch: "+str(sonderbuch)
+        print "normalCheck: "+str(self.normalCheck)
+
+        if not self.sonderCheck and not sonderbuch:
+
+            for i in daten:
+                liste_zum_hinzufuegen.append(i[0])
+
+            self.lektions_liste.extend(liste_zum_hinzufuegen)
+            #print self.lektionsListe
+
+            self.AbfrageNeuZeichen()
+            self.normalCheck = True
+        elif not self.normalCheck and sonderbuch:
+            for i in daten:
+                liste_zum_hinzufuegen.append(i[0])
+
+            self.lektions_liste.extend(liste_zum_hinzufuegen)
+            #print self.lektionsListe
+
+            self.AbfrageNeuZeichen()
+            self.sonderCheck = True
+        else:
+            self.labKeineLektionGewaehlt.setVisible(True)
+            self.labKeineLektionGewaehlt.setText(u"Sonderlektionen können nicht mit normalen Lektionen vermischt werden!")
+            thread.start_new(self.showBottomWidget, ())
+
+
+
     def ListeZuSql(self, liste, args):
         statement = "where "
         if len(liste) < 1:
