@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrage.ui'
 #
-# Created: Mon Apr 07 20:39:23 2014
+# Created: Mon Apr 14 08:44:19 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,7 +35,7 @@ class Ui_Form(object):
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.verticalLayout_9 = QtGui.QVBoxLayout()
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
-        self.labZeit = QtGui.QLabel(Form)
+        self.labZeit = CLabel(Form)
         self.labZeit.setObjectName(_fromUtf8("labZeit"))
         self.verticalLayout_9.addWidget(self.labZeit)
         self.verticalLayout_11 = QtGui.QVBoxLayout()
@@ -166,5 +166,6 @@ class Ui_Form(object):
         self.btnSaveExit.setText(_translate("Form", "speichern und beenden", None))
         self.btnWeiter.setText(_translate("Form", "weiter", None))
 
-from models.Progressbar import Progressbar
+from models.CLabel import CLabel
 from models.LabWeitereVok import LabWeitereVok
+from models.Progressbar import Progressbar

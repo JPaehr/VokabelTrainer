@@ -21,7 +21,7 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,1,1">
          <item>
-          <widget class="QLabel" name="labZeit">
+          <widget class="CLabel" name="labZeit">
            <property name="text">
             <string>Zeit</string>
            </property>
@@ -229,6 +229,11 @@
    <class>LabWeitereVok</class>
    <extends>QLabel</extends>
    <header>models.LabWeitereVok</header>
+  </customwidget>
+  <customwidget>
+   <class>CLabel</class>
+   <extends>QLabel</extends>
+   <header>models.CLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

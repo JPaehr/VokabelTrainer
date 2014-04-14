@@ -45,6 +45,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
         #self.showTime = showTime
+        self.labZeit.setParent(self)
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         self.sonderlektion = sonderlektion
