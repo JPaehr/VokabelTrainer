@@ -136,12 +136,24 @@
      <string>Datei</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuEinstellungen">
+    <property name="title">
+     <string>Einstellungen</string>
+    </property>
+    <addaction name="actionMindestuebereinstimmung"/>
+   </widget>
    <addaction name="menuDateu"/>
+   <addaction name="menuEinstellungen"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionStatistik">
    <property name="text">
     <string>Statistik</string>
+   </property>
+  </action>
+  <action name="actionMindestuebereinstimmung">
+   <property name="text">
+    <string>Mindestübereinstimmung</string>
    </property>
   </action>
  </widget>

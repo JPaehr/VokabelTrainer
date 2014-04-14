@@ -26,6 +26,7 @@ import oberflaechen.Statistik as Statistik
 import models.base as Datenbank
 import oberflaechen.Abfrage as Abfrage
 import models.base as Datenbank
+import oberflaechen.EinstellungenMindestTreffer as EinstellungenMindestTreffer
 
 
 class Programm(MainWindow, QtGui.QMainWindow):
@@ -46,6 +47,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.connect(self.btnStatistik, QtCore.SIGNAL("clicked()"), self.statistik_oeffnen)
         self.connect(self.btnFortsetzen, QtCore.SIGNAL("clicked()"), self.AbfrageFortsetzen)
 
+        self.actionMindestuebereinstimmung.triggered.connect(self.MinFit)
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
 
@@ -128,6 +130,10 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.btnFortsetzen.setEnabled(True)
         text = self.datenbank.getDataAsList('select datum from AbfrageFortsetzen where id like 1')
         self.btnFortsetzen.setToolTip(str(text[0][0]))
+
+    def MinFit(self):
+        test = EinstellungenMindestTreffer.MindestTreffer(self)
+        test.show()
 
 app = QtGui.QApplication(sys.argv) 
 dialog = Programm() 

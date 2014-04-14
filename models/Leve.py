@@ -12,7 +12,7 @@ class Treffer(object):
     def __init__(self, distanz):
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         self.distanz = distanz
-    
+        self.minTreffer = self.Datenbank.getDataAsList("select mindesttreffer from Einstellungen")[0][0]
     def setAktVergleich(self, liste, wort, ids, richtung):
         #print "Akutelle id "+str(ids)
         #liste vokabeln und id
@@ -38,13 +38,13 @@ class Treffer(object):
         #print "vergleich zwischen "+str(daten[0][1]) +" und "+str(self.wort)
         
         if self.richtung == 1:
-            if leve.distance(daten[0][1], self.wort) <= int(self.distanz) and leve.jaro(daten[0][1], self.wort) > 0.7:
+            if leve.distance(daten[0][1], self.wort) <= int(self.distanz) and leve.jaro(daten[0][1], self.wort) > round((self.minTreffer/100), 2):
                 self.direktTreffer = True
                 #print self.ids
                 return [self.ids]
         else:
             if leve.distance(self.Vergeleichsfaehigkeit(daten[0][0]), self.Vergeleichsfaehigkeit(self.wort)) <= int(self.distanz) \
-                    and leve.jaro(self.Vergeleichsfaehigkeit(daten[0][0]), self.Vergeleichsfaehigkeit(self.wort)) > 0.7:
+                    and leve.jaro(self.Vergeleichsfaehigkeit(daten[0][0]), self.Vergeleichsfaehigkeit(self.wort)) > round((self.minTreffer/100), 2):
                 #print "Leven Vergleich zwischen "+ str(daten[0][0])+ " und "+ str(self.wort)
                 self.direktTreffer = True
                 #print self.id

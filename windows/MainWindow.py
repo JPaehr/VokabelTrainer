@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\MainWindow.ui'
 #
-# Created: Sat Mar 22 23:06:12 2014
-#      by: PyQt4 UI code generator 4.9.6
+# Created: Mon Apr 14 19:05:09 2014
+#      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -91,13 +91,19 @@ class Ui_MainWindow(object):
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuDateu = QtGui.QMenu(self.menubar)
         self.menuDateu.setObjectName(_fromUtf8("menuDateu"))
+        self.menuEinstellungen = QtGui.QMenu(self.menubar)
+        self.menuEinstellungen.setObjectName(_fromUtf8("menuEinstellungen"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
         self.actionStatistik = QtGui.QAction(MainWindow)
         self.actionStatistik.setObjectName(_fromUtf8("actionStatistik"))
+        self.actionMindestuebereinstimmung = QtGui.QAction(MainWindow)
+        self.actionMindestuebereinstimmung.setObjectName(_fromUtf8("actionMindestuebereinstimmung"))
+        self.menuEinstellungen.addAction(self.actionMindestuebereinstimmung)
         self.menubar.addAction(self.menuDateu.menuAction())
+        self.menubar.addAction(self.menuEinstellungen.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -117,5 +123,7 @@ class Ui_MainWindow(object):
         self.btnLektionbearbeiten.setText(_translate("MainWindow", "Lektionen bearbeiten", None))
         self.btnBuecherBearbeiten.setText(_translate("MainWindow", "Bücher bearbeiten", None))
         self.menuDateu.setTitle(_translate("MainWindow", "Datei", None))
+        self.menuEinstellungen.setTitle(_translate("MainWindow", "Einstellungen", None))
         self.actionStatistik.setText(_translate("MainWindow", "Statistik", None))
+        self.actionMindestuebereinstimmung.setText(_translate("MainWindow", "Mindestübereinstimmung", None))
 
