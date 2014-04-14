@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrage.ui'
 #
-# Created: Mon Apr 14 08:44:19 2014
+# Created: Mon Apr 14 17:20:44 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -38,6 +38,9 @@ class Ui_Form(object):
         self.labZeit = CLabel(Form)
         self.labZeit.setObjectName(_fromUtf8("labZeit"))
         self.verticalLayout_9.addWidget(self.labZeit)
+        self.labZeitEinblenden = CLabel(Form)
+        self.labZeitEinblenden.setObjectName(_fromUtf8("labZeitEinblenden"))
+        self.verticalLayout_9.addWidget(self.labZeitEinblenden)
         self.verticalLayout_11 = QtGui.QVBoxLayout()
         self.verticalLayout_11.setObjectName(_fromUtf8("verticalLayout_11"))
         self.hilfsWidget1 = QtGui.QWidget(Form)
@@ -60,8 +63,8 @@ class Ui_Form(object):
         self.labWeitereVokabeln = LabWeitereVok(Form)
         self.labWeitereVokabeln.setObjectName(_fromUtf8("labWeitereVokabeln"))
         self.verticalLayout_9.addWidget(self.labWeitereVokabeln)
-        self.verticalLayout_9.setStretch(1, 1)
         self.verticalLayout_9.setStretch(2, 1)
+        self.verticalLayout_9.setStretch(3, 1)
         self.verticalLayout.addLayout(self.verticalLayout_9)
         self.widgetWeitereVok = QtGui.QWidget(Form)
         self.widgetWeitereVok.setMinimumSize(QtCore.QSize(0, 0))
@@ -151,6 +154,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "Abfrage", None))
         self.labZeit.setText(_translate("Form", "Zeit", None))
+        self.labZeitEinblenden.setText(_translate("Form", "Zeit einblenden", None))
         self.labWeitereVokabeln.setText(_translate("Form", "weitere Vokabeln", None))
         self.labBitteEingeben.setText(_translate("Form", "Bitte eingeben", None))
         self.labVokabelMeintenSie.setText(_translate("Form", "Vokabel", None))

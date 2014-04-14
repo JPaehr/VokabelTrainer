@@ -46,6 +46,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         self.setupUi(self)
         #self.showTime = showTime
         self.labZeit.setParent(self)
+        self.labZeitEinblenden.setParent(self)
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         self.sonderlektion = sonderlektion
@@ -75,11 +76,16 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         if self.showTime == "True":
             self.showTime = True
+
         else:
             self.showTime = False
 
         if not self.showTime:
+            self.zeitSichtbar = False
             self.labZeit.hide()
+        else:
+            self.zeitSichtbar = True
+            self.labZeitEinblenden.hide()
 
 
         if speicher is 'None':
@@ -170,6 +176,20 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         if speicher is 'None':
             self.weitere_vokabel()
+    def zeitSwitch(self):
+        if self.zeitSichtbar:
+            #unsichtbar machen
+
+            self.labZeitEinblenden.setVisible(True)
+            self.labZeit.hide()
+            self.zeitSichtbar = False
+
+        else:
+            #zeit einblenden
+
+            self.labZeit.setVisible(True)
+            self.labZeitEinblenden.hide()
+            self.zeitSichtbar = True
 
     def sichtbarBar(self):
         if self.cBBar.checkState():

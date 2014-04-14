@@ -6,7 +6,7 @@ class CLabel(QtGui.QLabel):
         QtGui.QLabel.__init__(self, Form)
 
     def mousePressEvent(self, QMouseEvent):
-        self.parent.labZeit.hide()
-
+        self.parent.zeitSwitch()
+        #print "ZeitenSwitch aufgerufen"
     def setParent(self, parent):
         self.parent = parent
