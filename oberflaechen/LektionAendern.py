@@ -55,7 +55,7 @@ class LektionAendern(WindowLektionAendern, QtGui.QWidget):
         lektionsText = unicode(self.cbLektionAuswaehlen.currentText())
         #print "lektionsName: "+str(lektionsText)
 
-        box.setText(u"Soll das Buch '"+lektionsText+u"' wirklich gelöscht werden?")
+        box.setText(u"Soll die Lektion '"+lektionsText+u"' wirklich gelöscht werden?")
 
         box.setInformativeText(u"Es werden "+str(anzVok)+u" Vokabeln gelöscht!")
 
