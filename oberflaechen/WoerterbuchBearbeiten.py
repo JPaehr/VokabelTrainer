@@ -23,6 +23,9 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         self.connect(self.cBSprache, QtCore.SIGNAL("activated(int)"), self.BuchMachen)
         self.connect(self.cBBuch, QtCore.SIGNAL("activated(int)"), self.LektionMachen)
         self.connect(self.btnAnwenden, QtCore.SIGNAL("clicked()"), self.neuenSatzSpeichern)
+        #self.connect(self.btnVokabelLoeschen, QtCore.SIGNAL("clicked()"), self.delWithoutClose)
+        self.connect(self.btnVokabelLoeschenUSchliessen, QtCore.SIGNAL("clicked()"), self.delWithClose)
+
         
         
         statement = "select Buecher.id, Lektionen.id, vokabeln.id, sprache.id from sprache \
@@ -41,6 +44,40 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         vokabeln = self.Datenbank.getDataAsList("select deutsch, fremd from vokabeln where id like "+str(self.VokabelID))
         self.tfDeutsch.setText(vokabeln[0][0])
         self.tfFremd.setText(vokabeln[0][1])
+    def vokLoeschen(self, close=False):
+
+
+        delVokStatement = "delete from vokabeln where id like "+str(self.vokabelid)
+
+        box = QtGui.QMessageBox()
+        #box.setText("")
+        #print unicode(self.cbLektionAuswaehlen.currentText())
+        vokabelText = unicode(self.tfDeutsch.text()) + u" - " +unicode(self.tfFremd.text())
+        #print "lektionsName: "+str(lektionsText)
+
+        box.setText(u"Soll die Vokabel '"+vokabelText+u"' wirklich gelöscht werden?")
+
+        #box.setInformativeText(u"Es werden "+str(anzVok)+u" Vokabeln gelöscht!")
+
+        #box.setStandardButtons(QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel)
+        btnJa = box.addButton(QtCore.QString(u"Ja"), QtGui.QMessageBox.AcceptRole)
+        btnNein = box.addButton(QtCore.QString(u"Nein"), QtGui.QMessageBox.RejectRole)
+        box.exec_()
+
+        if box.clickedButton() == btnJa:
+            print u"loeschen"
+            self.Datenbank.setData(delVokStatement)
+
+            if close:
+                self.close()
+                self.parent.TabelleNeuZeichnen()
+        elif box.clickedButton() == btnNein:
+            print u"nicht loeschen"
+
+
+    def delWithClose(self):
+        self.vokLoeschen(True)
+
     def SpracheMachen(self):
         statementSprache = "select Sprache.Fremdsprache from Sprache"
         daten = self.Datenbank.getDataAsQStringList(statementSprache)

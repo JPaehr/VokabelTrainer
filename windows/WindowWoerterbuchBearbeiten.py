@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowWoerterbuchBearbeiten.ui'
 #
-# Created: Sat Mar 22 23:01:10 2014
-#      by: PyQt4 UI code generator 4.9.6
+# Created: Tue Apr 15 14:53:58 2014
+#      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -83,6 +83,9 @@ class Ui_Form(object):
         self.btnAbbrechen = QtGui.QPushButton(Form)
         self.btnAbbrechen.setObjectName(_fromUtf8("btnAbbrechen"))
         self.horizontalLayout_2.addWidget(self.btnAbbrechen)
+        self.btnVokabelLoeschenUSchliessen = QtGui.QPushButton(Form)
+        self.btnVokabelLoeschenUSchliessen.setObjectName(_fromUtf8("btnVokabelLoeschenUSchliessen"))
+        self.horizontalLayout_2.addWidget(self.btnVokabelLoeschenUSchliessen)
         self.btnAnwenden = QtGui.QPushButton(Form)
         self.btnAnwenden.setObjectName(_fromUtf8("btnAnwenden"))
         self.horizontalLayout_2.addWidget(self.btnAnwenden)
@@ -99,5 +102,6 @@ class Ui_Form(object):
         self.groupBox_4.setTitle(_translate("Form", "Deutsch", None))
         self.groupBox_5.setTitle(_translate("Form", "Fremdsprache", None))
         self.btnAbbrechen.setText(_translate("Form", "Abbrechen", None))
+        self.btnVokabelLoeschenUSchliessen.setText(_translate("Form", "Vokabeln löschen und schließen", None))
         self.btnAnwenden.setText(_translate("Form", "Anwenden", None))
 

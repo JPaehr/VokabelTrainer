@@ -98,6 +98,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="btnVokabelLoeschenUSchliessen">
+       <property name="text">
+        <string>Vokabeln löschen und schließen</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="btnAnwenden">
        <property name="text">
         <string>Anwenden</string>
