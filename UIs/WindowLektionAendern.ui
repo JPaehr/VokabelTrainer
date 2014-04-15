@@ -105,6 +105,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="btnLektionloeschenUSchliessen">
+         <property name="text">
+          <string>Lektion löschen und schließen</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="btnSpeichernUndSchliessen">
          <property name="text">
           <string>Speichern und Schließen</string>

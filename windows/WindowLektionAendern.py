@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowLektionAendern.ui'
 #
-# Created: Mon Apr 14 17:32:41 2014
+# Created: Tue Apr 15 10:58:39 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -90,6 +90,9 @@ class Ui_Form(object):
         self.btnLektionLoeschen = QtGui.QPushButton(Form)
         self.btnLektionLoeschen.setObjectName(_fromUtf8("btnLektionLoeschen"))
         self.horizontalLayout.addWidget(self.btnLektionLoeschen)
+        self.btnLektionloeschenUSchliessen = QtGui.QPushButton(Form)
+        self.btnLektionloeschenUSchliessen.setObjectName(_fromUtf8("btnLektionloeschenUSchliessen"))
+        self.horizontalLayout.addWidget(self.btnLektionloeschenUSchliessen)
         self.btnSpeichernUndSchliessen = QtGui.QPushButton(Form)
         self.btnSpeichernUndSchliessen.setObjectName(_fromUtf8("btnSpeichernUndSchliessen"))
         self.horizontalLayout.addWidget(self.btnSpeichernUndSchliessen)
@@ -108,5 +111,6 @@ class Ui_Form(object):
         self.groupBox_2.setTitle(_translate("Form", "Neuer Lektionsname", None))
         self.btnAbbrechen.setText(_translate("Form", "Abbrechen", None))
         self.btnLektionLoeschen.setText(_translate("Form", "Lektion löschen", None))
+        self.btnLektionloeschenUSchliessen.setText(_translate("Form", "Lektion löschen und schließen", None))
         self.btnSpeichernUndSchliessen.setText(_translate("Form", "Speichern und Schließen", None))
 
