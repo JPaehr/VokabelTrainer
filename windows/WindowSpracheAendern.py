@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Johannes\Documents\Python\VokabelTrainer\UIs\WindowSpracheAendern.ui'
+# Form implementation generated from reading ui file '.\UIs\WindowSpracheAendern.ui'
 #
-# Created: Mon Oct 14 22:16:59 2013
+# Created: Wed Apr 16 09:51:09 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -52,6 +52,9 @@ class Ui_Form(object):
         self.btnAbbrechen = QtGui.QPushButton(Form)
         self.btnAbbrechen.setObjectName(_fromUtf8("btnAbbrechen"))
         self.horizontalLayout.addWidget(self.btnAbbrechen)
+        self.btnLoeschenUSchliessen = QtGui.QPushButton(Form)
+        self.btnLoeschenUSchliessen.setObjectName(_fromUtf8("btnLoeschenUSchliessen"))
+        self.horizontalLayout.addWidget(self.btnLoeschenUSchliessen)
         self.btnSpeichernUndSchliessen = QtGui.QPushButton(Form)
         self.btnSpeichernUndSchliessen.setObjectName(_fromUtf8("btnSpeichernUndSchliessen"))
         self.horizontalLayout.addWidget(self.btnSpeichernUndSchliessen)
@@ -66,5 +69,6 @@ class Ui_Form(object):
         self.groupBox.setTitle(_translate("Form", "Sprache auswählen", None))
         self.groupBox_2.setTitle(_translate("Form", "Neuer Name", None))
         self.btnAbbrechen.setText(_translate("Form", "Abbrechen", None))
+        self.btnLoeschenUSchliessen.setText(_translate("Form", "löschen und schließen", None))
         self.btnSpeichernUndSchliessen.setText(_translate("Form", "Speichern und Schließen", None))
 
