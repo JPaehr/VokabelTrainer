@@ -13,9 +13,13 @@ class MindestTreffer(WindowMindestTreffer, QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
 
-        self.connect(self.lENeuerWert, QtCore.SIGNAL("textChanged(QString)"), self.newPaint)
+        self.connect(self.lENeuerWert, QtCore.SIGNAL("textChanged(QString)"), self.updateHSlider)
+        self.connect(self.hSNeuerWert, QtCore.SIGNAL("actionTriggered(int)"), self.updateLineEdit)
         self.connect(self.btnAbbrechen, QtCore.SIGNAL("clicked()"), self.abbrechen)
         self.connect(self.btnSpeichernUSchliessen, QtCore.SIGNAL("clicked()"), self.speichernUSchiessen)
+
+        self.hSNeuerWert.setMinimum(50)
+        self.hSNeuerWert.setMaximum(100)
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
@@ -27,6 +31,25 @@ class MindestTreffer(WindowMindestTreffer, QtGui.QWidget):
         self.newPaint()
     def abbrechen(self):
         self.close()
+    def updateLineEdit(self):
+        #wert vom slider uebernehmen
+        #self.lENeuerWert.setText()
+
+        self.lENeuerWert.setText(str(self.hSNeuerWert.value()))
+
+        self.newPaint()
+    def updateHSlider(self):
+        #wert von LineEdit uebernehmen
+        try:
+            if self.lENeuerWert.text() == "":
+                zielwert = 0
+            else:
+                zielwert = self.lENeuerWert.text()
+            self.hSNeuerWert.setValue(int(zielwert))
+        except:
+            print "User wieder zu daemlich"
+        self.newPaint()
+
     def speichernUSchiessen(self):
         try:
 
@@ -46,10 +69,10 @@ class MindestTreffer(WindowMindestTreffer, QtGui.QWidget):
         teil1 = text[:int(round(len(text)*self.minTrefferAlt/100, 0))]
         teil2 = text[int(round(len(text)*self.minTrefferAlt/100, 0)):]
         #self.labText.setText("<font color='red'>Some text</font><font color='blue'>Some text</font>")
-        first1 = "<font color='red'>"
+        first1 = "<font color='green'>"
         last1 = "</font>"
 
-        first2 = "<font color='green'>"
+        first2 = "<font color='red'>"
         self.labTextAlt.setText(first1+teil1+last1+first2+teil2+last1)
 
 
@@ -57,8 +80,8 @@ class MindestTreffer(WindowMindestTreffer, QtGui.QWidget):
         teil1 = text[:int(round(len(text)*int(self.lENeuerWert.text())/100, 0))]
         teil2 = text[int(round(len(text)*int(self.lENeuerWert.text())/100, 0)):]
         #self.labText.setText("<font color='red'>Some text</font><font color='blue'>Some text</font>")
-        first1 = "<font color='red'>"
+        first1 = "<font color='green'>"
         last1 = "</font>"
 
-        first2 = "<font color='green'>"
+        first2 = "<font color='red'>"
         self.labTextNeu.setText(first1+teil1+last1+first2+teil2+last1)

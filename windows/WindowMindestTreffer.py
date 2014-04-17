@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowMindestTreffer.ui'
 #
-# Created: Mon Apr 14 19:02:05 2014
+# Created: Thu Apr 17 10:24:57 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName(_fromUtf8("Form"))
-        Form.resize(549, 217)
+        Form.resize(553, 238)
         self.verticalLayout = QtGui.QVBoxLayout(Form)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
@@ -38,6 +38,10 @@ class Ui_Form(object):
         self.lENeuerWert.setObjectName(_fromUtf8("lENeuerWert"))
         self.horizontalLayout_2.addWidget(self.lENeuerWert)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.hSNeuerWert = QtGui.QSlider(Form)
+        self.hSNeuerWert.setOrientation(QtCore.Qt.Horizontal)
+        self.hSNeuerWert.setObjectName(_fromUtf8("hSNeuerWert"))
+        self.verticalLayout.addWidget(self.hSNeuerWert)
         self.verticalLayout_2 = QtGui.QVBoxLayout()
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.groupBox = QtGui.QGroupBox(Form)

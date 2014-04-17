@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>549</width>
-    <height>217</height>
+    <width>553</width>
+    <height>238</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,6 +27,13 @@
       <widget class="QLineEdit" name="lENeuerWert"/>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QSlider" name="hSNeuerWert">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
