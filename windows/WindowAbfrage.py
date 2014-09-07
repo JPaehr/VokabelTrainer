@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrage.ui'
 #
-# Created: Mon Apr 14 17:20:44 2014
+# Created: Sun Sep 07 20:40:36 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -74,6 +74,9 @@ class Ui_Form(object):
         self.labBitteEingeben.setObjectName(_fromUtf8("labBitteEingeben"))
         self.verticalLayout.addWidget(self.labBitteEingeben)
         self.labVokabelMeintenSie = QtGui.QLabel(Form)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.labVokabelMeintenSie.setFont(font)
         self.labVokabelMeintenSie.setObjectName(_fromUtf8("labVokabelMeintenSie"))
         self.verticalLayout.addWidget(self.labVokabelMeintenSie)
         self.labMeintenSie = QtGui.QLabel(Form)
