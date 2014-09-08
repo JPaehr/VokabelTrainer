@@ -27,6 +27,7 @@ import models.base as Datenbank
 import oberflaechen.Abfrage as Abfrage
 import models.base as Datenbank
 import oberflaechen.EinstellungenMindestTreffer as EinstellungenMindestTreffer
+from models.InfoThreadMainWindow import InfoThreadMainWindow
 
 
 class Programm(MainWindow, QtGui.QMainWindow):
@@ -46,8 +47,10 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.connect(self.btnLektionbearbeiten, QtCore.SIGNAL("clicked()"), self.lektioen_aendern)
         self.connect(self.btnStatistik, QtCore.SIGNAL("clicked()"), self.statistik_oeffnen)
         self.connect(self.btnFortsetzen, QtCore.SIGNAL("clicked()"), self.AbfrageFortsetzen)
+        self.connect(self.btnZuruecksetzen, QtCore.SIGNAL("clicked()"), self.databaseReseet)
 
         self.actionMindestuebereinstimmung.triggered.connect(self.MinFit)
+        self.actionSchliessen.triggered.connect(self.closeProgram)
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
 
@@ -58,6 +61,57 @@ class Programm(MainWindow, QtGui.QMainWindow):
 
         
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
+
+        self.setInfoInvisible()
+    def closeProgram(self):
+        self.close()
+    def setInfoVisible(self, text):
+        self.labInfotext.setText(text)
+        self.labInfotext.setVisible(True)
+        self.hw1InfoText.setVisible(True)
+        self.hw2InfoText.setVisible(True)
+        self.hwInfotext.hide()
+
+    def setInfoInvisible(self):
+        self.labInfotext.hide()
+        self.hw1InfoText.hide()
+        self.hw2InfoText.hide()
+        self.hwInfotext.setVisible(True)
+
+    def databaseReseet(self):
+
+
+        box = QtGui.QMessageBox()
+
+        boxText = u"Wollen Sie die Datenbank wirklich zurücksetzen? <br> Es werden alle Daten gelöscht!"
+
+        box.setText(boxText)
+
+        btnJa = box.addButton(QtCore.QString(u"Ja"), QtGui.QMessageBox.AcceptRole)
+        btnNein = box.addButton(QtCore.QString(u"Abbrechen"), QtGui.QMessageBox.RejectRole)
+        box.exec_()
+
+        if box.clickedButton() == btnJa:
+            statement = "delete from Buecher"
+            self.datenbank.delData(statement)
+
+            statement = "delete from Lektionen"
+            self.datenbank.delData(statement)
+            statement = "delete from sprache"
+            self.datenbank.delData(statement)
+            statement = "delete from statistik"
+            self.datenbank.delData(statement)
+            statement = "delete from Vokabeln"
+            self.datenbank.delData(statement)
+            statement = "delete from sondervokabeln"
+            self.datenbank.delData(statement)
+            infothread = InfoThreadMainWindow(self)
+            infothread.start()
+            self.setInfoVisible(u"Datenbank wurde gelöscht")
+
+
+        elif box.clickedButton() == btnNein:
+            print(u"nein geklickt")
 
 
     def statistik_oeffnen(self):

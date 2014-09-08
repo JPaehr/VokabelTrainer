@@ -11,114 +11,168 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Vokabeltrainer von Heidi</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="btnNeueSprache">
-        <property name="text">
-         <string>Neue Sprache anlegen</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="btnNeueSprache">
+          <property name="text">
+           <string>Neue Sprache anlegen</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnNeuesBuch">
+          <property name="text">
+           <string>Neues Buch anlegen</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnNeueLektion">
+          <property name="text">
+           <string>Neue Lektion anlegen</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnNeueVok">
+          <property name="text">
+           <string>Neue Vokabeln eingeben</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget" native="true"/>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="btnNeuesBuch">
-        <property name="text">
-         <string>Neues Buch anlegen</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPushButton" name="btnFortsetzen">
+          <property name="text">
+           <string>letzte Abfrage fortsetzen</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnAbfrageStarten">
+          <property name="text">
+           <string>Abfrage starten</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnZuruecksetzen">
+          <property name="text">
+           <string>Zurücksetzen</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnWoerterbuch">
+          <property name="text">
+           <string>Wörterbuch</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnStatistik">
+          <property name="text">
+           <string>Statistik</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_2" native="true"/>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="btnNeueLektion">
-        <property name="text">
-         <string>Neue Lektion anlegen</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnNeueVok">
-        <property name="text">
-         <string>Neue Vokabeln eingeben</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="widget" native="true"/>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QPushButton" name="btnSpracheBeareiten">
+          <property name="text">
+           <string>Sprachen bearbeiten</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnLektionbearbeiten">
+          <property name="text">
+           <string>Lektionen bearbeiten</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnBuecherBearbeiten">
+          <property name="text">
+           <string>Bücher bearbeiten</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_3" native="true"/>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="5,1,5">
       <item>
-       <widget class="QPushButton" name="btnFortsetzen">
-        <property name="text">
-         <string>letzte Abfrage fortsetzen</string>
+       <widget class="QWidget" name="hw1InfoText" native="true">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnAbfrageStarten">
+       <widget class="QLabel" name="labInfotext">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">text-align: center</string>
+        </property>
         <property name="text">
-         <string>Abfrage starten</string>
+         <string>&lt;center&gt;TextLabel&lt;/center&gt;</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnZuruecksetzen">
-        <property name="text">
-         <string>Zurücksetzen</string>
+       <widget class="QWidget" name="hw2InfoText" native="true">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
         </property>
        </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnWoerterbuch">
-        <property name="text">
-         <string>Wörterbuch</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnStatistik">
-        <property name="text">
-         <string>Statistik</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="widget_2" native="true"/>
       </item>
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QPushButton" name="btnSpracheBeareiten">
-        <property name="text">
-         <string>Sprachen bearbeiten</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnLektionbearbeiten">
-        <property name="text">
-         <string>Lektionen bearbeiten</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnBuecherBearbeiten">
-        <property name="text">
-         <string>Bücher bearbeiten</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="widget_3" native="true"/>
-      </item>
-     </layout>
+     <widget class="QWidget" name="hwInfotext" native="true">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>30</height>
+       </size>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -135,6 +189,7 @@
     <property name="title">
      <string>Datei</string>
     </property>
+    <addaction name="actionSchliessen"/>
    </widget>
    <widget class="QMenu" name="menuEinstellungen">
     <property name="title">
@@ -154,6 +209,11 @@
   <action name="actionMindestuebereinstimmung">
    <property name="text">
     <string>Mindestübereinstimmung</string>
+   </property>
+  </action>
+  <action name="actionSchliessen">
+   <property name="text">
+    <string>Schließen</string>
    </property>
   </action>
  </widget>
