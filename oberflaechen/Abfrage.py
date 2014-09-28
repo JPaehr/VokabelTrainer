@@ -317,7 +317,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             #print type(self.vokabelFremd)
             #print type(str(self.tfInput.text().toUtf8()).decode("utf-8"))
             if self.vokabel_fremd == str(self.tfInput.text().toUtf8()).decode("utf-8"):
-                self.labRichtigFalsch.setText("Richtig")
+                #self.labRichtigFalsch.setText("Richtig")
+                self.labBitteEingeben.setText("Richtig")
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
                 if not self.sonderlektion:
                     son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
@@ -326,9 +327,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 if not self.sonderlektion:
                     son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
                     son.falsch()
-                self.labRichtigFalsch.setText("Falsch")
+                #self.labRichtigFalsch.setText("Falsch")
+                self.labBitteEingeben.setText("Falsch")
                 if self.richtige_anzeigen:
-                    self.labBitteEingeben.setText(u"Richtig wäre: "+self.vokabel_fremd)
+                    #self.labBitteEingeben.setText(u"Richtig wäre: "+self.vokabel_fremd)
+                    self.labVokabelMeintenSie.setText(u"Richtig wäre: "+self.vokabel_fremd)
                 if self.meinten_sie:
 
                     statement = "select vokabeln.fremd, vokabeln.id from sprache \
@@ -345,7 +348,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
                     if self.treffer.directStrike():
                         #print "direkterTreffer"
-                        self.labRichtigFalsch.setText("fast richtig")
+                        #self.labRichtigFalsch.setText("fast richtig")
+                        self.labBitteEingeben.setText("fast richtig")
                         self.labPunkte.setText(str(float(self.labPunkte.text()) + 0.5))
 
                     else:
@@ -365,12 +369,15 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             #print "vergleich zwischen " + self.Vergeleichsfaehigkeit(self.vokabelDeutsch)
             #print self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8'))
             if self.Vergeleichsfaehigkeit(self.vokabel_deutsch) == self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8')):
-                self.labRichtigFalsch.setText("Richtig")
+                #self.labRichtigFalsch.setText("Richtig")
+                self.labBitteEingeben.setText("Richtig")
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
             else:
-                self.labRichtigFalsch.setText("Falsch")
+                #self.labRichtigFalsch.setText("Falsch")
+                self.labBitteEingeben.setText("Falsch")
                 if self.richtige_anzeigen:
-                    self.labBitteEingeben.setText(unicode(u"Richtig wäre: ")+str(self.vokabel_deutsch))
+                    #self.labBitteEingeben.setText(unicode(u"Richtig wäre: ")+str(self.vokabel_deutsch))
+                    self.labVokabelMeintenSie.setText(unicode(u"Richtig wäre: ")+unicode(self.vokabel_deutsch))
                 if self.meinten_sie:
                     #print "meintenSie Aktiv"
                     statement = "select vokabeln.deutsch, vokabeln.id from sprache \
@@ -390,7 +397,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
                     if self.treffer.directStrike():
                         #print "direkter treffer"
-                        self.labRichtigFalsch.setText("fast richtig")
+                        #self.labRichtigFalsch.setText("fast richtig")
+                        self.labBitteEingeben.setText("fast richtig")
                         self.labPunkte.setText(str(float(self.labPunkte.text()) + 0.5))
                     else:
                         #print "das Fensterding"
