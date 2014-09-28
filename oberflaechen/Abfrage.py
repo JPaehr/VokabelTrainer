@@ -13,7 +13,6 @@ from time import sleep
 from random import shuffle as zufall
 from oberflaechen.MeintenSie import MeintenSie
 from oberflaechen.Auswertung import Auswertung
-import oberflaechen.AbfrageEinstellungen
 from models.zeiten import Zeiten
 
 from models.Speicher import Speicher
@@ -59,7 +58,6 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         self.labWeitereVokabeln.hide()
         self.pBFortschritt.addWidgetToShow(self.labWeitereVokabeln)
-
 
         self.cBPunkte.stateChanged.connect(self.sichtbarPunkte)
 

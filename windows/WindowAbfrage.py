@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrage.ui'
 #
-# Created: Sun Sep 07 20:40:36 2014
+# Created: Sun Sep 28 20:35:29 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -80,6 +80,9 @@ class Ui_Form(object):
         self.labVokabelMeintenSie.setObjectName(_fromUtf8("labVokabelMeintenSie"))
         self.verticalLayout.addWidget(self.labVokabelMeintenSie)
         self.labMeintenSie = QtGui.QLabel(Form)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.labMeintenSie.setFont(font)
         self.labMeintenSie.setObjectName(_fromUtf8("labMeintenSie"))
         self.verticalLayout.addWidget(self.labMeintenSie)
         self.groupBox_4 = QtGui.QGroupBox(Form)
