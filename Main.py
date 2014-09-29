@@ -24,7 +24,6 @@ import oberflaechen.BuchAendern as BuchAendern
 import oberflaechen.SpracheAendern as SpracheAendern
 import oberflaechen.Vorsichtig as Vorsichtig
 import oberflaechen.Statistik as Statistik
-import models.base as Datenbank
 import oberflaechen.Abfrage as Abfrage
 import models.base as Datenbank
 import oberflaechen.EinstellungenMindestTreffer as EinstellungenMindestTreffer
@@ -50,6 +49,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.connect(self.btnStatistik, QtCore.SIGNAL("clicked()"), self.statistik_oeffnen)
         self.connect(self.btnFortsetzen, QtCore.SIGNAL("clicked()"), self.AbfrageFortsetzen)
         self.connect(self.btnZuruecksetzen, QtCore.SIGNAL("clicked()"), self.databaseReseet)
+        self.infothread = InfoThreadMainWindow(self)
 
         self.actionMindestuebereinstimmung.triggered.connect(self.MinFit)
         self.actionSchliessen.triggered.connect(self.closeProgram)
@@ -120,8 +120,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
             self.datenbank.delData(statement)
             statement = "delete from sondervokabeln"
             self.datenbank.delData(statement)
-            infothread = InfoThreadMainWindow(self)
-            infothread.start()
+            self.infothread.start()
             self.setInfoVisible(u"Datenbank wurde gelöscht")
 
 

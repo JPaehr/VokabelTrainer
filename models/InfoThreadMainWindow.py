@@ -5,6 +5,7 @@ from time import sleep
 
 class InfoThreadMainWindow(QtCore.QThread):
     endeSignal = QtCore.pyqtSignal()
+
     def __init__(self, parent):
         QtCore.QThread.__init__(self)
         self.parent = parent
