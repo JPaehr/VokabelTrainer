@@ -41,8 +41,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.sonderCheck = False #keine Sondervokabeln dabei
         self.normalCheck = False #keine normalen Vokabeln dabei
         
-        voreinstellungen = self.datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, distanz, zeitZeigen from Einstellungen \
-        where id like 1")
+        voreinstellungen = self.datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, distanz, zeitZeigen from Einstellungen where id like 1")
 
         self.zeitPro10Voks = self.datenbank.getDataAsList("select secPro10Vok from zeit")[0][0]
         #print self.zeitPro10Voks

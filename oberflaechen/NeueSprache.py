@@ -9,7 +9,7 @@ from windows.WindowSpracheAnlegen import Ui_Form as WindowSpracheAnlgen
 import models.base as Datenbank
 
 class NeueSprache(WindowSpracheAnlgen, QtGui.QWidget):
-    def __init__(self, parent):
+    def __init__(self, parent=None):
         super(NeueSprache, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)

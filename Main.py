@@ -5,6 +5,7 @@ Created on 25.09.2013
 
 @author: Johannes
 """
+from time import sleep
 from PyQt4 import QtGui, QtCore
 import sys
 import os
@@ -36,7 +37,8 @@ class Programm(MainWindow, QtGui.QMainWindow):
         #self.r
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
-        self.connect(self.btnNeueSprache, QtCore.SIGNAL("clicked()"), self.neue_sprache)
+        #self.connect(self.btnNeueSprache, QtCore.SIGNAL("clicked()"), self.neue_sprache)
+        self.btnNeueSprache.clicked.connect(self.neue_sprache)
         self.connect(self.btnNeuesBuch, QtCore.SIGNAL("clicked()"), self.neues_buch)
         self.connect(self.btnNeueLektion, QtCore.SIGNAL("clicked()"), self.neue_lektion)
         self.connect(self.btnWoerterbuch, QtCore.SIGNAL("clicked()"), self.woerterbuch)
@@ -53,6 +55,19 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.actionSchliessen.triggered.connect(self.closeProgram)
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
+        self.wStatistik = None
+        self.wLektionAendern= None
+        self.wAbfrageForsetzen= None
+        self.wVorsichtigSein= None
+        self.wBuch_aendern= None
+        self.wSprache_aendern= None
+        self.wAbfrage_einstellungen= None
+        self.wNeue_vokabel= None
+        self.wNeues_buch= None
+        self.wNeue_sprache= None
+        self.wNeue_lektion= None
+        self.wWoerterbuch= None
+        self.wMinFit= None
 
         if os.stat('zwischenSpeicher.fs').st_size == 0:
             self.FortsetzenDisable()
@@ -118,63 +133,64 @@ class Programm(MainWindow, QtGui.QMainWindow):
         """
         öffnet die Statistik
         """
-        test = Statistik.Statistik(self)
-        test.show()
+        self.wStatistik = Statistik.Statistik(self)
+        self.wStatistik.show()
 
     def lektioen_aendern(self):
         """soll Fenster für Lektion ändern anzeigen
         """
-        test = LektionAendern.LektionAendern(self)
-        test.show()
+        self.wLektionAendern = LektionAendern.LektionAendern(self)
+        self.wLektionAendern.show()
     def AbfrageFortsetzen(self):
 
-        test = Abfrage.Abfrage(self, '', '', '', '', '', '', '', '',  '1')
-        test.show()
+        self.wAbfrageForsetzen = Abfrage.Abfrage(self, '', '', '', '', '', '', '', '',  '1')
+        self.wAbfrageForsetzen.show()
         
     def vorsichtig_sein(self):
         """Fenster für Vorsichtig sein"""
-        test = Vorsichtig.VorsichtigSein(self)
-        test.show()
+        self.wVorsichtigSein = Vorsichtig.VorsichtigSein(self)
+        self.wVorsichtigSein.show()
 
     def buch_aendern(self):
         """Fenster für Buch ändern"""
-        test = BuchAendern.BuchAendern(self)
-        test.show()
+        self.wBuch_aendern = BuchAendern.BuchAendern(self)
+        self.wBuch_aendern.show()
 
     def sprache_aendern(self):
         """Fenster für Sprache ändern"""
-        test = SpracheAendern.SpracheAendern(self)
-        test.show()
+        self.wSprache_aendern = SpracheAendern.SpracheAendern(self)
+        self.wSprache_aendern.show()
 
     def abfrage_einstellungen(self):
         """Fenster für Abfrage Einstellungen"""
-        test = AbfrageEinstellungen.AbfrageEinstellungen(self)
-        test.show()
+        self.wAbfrage_einstellungen = AbfrageEinstellungen.AbfrageEinstellungen(self)
+        self.wAbfrage_einstellungen.show()
 
     def neue_vokabel(self):
         """Fenster für neue Vokabel"""
-        test = NeueVokabel.NeueVokabelAnlegen(self)
-        test.show()
+        self.wNeue_vokabel = NeueVokabel.NeueVokabelAnlegen(self)
+        self.wNeue_vokabel.show()
 
     def neues_buch(self):
         """Fenster für neue Buch"""
-        test = NeuesBuch.NeuesBuch(self)
-        test.show()
+        self.wNeues_buch = NeuesBuch.NeuesBuch(self)
+        self.wNeues_buch.show()
         
     def neue_sprache(self):
         """Fenster für neue Sprache"""
-        test = NeueSprache.NeueSprache(self)
-        test.show()
+
+        self.wNeue_sprache = NeueSprache.NeueSprache()
+        self.wNeue_sprache.show()
 
     def neue_lektion(self):
         """"Fenster für neue Lektion"""
-        test = NeueLektion.NeueLektion(self)
-        test.show()
+        self.wNeue_lektion = NeueLektion.NeueLektion(self)
+        self.wNeue_lektion.show()
 
     def woerterbuch(self):
         """fenster für Wörterbuch"""
-        test = Woerterbuch.Woerterbuch(self)
-        test.show()
+        self.wWoerterbuch = Woerterbuch.Woerterbuch(self)
+        self.wWoerterbuch.show()
 
     def FortsetzenDisable(self):
         self.btnFortsetzen.setEnabled(False)
@@ -186,8 +202,8 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.btnFortsetzen.setToolTip(str(text[0][0]))
 
     def MinFit(self):
-        test = EinstellungenMindestTreffer.MindestTreffer(self)
-        test.show()
+        self.wMinFit = EinstellungenMindestTreffer.MindestTreffer(self)
+        self.wMinFit.show()
 
 app = QtGui.QApplication(sys.argv) 
 dialog = Programm() 
