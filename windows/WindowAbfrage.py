@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrage.ui'
 #
-# Created: Sun Sep 28 20:35:29 2014
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Sun Oct 05 23:12:32 2014
+#      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -70,21 +70,42 @@ class Ui_Form(object):
         self.widgetWeitereVok.setMinimumSize(QtCore.QSize(0, 0))
         self.widgetWeitereVok.setObjectName(_fromUtf8("widgetWeitereVok"))
         self.verticalLayout.addWidget(self.widgetWeitereVok)
+        self.horizontalLayout_6 = QtGui.QHBoxLayout()
+        self.horizontalLayout_6.setContentsMargins(10, -1, -1, -1)
+        self.horizontalLayout_6.setObjectName(_fromUtf8("horizontalLayout_6"))
         self.labBitteEingeben = QtGui.QLabel(Form)
         self.labBitteEingeben.setObjectName(_fromUtf8("labBitteEingeben"))
-        self.verticalLayout.addWidget(self.labBitteEingeben)
+        self.horizontalLayout_6.addWidget(self.labBitteEingeben)
+        self.verticalLayout.addLayout(self.horizontalLayout_6)
+        self.horizontalLayout_5 = QtGui.QHBoxLayout()
+        self.horizontalLayout_5.setContentsMargins(10, -1, -1, -1)
+        self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
         self.labVokabelMeintenSie = QtGui.QLabel(Form)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.labVokabelMeintenSie.setFont(font)
         self.labVokabelMeintenSie.setObjectName(_fromUtf8("labVokabelMeintenSie"))
-        self.verticalLayout.addWidget(self.labVokabelMeintenSie)
+        self.horizontalLayout_5.addWidget(self.labVokabelMeintenSie)
+        self.verticalLayout.addLayout(self.horizontalLayout_5)
+        self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setContentsMargins(10, -1, -1, -1)
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         self.labMeintenSie = QtGui.QLabel(Form)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.labMeintenSie.sizePolicy().hasHeightForWidth())
+        self.labMeintenSie.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.labMeintenSie.setFont(font)
+        self.labMeintenSie.setStyleSheet(_fromUtf8("QTextEdit{\n"
+"    left-magrin: 20px;\n"
+"}"))
+        self.labMeintenSie.setMargin(0)
         self.labMeintenSie.setObjectName(_fromUtf8("labMeintenSie"))
-        self.verticalLayout.addWidget(self.labMeintenSie)
+        self.horizontalLayout_3.addWidget(self.labMeintenSie)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.groupBox_4 = QtGui.QGroupBox(Form)
         self.groupBox_4.setTitle(_fromUtf8(""))
         self.groupBox_4.setObjectName(_fromUtf8("groupBox_4"))
