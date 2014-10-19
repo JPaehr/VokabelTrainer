@@ -130,6 +130,6 @@ class BuchAendern(WindowBuchAendern, QtGui.QWidget):
     def Speichern(self):
         neuerName = str(self.tfNeuerName.text().toUtf8()).decode("utf-8")
                 
-        statement = "update Buecher set name='"+str(neuerName)+"', id_sprache='"+str(self.getIdSpracheNeu())+"' where id like '"+str(self.getIdBuch())+"'"
+        statement = u"update Buecher set name='"+neuerName+"', id_sprache='"+str(self.getIdSpracheNeu())+"' where id like '"+str(self.getIdBuch())+"'"
         self.Datenbank.setData(statement)
         self.close()
