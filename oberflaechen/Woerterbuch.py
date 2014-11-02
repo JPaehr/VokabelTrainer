@@ -30,7 +30,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.tVWoerterbuch.setSelectionBehavior(QtGui.QTableView.SelectRows)
         self.tVWoerterbuch.setSelectionMode(QtGui.QTableView.SingleSelection)
         self.tVWoerterbuch.doubleClicked.connect(self.MarkierungBearbeiten)
-        
+        self.EditWindow = None
     def BuecherNeuSchreiben(self):
         
         datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
@@ -118,5 +118,5 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         if len(daten) > 0:
             row = daten[0].row()
             VokabelId = self.IndexListe[row]
-            test = WoerterbuchBearbeiten.WoerterbuchBearbeiten(self, VokabelId)
-            test.show()
+            self.EditWindow = WoerterbuchBearbeiten.WoerterbuchBearbeiten(self, VokabelId)
+            self.EditWindow.show()
