@@ -24,6 +24,7 @@ import oberflaechen.BuchAendern as BuchAendern
 import oberflaechen.SpracheAendern as SpracheAendern
 import oberflaechen.Vorsichtig as Vorsichtig
 import oberflaechen.Statistik as Statistik
+import oberflaechen.SonderWoerterbuch as Sonderwoerterbuch
 import oberflaechen.Abfrage as Abfrage
 import models.base as Datenbank
 import oberflaechen.EinstellungenMindestTreffer as EinstellungenMindestTreffer
@@ -49,6 +50,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.connect(self.btnStatistik, QtCore.SIGNAL("clicked()"), self.statistik_oeffnen)
         self.connect(self.btnFortsetzen, QtCore.SIGNAL("clicked()"), self.AbfrageFortsetzen)
         self.connect(self.btnZuruecksetzen, QtCore.SIGNAL("clicked()"), self.databaseReseet)
+        self.connect(self.pbSonderlektion, QtCore.SIGNAL("clicked()"), self.woerterbuechSonderlektion)
         self.infothread = InfoThreadMainWindow(self)
 
         self.actionMindestuebereinstimmung.triggered.connect(self.MinFit)
@@ -72,14 +74,16 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.wNeue_lektion= None
         self.wWoerterbuch= None
         self.wMinFit= None
+        self.wWoerterbuchSonder = None
 
         if os.stat('zwischenSpeicher.fs').st_size == 0:
             self.FortsetzenDisable()
         else:
             self.FortsetzenEnable()
 
-        
+
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
+
 
         self.setInfoInvisible()
     def closeProgram(self):
@@ -184,6 +188,11 @@ class Programm(MainWindow, QtGui.QMainWindow):
 
         self.wNeue_sprache = NeueSprache.NeueSprache()
         self.wNeue_sprache.show()
+
+    def woerterbuechSonderlektion(self):
+        """Fenster für Sonderwoerterbuch"""
+        self.wWoerterbuchSonder = Sonderwoerterbuch.SonderWoerterbuch(self)
+        self.wWoerterbuchSonder.show()
 
     def neue_lektion(self):
         """"Fenster für neue Lektion"""

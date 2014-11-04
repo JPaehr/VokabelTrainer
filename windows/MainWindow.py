@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\MainWindow.ui'
 #
-# Created: Mon Sep 08 14:05:37 2014
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Tue Nov 04 19:13:36 2014
+#      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -65,6 +65,9 @@ class Ui_MainWindow(object):
         self.btnWoerterbuch = QtGui.QPushButton(self.centralwidget)
         self.btnWoerterbuch.setObjectName(_fromUtf8("btnWoerterbuch"))
         self.verticalLayout_2.addWidget(self.btnWoerterbuch)
+        self.pbSonderlektion = QtGui.QPushButton(self.centralwidget)
+        self.pbSonderlektion.setObjectName(_fromUtf8("pbSonderlektion"))
+        self.verticalLayout_2.addWidget(self.pbSonderlektion)
         self.btnStatistik = QtGui.QPushButton(self.centralwidget)
         self.btnStatistik.setObjectName(_fromUtf8("btnStatistik"))
         self.verticalLayout_2.addWidget(self.btnStatistik)
@@ -147,6 +150,7 @@ class Ui_MainWindow(object):
         self.btnAbfrageStarten.setText(_translate("MainWindow", "Abfrage starten", None))
         self.btnZuruecksetzen.setText(_translate("MainWindow", "Zurücksetzen", None))
         self.btnWoerterbuch.setText(_translate("MainWindow", "Wörterbuch", None))
+        self.pbSonderlektion.setText(_translate("MainWindow", "Sonderlektionen", None))
         self.btnStatistik.setText(_translate("MainWindow", "Statistik", None))
         self.btnSpracheBeareiten.setText(_translate("MainWindow", "Sprachen bearbeiten", None))
         self.btnLektionbearbeiten.setText(_translate("MainWindow", "Lektionen bearbeiten", None))

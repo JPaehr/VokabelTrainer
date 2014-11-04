@@ -21,7 +21,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.connect(self.tfSuche, QtCore.SIGNAL("textChanged(QString)"), self.TabelleNeuZeichnen)
         self.connect(self.btnBearbeiten, QtCore.SIGNAL("clicked()"), self.MarkierungBearbeiten)
         
-        self.headerDaten =  [ 'Buch' , 'Lektion' , 'Deutsch' , 'Fremdsprache']
+        self.headerDaten = ['Buch', 'Lektion', 'Deutsch', 'Fremdsprache']
         
         datenSprache = self.Datenbank.getDataAsQStringList("select fremdsprache, id from SPRACHE")
         modelSprache = QtGui.QStringListModel(datenSprache)
@@ -31,6 +31,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.tVWoerterbuch.setSelectionMode(QtGui.QTableView.SingleSelection)
         self.tVWoerterbuch.doubleClicked.connect(self.MarkierungBearbeiten)
         self.EditWindow = None
+
     def BuecherNeuSchreiben(self):
         
         datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
@@ -38,7 +39,8 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         
         datenBuch = self.Datenbank.getDataAsQStringList("select Buecher.name, Buecher.id from Buecher \
         join sprache on (sprache.id=Buecher.id_sprache) \
-        where Sprache.id like "+str(datenidSprache[0][1]))
+        where Sprache.id like "+str(datenidSprache[0][1])+" " \
+        "and Buecher.name not like 'Sonder%'")
         modelBuch = QtGui.QStringListModel(datenBuch)
         self.cBBuch.setModel(modelBuch)
         self.TabelleNeuZeichnen()

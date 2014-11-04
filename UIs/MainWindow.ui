@@ -83,6 +83,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="pbSonderlektion">
+          <property name="text">
+           <string>Sonderlektionen</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="btnStatistik">
           <property name="text">
            <string>Statistik</string>
