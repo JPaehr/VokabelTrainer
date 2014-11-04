@@ -24,15 +24,15 @@ class ZeitThread(QtCore.QThread):
     def __init__(self, zeit):
         QtCore.QThread.__init__(self)
         self.zeit = zeit
-        
+
     def run(self):
         """
         überschrieben runMethode aus QThread
         """
         sleep(self.zeit)
         #print "Thread ist fertig"
-        return  
- 
+        return
+
 
 class Abfrage(WindowAbfrage, QtGui.QWidget):
     """
@@ -155,12 +155,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.labMeintenSie.setText("")
             self.labMeintenSie.setText("")
 
-            #speicher.Info()
+            # speicher.Info()
+
         spracheid_statement = "select sprache.id from sprache \
             join buecher on (sprache.id=buecher.id_sprache) \
             join lektionen on (lektionen.idBuch = buecher.id) \
             join vokabeln on (vokabeln.idlektion=lektionen.id) where vokabeln.id like " +str(self.vokabel_ids[0]) +" limit 1"
-        #print self.spracheid_statement
+        # print self.spracheid_statement
 
         self.spracheid = self.datenbank.getDataAsList(spracheid_statement)[0][0]
 
@@ -171,19 +172,19 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         self.connect(self.btnWeiter, QtCore.SIGNAL("clicked()"), self.weitereVokabelKlick)
         self.btnWeiter.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
 
-
         if speicher is 'None':
             self.weitere_vokabel()
+
     def zeitSwitch(self):
         if self.zeitSichtbar:
-            #unsichtbar machen
+            # unsichtbar machen
 
             self.labZeitEinblenden.setVisible(True)
             self.labZeit.hide()
             self.zeitSichtbar = False
 
         else:
-            #zeit einblenden
+            # zeit einblenden
 
             self.labZeit.setVisible(True)
             self.labZeitEinblenden.hide()
@@ -248,12 +249,9 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.labBitteEingeben.setText("Bitte eingeben")
             self.labWeitereVokabeln.setText("Noch "+str(len(self.vokabel_ids)-self.id_aktuell-1)+" weitere Vokabeln")
 
-            #print str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)
-            #print "AbfrgaenGesamt: "+ str(self.abfragenGesamt)
             print "id_aktuell: "+ str(self.id_aktuell)
-            #print "Vokabelids: "+ str(self.vokabel_ids)
+            # print "Vokabelids: "+ str(self.vokabel_ids)
 
-            #print "progressbar wird gesetzt auf:", int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)), 0))
             self.pBFortschritt.setValue(int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)), 0)))
 
             self.zeit.setRemainVok(self.abfragenGesamt-self.id_aktuell)
@@ -301,21 +299,23 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     vokabelIds.append(n[0])
 
         zufall(vokabelIds)
-        #print vokabelIds
+        # print vokabelIds
         return vokabelIds
 
     def FortsetzenDisable(self):
         self.parent.FortsetzenDisable()
+
     def FortsetzenEnable(self):
         self.parent.FortsetzenEnable()
+
     def weitereVokabelKlick(self):
-        
+
         self.thread.start()
         if self.richtung == 1:
-            #print type(self.vokabelFremd)
-            #print type(str(self.tfInput.text().toUtf8()).decode("utf-8"))
+            # print type(self.vokabelFremd)
+            # print type(str(self.tfInput.text().toUtf8()).decode("utf-8"))
             if self.vokabel_fremd == str(self.tfInput.text().toUtf8()).decode("utf-8"):
-                #self.labRichtigFalsch.setText("Richtig")
+                # self.labRichtigFalsch.setText("Richtig")
                 self.labBitteEingeben.setText("Richtig")
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
                 if not self.sonderlektion:
@@ -325,10 +325,9 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 if not self.sonderlektion:
                     son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
                     son.falsch()
-                #self.labRichtigFalsch.setText("Falsch")
+                # self.labRichtigFalsch.setText("Falsch")
                 self.labBitteEingeben.setText("Falsch")
                 if self.richtige_anzeigen:
-                    #self.labBitteEingeben.setText(u"Richtig wäre: "+self.vokabel_fremd)
                     self.labVokabelMeintenSie.setText(u"Richtig wäre: "+self.vokabel_fremd)
                 if self.meinten_sie:
 
@@ -337,16 +336,14 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                                 join lektionen on (lektionen.idBuch = buecher.id) \
                                 join vokabeln on (vokabeln.idlektion=lektionen.id) where sprache.id like " +str(self.spracheid)
                     liste = self.datenbank.getDataAsList(statement)
-                    #where deutsch like '"+str(self.tfInput)+"'")
-                    #print liste
+
                     self.treffer.setAktVergleich(liste, unicode(self.tfInput.text()), self.vokabel_ids[self.id_aktuell-1], 1)
 
                     daten = self.datenbank.getDataAsList("select fremd, deutsch from vokabeln \
                     "+self.ListeZuSql(self.treffer.getTreffer(), " id "))
 
                     if self.treffer.directStrike():
-                        #print "direkterTreffer"
-                        #self.labRichtigFalsch.setText("fast richtig")
+
                         self.labBitteEingeben.setText("fast richtig")
                         self.labPunkte.setText(str(float(self.labPunkte.text()) + 0.5))
 
@@ -364,37 +361,33 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                             self.labMeintenSie.setText("Meinten Sie: "+unicode(liste[0]))
 
         else:
-            #print "vergleich zwischen " + self.Vergeleichsfaehigkeit(self.vokabelDeutsch)
-            #print self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8'))
+            # Richtung = 2
+
             if self.Vergeleichsfaehigkeit(self.vokabel_deutsch) == self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8')):
-                #self.labRichtigFalsch.setText("Richtig")
+
                 self.labBitteEingeben.setText("Richtig")
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
             else:
-                #self.labRichtigFalsch.setText("Falsch")
+
                 self.labBitteEingeben.setText("Falsch")
                 if self.richtige_anzeigen:
-                    #self.labBitteEingeben.setText(unicode(u"Richtig wäre: ")+str(self.vokabel_deutsch))
+
                     self.labVokabelMeintenSie.setText(unicode(u"Richtig wäre: ")+unicode(self.vokabel_deutsch))
                 if self.meinten_sie:
-                    #print "meintenSie Aktiv"
+
                     statement = "select vokabeln.deutsch, vokabeln.id from sprache \
                                 join buecher on (sprache.id=buecher.id_sprache) \
                                 join lektionen on (lektionen.idBuch = buecher.id) \
                                 join vokabeln on (vokabeln.idlektion=lektionen.id) where sprache.id like " +str(self.spracheid)
                     liste = self.datenbank.getDataAsList(statement)# \
-                    #where deutsch like '"+str(self.tfInput)+"'")
-                    #print liste
+
                     self.treffer.setAktVergleich(liste, unicode(self.tfInput.text()), self.vokabel_ids[self.id_aktuell-1], 2)
-                    
-                
-                    
-                
+
                     daten = self.datenbank.getDataAsList("select fremd, deutsch from vokabeln \
                     "+ self.ListeZuSql(self.treffer.getTreffer(), " id "))
 
                     if self.treffer.directStrike():
-                        #print "direkter treffer"
+
                         #self.labRichtigFalsch.setText("fast richtig")
                         self.labBitteEingeben.setText("fast richtig")
                         self.labPunkte.setText(str(float(self.labPunkte.text()) + 0.5))

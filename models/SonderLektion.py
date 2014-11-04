@@ -15,6 +15,7 @@ class SonderFall(object):
             print "Vokabelid: " +str(self.vokabelId)
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
+
         #sprache finden
 
         statement = "select sprache.id from sprache " \
@@ -170,13 +171,20 @@ class SonderFall(object):
                             "where buecher.name like 'sonder%' and buecher.id_Sprache like " +str(spracheId)
                 if self.debug:
                     print statement
+
+                if len(self.datenbank.getDataAsList(statement)) == 0:
+                    # gibt noch kein Sonderbuch => erstellen
+                    insertStatement = "insert into Buecher ('name', id_sprache) \
+                    values ('Sonderbuch', "+str(spracheId)+")"
+                    self.datenbank.setData(insertStatement)
+
                 buchid = self.datenbank.getDataAsList(statement)[0][0]
 
                 #anzahl vorhandener lektionen checken
                 statement = "select count(*) from lektionen " \
-                "join buecher on (buecher.id= lektionen.idbuch) " \
-                "where lektionen.name like 'sonderlektion%' " \
-                "and buecher.id like "+str(buchid)
+                            "join buecher on (buecher.id= lektionen.idbuch) " \
+                            "where lektionen.name like 'sonderlektion%' " \
+                            "and buecher.id like "+str(buchid)
 
                 anzahlSonderLektionen = self.datenbank.getDataAsList(statement)[0][0]
 
