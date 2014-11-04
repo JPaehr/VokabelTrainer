@@ -55,6 +55,10 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.actionSchliessen.triggered.connect(self.closeProgram)
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
+        # Fehlerbekaempfung in Sonderlektion
+        statement = "update vokabeln set status=0 where status > 6"
+        self.datenbank.setData(statement)
+
         self.wStatistik = None
         self.wLektionAendern= None
         self.wAbfrageForsetzen= None

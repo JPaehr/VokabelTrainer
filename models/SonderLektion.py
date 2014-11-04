@@ -41,10 +41,13 @@ class SonderFall(object):
         """
 
     def falsch(self):
+        if self.debug:
+            print("SonderVokabel Falsch")
         statement = "select status from vokabeln where id like "+str(self.vokabelId)
+        status = self.datenbank.getDataAsList(statement)[0][0]
         if self.debug:
             print statement
-        status = self.datenbank.getDataAsList(statement)[0][0]
+            print("status: "+str(status))
 
         if status == 5:
             self.setNewStatus(3)
@@ -94,9 +97,6 @@ class SonderFall(object):
             if self.debug:
                 print "status 3"
             self.setNewStatus(4)
-
-
-
 
     def setNewStatus(self, status):
         if self.debug:
@@ -174,6 +174,8 @@ class SonderFall(object):
 
                 if len(self.datenbank.getDataAsList(statement)) == 0:
                     # gibt noch kein Sonderbuch => erstellen
+                    if self.debug:
+                        print("Sonderbuch erstellt")
                     insertStatement = "insert into Buecher ('name', id_sprache) \
                     values ('Sonderbuch', "+str(spracheId)+")"
                     self.datenbank.setData(insertStatement)

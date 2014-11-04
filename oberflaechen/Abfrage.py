@@ -175,6 +175,9 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         if speicher is 'None':
             self.weitere_vokabel()
 
+
+        self.WindowAuwertung = None
+
     def zeitSwitch(self):
         if self.zeitSichtbar:
             # unsichtbar machen
@@ -275,8 +278,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.datenbank.setData(updateStatement)
 
             self.close()
-            test = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids, self.sonderlektion)
-            test.show()
+            self.WindowAuwertung = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids, self.sonderlektion)
+            self.WindowAuwertung.show()
 
     def lektionsid_to_vokid(self, idliste, haeufigkeit):
         """
