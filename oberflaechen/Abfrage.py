@@ -230,6 +230,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         """
         weitere Vokabel ziehen
         """
+        try:
+            print("Aktuelle id: "+str(self.vokabel_ids[self.id_aktuell]))
+        except:
+            print("in die hose gegangen")
+
         if self.id_aktuell < len(self.vokabel_ids):
 
             daten = self.datenbank.getDataAsList("select lektionen.name, vokabeln.deutsch, vokabeln.fremd, buecher.name from vokabeln "
@@ -295,7 +300,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             else:
                 daten = self.datenbank.getDataAsList("select sondervokabeln.idvokabeln from sondervokabeln "
                                                      "join lektionen on (sondervokabeln.idsonderlektion=lektionen.id) "
-                                                     "where lektionen.id like "+str(i))
+                                                     "where lektionen.id like "+str(i)+" and "\
+                                                     "sondervokabeln.show like 1")
 
             for n in daten:
                 for k in range(haeufigkeit):

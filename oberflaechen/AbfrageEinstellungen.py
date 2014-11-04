@@ -71,6 +71,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
         self.SpracheZeichnen()
         self.Abfragerichtung()
+        self.windowAbfrage = None
 
     def showBottomWidget(self):
 
@@ -85,21 +86,21 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         #Einstellungen Speichern
         if len(self.lektions_liste) > 0:
             updateStatement = "update Einstellungen set \
-            meintenSie='"+str(self.chBMeintenSie.isChecked())+"', \
-            rgva = '"+str(self.chBRichtigGeschriebeneAnzeigen.isChecked())+"', \
-            warteZeit = "+str(int(self.tfZeitWarten.text()))+", \
-            haeufigkeit = "+str(int(self.tfHaeufigkeit.text()))+", \
-            richtung = "+str(int(int(self.cBAbfragerichtung.currentIndex())+1))+", \
-            distanz = "+str(int(self.tfDistanz.text()))+",  \
-            zeitZeigen = '"+str(self.chShowTime.isChecked())+"' \
-            where id like 1"
+                                meintenSie='"+str(self.chBMeintenSie.isChecked())+"', \
+                                rgva = '"+str(self.chBRichtigGeschriebeneAnzeigen.isChecked())+"', \
+                                warteZeit = "+str(int(self.tfZeitWarten.text()))+", \
+                                haeufigkeit = "+str(int(self.tfHaeufigkeit.text()))+", \
+                                richtung = "+str(int(int(self.cBAbfragerichtung.currentIndex())+1))+", \
+                                distanz = "+str(int(self.tfDistanz.text()))+",  \
+                                zeitZeigen = '"+str(self.chShowTime.isChecked())+"' \
+                                where id like 1"
             self.datenbank.setData(updateStatement)
             self.close()
 
-            test = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(),
+            self.windowAbfrage = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(),
                                    self.chBMeintenSie.isChecked(), self.chBRichtigGeschriebeneAnzeigen.isChecked(),
                                    self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text(), self.sonderCheck)
-            test.show()
+            self.windowAbfrage.show()
         else:
             self.labKeineLektionGewaehlt.setVisible(True)
             self.labKeineLektionGewaehlt.setText(u"Es sind keine Lektionen gewählt worden. Bitte Lektion(en) hinzufügen um Abfrage starten zu können.")
@@ -206,6 +207,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             self.labKeineLektionGewaehlt.setVisible(True)
             self.labKeineLektionGewaehlt.setText(u"Sonderlektionen können nicht mit normalen Lektionen vermischt werden!")
             thread.start_new(self.showBottomWidget, ())
+
     def AbfrageNeuZeichen(self):
         #print self.lektionsListe
         datenliste = []
