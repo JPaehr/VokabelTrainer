@@ -47,11 +47,12 @@ class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
         join lektionen on (lektionen.idBuch = buecher.id) \
         join vokabeln on (vokabeln.idlektion=lektionen.id) \
         join sondervokabeln on (sondervokabeln.idVokabeln=vokabeln.id) \
-        where sprache.id like "+str(datenidSprache[0][1])+" \
+        where (sprache.id like "+str(datenidSprache[0][1])+" \
         and (lektionen.name like '%"+suchString+"%' or \
         vokabeln.deutsch like '%"+suchString+"%' or \
         vokabeln.fremd like '%"+suchString+"%' or \
-        Buecher.name like '%"+suchString+"%') " \
+        Buecher.name like '%"+suchString+"%')) and " \
+        "sondervokabeln.show like 1 " \
         "order by vokabeln.id"
 
 
@@ -65,7 +66,8 @@ class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
         and (lektionen.name like '%"+suchString+"%' or \
         vokabeln.deutsch like '%"+suchString+"%' or \
         vokabeln.fremd like '%"+suchString+"%' or \
-        Buecher.name like '%"+suchString+"%')) " \
+        Buecher.name like '%"+suchString+"%')) and " \
+        "sondervokabeln.show like 1 " \
         "order by vokabeln.id"
 
 
