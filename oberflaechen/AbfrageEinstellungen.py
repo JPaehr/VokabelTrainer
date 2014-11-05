@@ -4,6 +4,7 @@ Created on 08.10.2013
 
 @author: Johannes
 """
+from Tix import Select
 from PyQt4 import QtGui, QtCore
 from windows.WindowAbfrageEinstellungen import Ui_Form as WindowAbfrageEinstellungen
 import Abfrage as Abfrage
@@ -146,7 +147,8 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
             selection = self.datenbank.getDataAsList(statement)
             if not self.querySonderlektion(i[1]):
-                liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
+                if selection[0][0] > 0:
+                    liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
             else:
                 statement = "select count(*) from sondervokabeln " \
                         "join lektionen on (lektionen.id=sondervokabeln.idsonderlektion) " \
@@ -154,7 +156,8 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
                         " and lektionen.name like 'sonder%' " \
                         "and sondervokabeln.show like 1"
                 selection = self.datenbank.getDataAsList(statement)
-                liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
+                if selection[0][0] > 0:
+                    liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
 
         model = Markierung.Markierung(liste)
         self.lvLektionen.setModel(model) 

@@ -71,7 +71,6 @@ class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
         "order by vokabeln.id"
 
 
-
         IDListe = []
         for i in self.Datenbank.getDataAsList(self.statementId):
             IDListe.append(i[4])
