@@ -77,8 +77,8 @@ class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
         self.IndexIdZuordnung(IDListe)
 
         self.statementForSondername = "select Lektionen.name from sondervokabeln \
-        join lektionen on (lektionen.id=sondervokabeln.idSonderlektion) "\
-        +str(self.listeToSql(IDListe, "sondervokabeln.idVokabeln"))+" " \
+        join lektionen on (lektionen.id=sondervokabeln.idSonderlektion) " \
+        +str(self.listeToSql(IDListe, "sondervokabeln.idVokabeln"))+ " " \
         "order by sondervokabeln.idVokabeln"
 
         self.sonderNamen = self.Datenbank.getDataAsList(self.statementForSondername)
@@ -107,6 +107,10 @@ class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
 
     def listeToSql(self, liste, column):
         string = "where "
-        for i in liste:
-            string = string+" "+str(column)+" like "+str(i)+" or"
-        return string[:-2]
+        if len(liste) == 0:
+            return ""
+        else:
+            for i in liste:
+                string = string+" "+str(column)+" like "+str(i)+" or"
+            return string[:-2]
+
