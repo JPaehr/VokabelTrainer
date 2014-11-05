@@ -23,7 +23,7 @@ class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
         self.connect(self.tfSuche, QtCore.SIGNAL("textChanged(QString)"), self.TabelleNeuZeichnen)
         # self.connect(self.btnBearbeiten, QtCore.SIGNAL("clicked()"), self.MarkierungBearbeiten)
 
-        self.headerDaten = ['Buch', 'Lektion', 'Sonderlektion', 'Deutsch', 'Fremdsprache']
+        self.headerDaten = ['Buch', 'Lektion', 'Deutsch', 'Fremdsprache', 'Sonderlektion']
 
         datenSprache = self.Datenbank.getDataAsQStringList("select fremdsprache, id from SPRACHE")
         modelSprache = QtGui.QStringListModel(datenSprache)
@@ -51,7 +51,10 @@ class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
         and (lektionen.name like '%"+suchString+"%' or \
         vokabeln.deutsch like '%"+suchString+"%' or \
         vokabeln.fremd like '%"+suchString+"%' or \
-        Buecher.name like '%"+suchString+"%')"
+        Buecher.name like '%"+suchString+"%') " \
+        "order by vokabeln.id"
+
+
 
         self.statement = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd from sprache \
         join buecher on (sprache.id=buecher.id_sprache) \
@@ -62,7 +65,9 @@ class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
         and (lektionen.name like '%"+suchString+"%' or \
         vokabeln.deutsch like '%"+suchString+"%' or \
         vokabeln.fremd like '%"+suchString+"%' or \
-        Buecher.name like '%"+suchString+"%'))"
+        Buecher.name like '%"+suchString+"%')) " \
+        "order by vokabeln.id"
+
 
 
         IDListe = []
@@ -70,8 +75,24 @@ class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
             IDListe.append(i[4])
         self.IndexIdZuordnung(IDListe)
 
+        self.statementForSondername = "select Lektionen.name from sondervokabeln \
+        join lektionen on (lektionen.id=sondervokabeln.idSonderlektion) "\
+        +str(self.listeToSql(IDListe, "sondervokabeln.idVokabeln"))+" " \
+        "order by sondervokabeln.idVokabeln"
+
+        self.sonderNamen = self.Datenbank.getDataAsList(self.statementForSondername)
+
         self.daten = self.Datenbank.getDataAsList(self.statement)
-        model = WoerterbuchModel.ModelListe(self.daten, self.headerDaten)
+        self.datenMitSonderlektionsNamen = list()
+        for i in range(len(self.daten)):
+            liste = list()
+            for k in range(len(self.daten[i])):
+                liste.append(self.daten[i][k])
+            liste.append(self.sonderNamen[i][0])
+            self.datenMitSonderlektionsNamen.append(liste)
+            liste = list()
+
+        model = WoerterbuchModel.ModelListe(self.datenMitSonderlektionsNamen, self.headerDaten)
 
 
         self.tVWoerterbuch.setModel(model)
@@ -82,3 +103,9 @@ class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
         self.IndexListe = []
         for i in ids:
             self.IndexListe.append(i)
+
+    def listeToSql(self, liste, column):
+        string = "where "
+        for i in liste:
+            string = string+" "+str(column)+" like "+str(i)+" or"
+        return string[:-2]
