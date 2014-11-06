@@ -15,10 +15,10 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)      
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")
-        self.connect(self.cBSprache, QtCore.SIGNAL("activated(int)"), self.BuecherNeuSchreiben)
-        self.connect(self.cBBuch, QtCore.SIGNAL("activated(int)"), self.TabelleNeuZeichnen)
-        self.connect(self.chBBuch, QtCore.SIGNAL("clicked()"), self.TabelleNeuZeichnen)
-        self.connect(self.tfSuche, QtCore.SIGNAL("textChanged(QString)"), self.TabelleNeuZeichnen)
+        self.connect(self.cBSprache, QtCore.SIGNAL("activated(int)"), self.rewrite_books)
+        self.connect(self.cBBuch, QtCore.SIGNAL("activated(int)"), self.redraw_table)
+        self.connect(self.chBBuch, QtCore.SIGNAL("clicked()"), self.redraw_table)
+        self.connect(self.tfSuche, QtCore.SIGNAL("textChanged(QString)"), self.redraw_table)
         self.connect(self.btnBearbeiten, QtCore.SIGNAL("clicked()"), self.edit_selection)
         
         self.headerDaten = ['Buch', 'Lektion', 'Deutsch', 'Fremdsprache']
@@ -26,13 +26,13 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         datenSprache = self.Datenbank.getDataAsQStringList("select fremdsprache, id from SPRACHE")
         modelSprache = QtGui.QStringListModel(datenSprache)
         self.cBSprache.setModel(modelSprache)
-        self.BuecherNeuSchreiben()
+        self.rewrite_books()
         self.tVWoerterbuch.setSelectionBehavior(QtGui.QTableView.SelectRows)
         self.tVWoerterbuch.setSelectionMode(QtGui.QTableView.SingleSelection)
         self.tVWoerterbuch.doubleClicked.connect(self.edit_selection)
         self.EditWindow = None
 
-    def BuecherNeuSchreiben(self):
+    def rewrite_books(self):
         
         datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
         limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
@@ -43,9 +43,9 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         "and Buecher.name not like 'Sonder%'")
         modelBuch = QtGui.QStringListModel(datenBuch)
         self.cBBuch.setModel(modelBuch)
-        self.TabelleNeuZeichnen()
+        self.redraw_table()
   
-    def TabelleNeuZeichnen(self):
+    def redraw_table(self):
 
         datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
         limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'")

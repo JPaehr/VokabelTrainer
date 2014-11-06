@@ -24,7 +24,7 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         self.connect(self.cBBuch, QtCore.SIGNAL("activated(int)"), self.LektionMachen)
         self.connect(self.btnAnwenden, QtCore.SIGNAL("clicked()"), self.neuenSatzSpeichern)
         #self.connect(self.btnVokabelLoeschen, QtCore.SIGNAL("clicked()"), self.delWithoutClose)
-        self.connect(self.btnVokabelLoeschenUSchliessen, QtCore.SIGNAL("clicked()"), self.delWithClose)
+        self.connect(self.btnVokabelLoeschenUSchliessen, QtCore.SIGNAL("clicked()"), self.delete_with_close)
 
         
         
@@ -44,7 +44,8 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         vokabeln = self.Datenbank.getDataAsList("select deutsch, fremd from vokabeln where id like "+str(self.VokabelID))
         self.tfDeutsch.setText(vokabeln[0][0])
         self.tfFremd.setText(vokabeln[0][1])
-    def vokLoeschen(self, close=False):
+
+    def delete_vocable(self, close=False):
 
 
         delVokStatement = "delete from vokabeln where id like "+str(self.vokabelid)
@@ -70,13 +71,13 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
 
             if close:
                 self.close()
-                self.parent.TabelleNeuZeichnen()
+                self.parent.redraw_table()
         elif box.clickedButton() == btnNein:
             print u"nicht loeschen"
 
 
-    def delWithClose(self):
-        self.vokLoeschen(True)
+    def delete_with_close(self):
+        self.delete_vocable(True)
 
     def SpracheMachen(self):
         statementSprache = "select Sprache.Fremdsprache from Sprache"
@@ -85,7 +86,7 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         model = QtGui.QStringListModel(daten)
         self.cBSprache.setModel(model)
         if self.ersterDurchlauf:
-            self.cBSprache.setCurrentIndex(self.IndexSpracheFinden(self.SpracheID))
+            self.cBSprache.setCurrentIndex(self.find_index_language(self.SpracheID))
         
         self.BuchMachen()
         
@@ -100,7 +101,7 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         model = QtGui.QStringListModel(datenBuch)
         self.cBBuch.setModel(model)
         if self.ersterDurchlauf:
-            self.cBBuch.setCurrentIndex(self.IndexBuchFinden(self.BuchID))        
+            self.cBBuch.setCurrentIndex(self.find_index_book(self.BuchID))
         
         self.LektionMachen()
         
@@ -120,19 +121,19 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         model = QtGui.QStringListModel(datenLektionen)
         self.cBLekion.setModel(model)
         if self.ersterDurchlauf:
-            self.cBLekion.setCurrentIndex(self.IndexLektionFinden(self.LektionID))        
+            self.cBLekion.setCurrentIndex(self.find_index_lection(self.LektionID))
             self.ersterDurchlauf = False
-        
-        
-    def IndexSpracheFinden(self, id):
+
+    def find_index_language(self, id):
         
         statementBuch = "select sprache.fremdsprache, sprache.id from Sprache"
         daten = self.Datenbank.getDataAsList(statementBuch)
         liste = []
         for i in daten:
             liste.append(i[1])
-        return liste.index(id) 
-    def IndexBuchFinden(self, id):
+        return liste.index(id)
+
+    def find_index_book(self, id):
         datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
         limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
         daten = self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher \
@@ -141,8 +142,9 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         liste = []
         for i in daten:
             liste.append(i[1])
-        return liste.index(id)  
-    def IndexLektionFinden(self, id):
+        return liste.index(id)
+
+    def find_index_lection(self, id):
         datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
         limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
         datenidBuch = self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher \
@@ -178,6 +180,6 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         where id like "+str(self.VokabelID)
         self.Datenbank.setData(updateStatementVokabeln)
         
-        Woerterbuch.Woerterbuch.TabelleNeuZeichnen(self.parent)
+        Woerterbuch.Woerterbuch.redraw_table(self.parent)
 
         self.close()
