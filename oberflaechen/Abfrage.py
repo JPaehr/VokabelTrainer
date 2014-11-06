@@ -38,8 +38,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
     """
     Fenster für die Abfrage
     """
-    def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, meintenSie, RichtigeAnzeigen, Richtung,
-                 distanz, sonderlektion, speicher='None'):
+    def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, verzoegerungRichtig, meintenSie,
+                 RichtigeAnzeigen, Richtung, distanz, sonderlektion, speicher='None'):
         super(Abfrage, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
@@ -72,6 +72,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         self.showTime = self.datenbank.getDataAsList("select zeitZeigen from einstellungen")[0][0]
 
+        self.answer = None
         if self.showTime == "True":
             self.showTime = True
 
@@ -92,10 +93,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.distance = distanz
             self.treffer = leve.Treffer(distanz)
             zeit = float(verzoegerung)*10**(-3)
+            zeitRichtig = float(verzoegerung)*10**(-3)
             self.thread = ZeitThread(zeit)
+            self.threadRichtig = ZeitThread(zeitRichtig)
             self.meinten_sie = meintenSie
             self.lektionsliste = []
             self.verzoegerung = verzoegerung
+            self.verzoegerungRichtig = verzoegerungRichtig
             self.id_aktuell = 0
             self.vokabel_fremd = ""
             self.richtige_anzeigen = RichtigeAnzeigen
@@ -120,10 +124,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.distance = speicher.distance
             self.treffer = leve.Treffer(speicher.distance)
             zeit = float(speicher.verzoegerung)*10**(-3)
+            zeitRichtig = float(verzoegerungRichtig)*10**(-3)
             self.thread = ZeitThread(zeit)
+            self.threadRichtig = ZeitThread(zeitRichtig)
             self.meinten_sie = speicher.meinten_sie
             self.lektionsliste = []
             self.verzoegerung = speicher.verzoegerung
+            self.verzoegerungRichtig = speicher.verzoegerungRichtig
             self.id_aktuell = speicher.id_aktuell
             #print "danach: "+str(speicher.id_aktuell)
             self.vokabel_fremd = ""
@@ -169,6 +176,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         self.connect(self.btnSaveExit, QtCore.SIGNAL("clicked()"), self.SaveAndExit)
         self.connect(self.thread, QtCore.SIGNAL("finished()"), self.weitere_vokabel)
+        self.connect(self.threadRichtig, QtCore.SIGNAL("finished()"), self.weitere_vokabel)
         self.connect(self.btnWeiter, QtCore.SIGNAL("clicked()"), self.weitereVokabelKlick)
         self.btnWeiter.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
 
@@ -203,6 +211,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         #self,pBFortschritt, distance, meintenSie, verzoegerung, id_aktuell, richtige_anzeigen, richtung, labPunkte, vokIds, abfragenGesamt, lektionen_ids, lektion, vokabel_deutsch, vokabel_fremd, buch
         #print type(self.distance)
         meinSpeicher = Speicher(self.pBFortschritt.value(), str(self.distance), str(self.meinten_sie), self.verzoegerung,
+                                self.verzoegerungRichtig,
                                 self.id_aktuell, self.richtige_anzeigen, self.richtung, self.labPunkte.text(), self.vokabel_ids,
                                 self.abfragenGesamt, self.lektion_ids, self.lektion, self.vokabel_deutsch, self.vokabel_fremd, self.buch,
                                 self.zeit.getTimeInSeconds(), self.sonderlektion)
@@ -318,14 +327,20 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         self.parent.FortsetzenEnable()
 
     def weitereVokabelKlick(self):
-
-        self.thread.start()
+        print(self.answer)
+        if self.answer:
+            self.threadRichtig.start()
+            print("Richtige answer")
+        else:
+            self.thread.start()
+            print("Falsche Antwort")
         if self.richtung == 1:
             # print type(self.vokabelFremd)
             # print type(str(self.tfInput.text().toUtf8()).decode("utf-8"))
             if self.vokabel_fremd == str(self.tfInput.text().toUtf8()).decode("utf-8"):
                 # self.labRichtigFalsch.setText("Richtig")
                 self.labBitteEingeben.setText("Richtig")
+                self.answer = True
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
                 if not self.sonderlektion:
                     son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
@@ -336,6 +351,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     son.falsch()
                 # self.labRichtigFalsch.setText("Falsch")
                 self.labBitteEingeben.setText("Falsch")
+                self.answer = False
                 if self.richtige_anzeigen:
                     self.labVokabelMeintenSie.setText(u"Richtig wäre: "+self.vokabel_fremd)
                 if self.meinten_sie:
@@ -375,10 +391,12 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             if self.Vergeleichsfaehigkeit(self.vokabel_deutsch) == self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8')):
 
                 self.labBitteEingeben.setText("Richtig")
+                self.answer = True
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
             else:
 
                 self.labBitteEingeben.setText("Falsch")
+                self.answer = False
                 if self.richtige_anzeigen:
 
                     self.labVokabelMeintenSie.setText(unicode(u"Richtig wäre: ")+unicode(self.vokabel_deutsch))

@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrageEinstellungen.ui'
 #
-# Created: Tue Apr 08 21:07:07 2014
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Thu Nov  6 17:49:12 2014
+#      by: PyQt4 UI code generator 4.11
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -63,6 +63,17 @@ class Ui_Form(object):
         self.chShowTime = QtGui.QCheckBox(Form)
         self.chShowTime.setObjectName(_fromUtf8("chShowTime"))
         self.verticalLayout_8.addWidget(self.chShowTime)
+        self.horizontalLayout_8 = QtGui.QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(_fromUtf8("horizontalLayout_8"))
+        self.tfZeitWartenRichtig = QtGui.QLineEdit(Form)
+        self.tfZeitWartenRichtig.setObjectName(_fromUtf8("tfZeitWartenRichtig"))
+        self.horizontalLayout_8.addWidget(self.tfZeitWartenRichtig)
+        self.label_4 = QtGui.QLabel(Form)
+        self.label_4.setObjectName(_fromUtf8("label_4"))
+        self.horizontalLayout_8.addWidget(self.label_4)
+        self.horizontalLayout_8.setStretch(0, 1)
+        self.horizontalLayout_8.setStretch(1, 5)
+        self.verticalLayout_8.addLayout(self.horizontalLayout_8)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         self.tfZeitWarten = QtGui.QLineEdit(Form)
@@ -213,7 +224,8 @@ class Ui_Form(object):
         self.chBMeintenSie.setText(_translate("Form", "\"Meinten Sie\" Hinweis einblenden", None))
         self.chBRichtigGeschriebeneAnzeigen.setText(_translate("Form", "richtig geschriebene Vokabeln anzeigen", None))
         self.chShowTime.setText(_translate("Form", "Zeit anzeigen", None))
-        self.label.setText(_translate("Form", "Zeit in ms warten pro Vokabel", None))
+        self.label_4.setText(_translate("Form", "Zeit in ms warten wenn Vokabel richtig", None))
+        self.label.setText(_translate("Form", "Zeit in ms warten wenn Vokabel falsch", None))
         self.label_2.setText(_translate("Form", "Häufigkeit der Abfrage", None))
         self.label_3.setText(_translate("Form", "Fehlertoleranz beim Vergleich", None))
         self.groupBox_5.setTitle(_translate("Form", "Abfragerichtung", None))

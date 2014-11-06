@@ -98,9 +98,10 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             self.datenbank.setData(updateStatement)
             self.close()
 
-            self.windowAbfrage = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(), self.tfZeitWarten.text(),
-                                   self.chBMeintenSie.isChecked(), self.chBRichtigGeschriebeneAnzeigen.isChecked(),
-                                   self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text(), self.sonderCheck)
+            self.windowAbfrage = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(),
+                                    self.tfZeitWarten.text(), self.tfZeitWartenRichtig.text(),
+                                    self.chBMeintenSie.isChecked(), self.chBRichtigGeschriebeneAnzeigen.isChecked(),
+                                    self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text(), self.sonderCheck)
             self.windowAbfrage.show()
         else:
             self.labKeineLektionGewaehlt.setVisible(True)

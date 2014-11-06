@@ -70,6 +70,20 @@
           </widget>
          </item>
          <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,5">
+           <item>
+            <widget class="QLineEdit" name="tfZeitWartenRichtig"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Zeit in ms warten wenn Vokabel richtig</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,5">
            <item>
             <widget class="QLineEdit" name="tfZeitWarten"/>
@@ -77,7 +91,7 @@
            <item>
             <widget class="QLabel" name="label">
              <property name="text">
-              <string>Zeit in ms warten pro Vokabel</string>
+              <string>Zeit in ms warten wenn Vokabel falsch</string>
              </property>
             </widget>
            </item>
