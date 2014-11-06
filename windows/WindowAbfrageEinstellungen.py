@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrageEinstellungen.ui'
 #
-# Created: Thu Nov  6 17:49:12 2014
-#      by: PyQt4 UI code generator 4.11
+# Created: Thu Nov 06 20:10:46 2014
+#      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName(_fromUtf8("Form"))
-        Form.resize(935, 489)
+        Form.resize(936, 511)
         self.verticalLayout_11 = QtGui.QVBoxLayout(Form)
         self.verticalLayout_11.setObjectName(_fromUtf8("verticalLayout_11"))
         self.verticalLayout_10 = QtGui.QVBoxLayout()
@@ -140,7 +140,7 @@ class Ui_Form(object):
         self.btnLektionZuAbfrageHinzu.setFont(font)
         self.btnLektionZuAbfrageHinzu.setStyleSheet(_fromUtf8("color:rgb(0, 255, 0)"))
         self.btnLektionZuAbfrageHinzu.setObjectName(_fromUtf8("btnLektionZuAbfrageHinzu"))
-        self.verticalLayout_2.addWidget(self.btnLektionZuAbfrageHinzu)
+        self.verticalLayout_2.addWidget(self.btnLektionZuAbfrageHinzu, QtCore.Qt.AlignBottom)
         self.btnLektionLoeschen = QtGui.QPushButton(Form)
         self.btnLektionLoeschen.setMaximumSize(QtCore.QSize(23, 23))
         font = QtGui.QFont()
@@ -150,7 +150,7 @@ class Ui_Form(object):
         self.btnLektionLoeschen.setStyleSheet(_fromUtf8("color: red\n"
 ""))
         self.btnLektionLoeschen.setObjectName(_fromUtf8("btnLektionLoeschen"))
-        self.verticalLayout_2.addWidget(self.btnLektionLoeschen)
+        self.verticalLayout_2.addWidget(self.btnLektionLoeschen, QtCore.Qt.AlignTop)
         self.verticalLayout_2.setStretch(0, 1)
         self.verticalLayout_2.setStretch(1, 1)
         self.horizontalLayout_2.addLayout(self.verticalLayout_2)
@@ -169,7 +169,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.widget)
         self.labAnzahlVokabeln = QtGui.QLabel(Form)
         self.labAnzahlVokabeln.setObjectName(_fromUtf8("labAnzahlVokabeln"))
-        self.verticalLayout.addWidget(self.labAnzahlVokabeln)
+        self.verticalLayout.addWidget(self.labAnzahlVokabeln, QtCore.Qt.AlignBottom)
         self.labAnzahlAbfragen = QtGui.QLabel(Form)
         self.labAnzahlAbfragen.setObjectName(_fromUtf8("labAnzahlAbfragen"))
         self.verticalLayout.addWidget(self.labAnzahlAbfragen)

@@ -41,8 +41,10 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
         self.sonderCheck = False #keine Sondervokabeln dabei
         self.normalCheck = False #keine normalen Vokabeln dabei
-        
-        voreinstellungen = self.datenbank.getDataAsList("select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, distanz, zeitZeigen from Einstellungen where id like 1")
+
+        statement = "select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, " \
+                    "distanz, zeitZeigen, warteZeitRichtig from Einstellungen where id like 1"
+        voreinstellungen = self.datenbank.getDataAsList(statement)
 
         self.zeitPro10Voks = self.datenbank.getDataAsList("select secPro10Vok from zeit")[0][0]
         #print self.zeitPro10Voks
@@ -65,6 +67,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.tfZeitWarten.setText(str(voreinstellungen[0][2]))
         self.tfHaeufigkeit.setText(str(voreinstellungen[0][3]))
         self.tfDistanz.setText(str(voreinstellungen[0][6]))
+        self.tfZeitWartenRichtig.setText(str(voreinstellungen[0][8]))
         
         self.richtung = voreinstellungen[0][4]
         self.labEstTime.setWordWrap(True)
@@ -93,6 +96,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
                                 haeufigkeit = "+str(int(self.tfHaeufigkeit.text()))+", \
                                 richtung = "+str(int(int(self.cBAbfragerichtung.currentIndex())+1))+", \
                                 distanz = "+str(int(self.tfDistanz.text()))+",  \
+                                warteZeitRichtig = "+str(int(self.tfZeitWartenRichtig.text()))+",  \
                                 zeitZeigen = '"+str(self.chShowTime.isChecked())+"' \
                                 where id like 1"
             self.datenbank.setData(updateStatement)

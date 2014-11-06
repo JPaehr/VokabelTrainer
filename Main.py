@@ -61,6 +61,18 @@ class Programm(MainWindow, QtGui.QMainWindow):
         statement = "update vokabeln set status=0 where status > 6"
         self.datenbank.setData(statement)
 
+        # add datacol for variabletime in query
+        try:
+            statement = "select warteZeitRichtig from Einstellungen"
+            self.datenbank.getDataAsList(statement)
+
+        except:
+            statement = "ALTER TABLE Einstellungen ADD COLUMN warteZeitRichtig INTEGER;"
+            self.datenbank.setData(statement)
+            statement = "update Einstellungen set warteZeitRichtig=1000 where id like 1"
+            self.datenbank.setData(statement)
+            print("Datenbank aktualisiert")
+
         self.wStatistik = None
         self.wLektionAendern= None
         self.wAbfrageForsetzen= None

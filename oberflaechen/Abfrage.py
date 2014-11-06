@@ -93,7 +93,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.distance = distanz
             self.treffer = leve.Treffer(distanz)
             zeit = float(verzoegerung)*10**(-3)
-            zeitRichtig = float(verzoegerung)*10**(-3)
+            zeitRichtig = float(verzoegerungRichtig)*10**(-3)
             self.thread = ZeitThread(zeit)
             self.threadRichtig = ZeitThread(zeitRichtig)
             self.meinten_sie = meintenSie
@@ -185,6 +185,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
 
         self.WindowAuwertung = None
+        self.windowMeintenSie = None
 
     def zeitSwitch(self):
         if self.zeitSichtbar:
@@ -327,13 +328,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         self.parent.FortsetzenEnable()
 
     def weitereVokabelKlick(self):
-        print(self.answer)
-        if self.answer:
-            self.threadRichtig.start()
-            print("Richtige answer")
-        else:
-            self.thread.start()
-            print("Falsche Antwort")
+
+
         if self.richtung == 1:
             # print type(self.vokabelFremd)
             # print type(str(self.tfInput.text().toUtf8()).decode("utf-8"))
@@ -380,8 +376,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         #print "Fenster auf"
                         
                         if len(liste) > 1:
-                            test = MeintenSie(self, liste)
-                            test.show()
+                            self.windowMeintenSie = MeintenSie(self, liste)
+                            self.windowMeintenSie.show()
                         if len(liste) == 1:
                             self.labMeintenSie.setText("Meinten Sie: "+unicode(liste[0]))
 
@@ -426,10 +422,17 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                             liste.append(unicode(i[1])+" - "+unicode(i[0]))
                         #print "Fenster auf"
                         if len(liste) > 1:
-                            test = MeintenSie(self, liste)
-                            test.show()
+                            self.windowMeintenSie = MeintenSie(self, liste)
+                            self.windowMeintenSie.show()
                         if len(liste) == 1:
                             self.labMeintenSie.setText("Meinten Sie: "+unicode(liste[0]))
+        if self.answer:
+            self.threadRichtig.start()
+            print("Richtig Thread startet")
+        else:
+            self.thread.start()
+            print("Falsche thread startet")
+
     def closeEvent(self, event):
 
         if self.inGame:
