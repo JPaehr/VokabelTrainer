@@ -54,7 +54,9 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
 
         if self.chBBuch.isChecked():
             datenidBuch =  self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher \
-            join sprache on (sprache.id=Buecher.id_sprache) where Sprache.id like "+str(datenidSprache[0][1])+" \
+            join sprache on (sprache.id=Buecher.id_sprache) "
+            "where Sprache.id like "+str(datenidSprache[0][1])+" \
+            and Buecher.name not like 'Sonder%' \
             limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'")
             print datenidBuch
 
@@ -97,7 +99,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             vokabeln.deutsch like '%"+suchString+"%' or \
             vokabeln.fremd like '%"+suchString+"%' or \
             Buecher.name like '%"+suchString+"%')"
-
+        print(self.statement)
         IDListe = []
         for i in self.Datenbank.getDataAsList(self.statementId):
             IDListe.append(i[4])
