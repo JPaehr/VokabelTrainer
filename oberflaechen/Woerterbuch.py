@@ -19,7 +19,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.connect(self.cBBuch, QtCore.SIGNAL("activated(int)"), self.TabelleNeuZeichnen)
         self.connect(self.chBBuch, QtCore.SIGNAL("clicked()"), self.TabelleNeuZeichnen)
         self.connect(self.tfSuche, QtCore.SIGNAL("textChanged(QString)"), self.TabelleNeuZeichnen)
-        self.connect(self.btnBearbeiten, QtCore.SIGNAL("clicked()"), self.MarkierungBearbeiten)
+        self.connect(self.btnBearbeiten, QtCore.SIGNAL("clicked()"), self.edit_selection)
         
         self.headerDaten = ['Buch', 'Lektion', 'Deutsch', 'Fremdsprache']
         
@@ -29,7 +29,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.BuecherNeuSchreiben()
         self.tVWoerterbuch.setSelectionBehavior(QtGui.QTableView.SelectRows)
         self.tVWoerterbuch.setSelectionMode(QtGui.QTableView.SingleSelection)
-        self.tVWoerterbuch.doubleClicked.connect(self.MarkierungBearbeiten)
+        self.tVWoerterbuch.doubleClicked.connect(self.edit_selection)
         self.EditWindow = None
 
     def BuecherNeuSchreiben(self):
@@ -46,17 +46,18 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.TabelleNeuZeichnen()
   
     def TabelleNeuZeichnen(self):
+
         datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
-        limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
-        
+        limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'")
+
         suchString = str(self.tfSuche.text().toUtf8()).decode("utf-8")
-        
+
         if self.chBBuch.isChecked():
             datenidBuch =  self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher \
             join sprache on (sprache.id=Buecher.id_sprache) where Sprache.id like "+str(datenidSprache[0][1])+" \
             limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'")
             print datenidBuch
-            
+
             self.statement = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd from sprache \
             join buecher on (sprache.id=buecher.id_sprache) \
             join lektionen on (lektionen.idBuch = buecher.id) \
@@ -66,7 +67,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             and (lektionen.name like '%"+suchString+"%' or \
             vokabeln.deutsch like '%"+suchString+"%' or \
             vokabeln.fremd like '%"+suchString+"%')"
-            
+
             self.statementId = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd,vokabeln.id from sprache \
             join buecher on (sprache.id=buecher.id_sprache) \
             join lektionen on (lektionen.idBuch = buecher.id) \
@@ -86,7 +87,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             vokabeln.deutsch like '%"+suchString+"%' or \
             vokabeln.fremd like '%"+suchString+"%' or \
             Buecher.name like '%"+suchString+"%')"
-            
+
             self.statement = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd from sprache \
             join buecher on (sprache.id=buecher.id_sprache) \
             join lektionen on (lektionen.idBuch = buecher.id) \
@@ -96,29 +97,29 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             vokabeln.deutsch like '%"+suchString+"%' or \
             vokabeln.fremd like '%"+suchString+"%' or \
             Buecher.name like '%"+suchString+"%')"
-            
-        
+
         IDListe = []
         for i in self.Datenbank.getDataAsList(self.statementId):
             IDListe.append(i[4])
-        self.IndexIdZuordnung(IDListe)
-        
+        self.index_id_allocate(IDListe)
+
         self.daten = self.Datenbank.getDataAsList(self.statement)
         model = WoerterbuchModel.ModelListe(self.daten, self.headerDaten)
-        
-        
+
         self.tVWoerterbuch.setModel(model)
         #tableview.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.tVWoerterbuch.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
-    def IndexIdZuordnung(self, ids):
+
+    def index_id_allocate(self, ids):
         self.IndexListe = []
         for i in ids:
             self.IndexListe.append(i)
-    def MarkierungBearbeiten(self):
+
+    def edit_selection(self):
         
-        daten = self.tVWoerterbuch.selectedIndexes()
-        if len(daten) > 0:
-            row = daten[0].row()
-            VokabelId = self.IndexListe[row]
-            self.EditWindow = WoerterbuchBearbeiten.WoerterbuchBearbeiten(self, VokabelId)
+        data = self.tVWoerterbuch.selectedIndexes()
+        if len(data) > 0:
+            row = data[0].row()
+            vocabulary_id = self.IndexListe[row]
+            self.EditWindow = WoerterbuchBearbeiten.WoerterbuchBearbeiten(self, vocabulary_id)
             self.EditWindow.show()

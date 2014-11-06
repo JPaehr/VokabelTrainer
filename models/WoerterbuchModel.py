@@ -9,7 +9,10 @@ class ModelListe(QtCore.QAbstractTableModel):
     def rowCount(self, parent):
         return len(self.__daten)
     def columnCount(self, parent):
-        return len(self.__daten[0])
+        if len(self.__daten) > 0:
+            return len(self.__daten[0])
+        else:
+            return 0
     def data(self, index, role):
         if role == QtCore.Qt.EditRole:
             return self.__daten[index.row()][index.column()]
