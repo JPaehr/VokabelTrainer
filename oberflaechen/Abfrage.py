@@ -124,7 +124,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.distance = speicher.distance
             self.treffer = leve.Treffer(speicher.distance)
             zeit = float(speicher.verzoegerung)*10**(-3)
-            zeitRichtig = float(verzoegerungRichtig)*10**(-3)
+            #print("verz:"+str(speicher.verzoegerungRichtig))
+            zeitRichtig = float(speicher.verzoegerungRichtig)*10**(-3)
             self.thread = ZeitThread(zeit)
             self.threadRichtig = ZeitThread(zeitRichtig)
             self.meinten_sie = speicher.meinten_sie

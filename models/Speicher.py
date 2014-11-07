@@ -3,8 +3,9 @@ __author__ = 'JPaehr'
 
 class Speicher(object):
 
-    def __init__(self,pBFortschritt, distance, meintenSie, verzoegerung, id_aktuell, richtige_anzeigen,
-                 richtung, labPunkte, vokIds, abfragenGesamt, lektionen_ids, lektion, vokabel_deutsch, vokabel_fremd, buch, zeit, sonderlektion):
+    def __init__(self,pBFortschritt, distance, meintenSie, verzoegerung, verzoegerungRichtig, id_aktuell,
+                 richtige_anzeigen, richtung, labPunkte, vokIds, abfragenGesamt, lektionen_ids, lektion,
+                 vokabel_deutsch, vokabel_fremd, buch, zeit, sonderlektion):
         self.lektion = lektion
         self.vokabel_deutsch = vokabel_deutsch
         self.vokabel_fremd = vokabel_fremd
@@ -20,6 +21,7 @@ class Speicher(object):
         #print "Im Konstruktor: "+str(id_aktuell)
         self.meinten_sie = meintenSie
         self.verzoegerung = verzoegerung
+        self.verzoegerungRichtig = verzoegerungRichtig
 
         self.richtige_anzeigen = richtige_anzeigen
         self.richtung = richtung
@@ -38,3 +40,4 @@ class Speicher(object):
         print "ID-Aktuell: ", self.id_aktuell
         print "MeintenSie: ", self.meinten_sie
         print "Verzoegerung: ", self.verzoegerung
+        print "Verzoegerung richtig: ", self.verzoegerungRichtig

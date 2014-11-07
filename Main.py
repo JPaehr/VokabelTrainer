@@ -162,7 +162,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.wLektionAendern.show()
     def AbfrageFortsetzen(self):
 
-        self.wAbfrageForsetzen = Abfrage.Abfrage(self, '', '', '', '', '', '', '', '',  '1')
+        self.wAbfrageForsetzen = Abfrage.Abfrage(self, '', '', '', '', '', '', '', '', '',  '1')
         self.wAbfrageForsetzen.show()
         
     def vorsichtig_sein(self):
