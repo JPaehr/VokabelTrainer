@@ -29,8 +29,10 @@ class MindestTreffer(WindowMindestTreffer, QtGui.QWidget):
         self.lENeuerWert.selectAll()
 
         self.newPaint()
+
     def abbrechen(self):
         self.close()
+
     def updateLineEdit(self):
         #wert vom slider uebernehmen
         #self.lENeuerWert.setText()
@@ -38,6 +40,7 @@ class MindestTreffer(WindowMindestTreffer, QtGui.QWidget):
         self.lENeuerWert.setText(str(self.hSNeuerWert.value()))
 
         self.newPaint()
+
     def updateHSlider(self):
         #wert von LineEdit uebernehmen
         try:
@@ -58,9 +61,6 @@ class MindestTreffer(WindowMindestTreffer, QtGui.QWidget):
             self.close()
         except:
             print "User zu doof um sinnvollen Wert einzugeben :P"
-
-
-
 
     def newPaint(self):
         text = "wer wie was der die das wieso weshalb warum wer nicht fragt bleibt dumm!"

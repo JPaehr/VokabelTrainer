@@ -30,6 +30,7 @@ class LektionAendern(WindowLektionAendern, QtGui.QWidget):
         #self.BuecherNeuZeichen()
         #self.LektionNeuZeichen()
         self.tfNeuerName.setFocus()
+
     def SpracheNeuZeichnen(self):
         #print "Sprach wird gezeichnet"
 
@@ -77,8 +78,10 @@ class LektionAendern(WindowLektionAendern, QtGui.QWidget):
 
     def delWithClose(self):
         self.loeschenClicked(True)
+
     def delWithoutClose(self):
         self.loeschenClicked()
+
     def getIdSpracheAlt(self):
         statement = "select fremdsprache,id from Sprache " \
                     "limit '"+str(self.cBSpracheAuswaehlen.currentIndex())+"', '"+str(self.cBSpracheAuswaehlen.currentIndex()+1)+"'"
@@ -128,6 +131,7 @@ class LektionAendern(WindowLektionAendern, QtGui.QWidget):
         limit '"+str(self.cbNeuesBuch.currentIndex())+"', '"+str(self.cbNeuesBuch.currentIndex()+1)+"'")
         
         return daten[0][1]
+
     def getIdLektion(self):
         daten = self.Datenbank.getDataAsList("select lektionen.name, lektionen.id from Lektionen "
                                              "join Buecher on (Buecher.id = Lektionen.idBuch) "
@@ -135,6 +139,7 @@ class LektionAendern(WindowLektionAendern, QtGui.QWidget):
         limit '"+str(self.cbLektionAuswaehlen.currentIndex())+"', '"+str(self.cbLektionAuswaehlen.currentIndex()+1)+"'")
         
         return daten[0][1]
+
     def LektionNeuZeichen(self):
         #BuecherNeuZeichen
         self.cbNeuesBuch.setCurrentIndex(self.cbBuchAuswaehlen.currentIndex())
@@ -147,9 +152,11 @@ class LektionAendern(WindowLektionAendern, QtGui.QWidget):
         self.cbLektionAuswaehlen.setModel(model)
         
         self.TextfeldNeuZeichen()
+
     def TextfeldNeuZeichen(self):
         self.tfNeuerName.setText(self.cbLektionAuswaehlen.currentText())
         self.tfNeuerName.setFocus()
+
     def Speichern(self):
         neuerName = str(self.tfNeuerName.text().toUtf8()).decode("utf-8")
                 

@@ -38,7 +38,7 @@ class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
     def TabelleNeuZeichnen(self):
         datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
         limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'")
-        print("Sprachid: "+str(datenidSprache))
+        #print("Sprachid: "+str(datenidSprache))
         suchString = str(self.tfSuche.text().toUtf8()).decode("utf-8")
 
 

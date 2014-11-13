@@ -8,6 +8,7 @@ from PyQt4 import QtGui, QtCore
 from windows.WindowBuchAendern import Ui_Form as WindowBuchAendern
 import models.base as Datenbank
 
+
 class BuchAendern(WindowBuchAendern, QtGui.QWidget):
     def __init__(self, parent):
         super(BuchAendern, self).__init__(parent)
@@ -82,6 +83,7 @@ class BuchAendern(WindowBuchAendern, QtGui.QWidget):
         modelSpracheNeu = QtGui.QStringListModel(datenSpracheNeu)
         self.cBSpracheNeu.setModel(modelSpracheNeu)
         self.BuecherNeuZeichen()
+
     def getIdSpracheAlt(self):
         daten = self.Datenbank.getDataAsList("select fremdsprache,id from Sprache \
         limit '"+str(self.cBSpracheAuswaehlen.currentIndex())+"', '"+str(self.cBSpracheAuswaehlen.currentIndex()+1)+"'")
@@ -103,6 +105,7 @@ class BuchAendern(WindowBuchAendern, QtGui.QWidget):
         model = QtGui.QStringListModel(daten)
         self.cbBuchAuswaehlen.setModel(model)
         self.TextfeldNeuZeichen()
+
     def getIdBuch(self):
         statement = "select Buecher.name, Buecher.id from Buecher \
         join Sprache on (sprache.id = Buecher.id_sprache) \
@@ -115,6 +118,7 @@ class BuchAendern(WindowBuchAendern, QtGui.QWidget):
             return daten[0][1]
         else:
             return []
+
     def getIdsLektionen(self):
         statement = "select lektionen.id from lektionen where idBuch like "+str(self.getIdBuch())
         daten = self.Datenbank.getDataAsList(statement)
@@ -127,6 +131,7 @@ class BuchAendern(WindowBuchAendern, QtGui.QWidget):
     def TextfeldNeuZeichen(self):
         self.tfNeuerName.setText(self.cbBuchAuswaehlen.currentText())
         self.tfNeuerName.setFocus()
+
     def Speichern(self):
         neuerName = str(self.tfNeuerName.text().toUtf8()).decode("utf-8")
                 

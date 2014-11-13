@@ -72,7 +72,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         self.showTime = self.datenbank.getDataAsList("select zeitZeigen from einstellungen")[0][0]
 
-        self.answer = None
+        self.answer = True
         if self.showTime == "True":
             self.showTime = True
 
@@ -294,7 +294,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.datenbank.setData(updateStatement)
 
             self.close()
-            self.WindowAuwertung = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids, self.sonderlektion)
+            self.WindowAuwertung = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids,
+                                              self.sonderlektion)
             self.WindowAuwertung.show()
 
     def lektionsid_to_vokid(self, idliste, haeufigkeit):
@@ -329,7 +330,6 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         self.parent.FortsetzenEnable()
 
     def weitereVokabelKlick(self):
-
 
         if self.richtung == 1:
             # print type(self.vokabelFremd)
@@ -385,30 +385,30 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         else:
             # Richtung = 2
 
-            if self.Vergeleichsfaehigkeit(self.vokabel_deutsch) == self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8')):
+            if self.Vergeleichsfaehigkeit(self.vokabel_deutsch) == \
+                    self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8')):
 
                 self.labBitteEingeben.setText("Richtig")
                 self.answer = True
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
             else:
-
                 self.labBitteEingeben.setText("Falsch")
                 self.answer = False
                 if self.richtige_anzeigen:
-
                     self.labVokabelMeintenSie.setText(unicode(u"Richtig wäre: ")+unicode(self.vokabel_deutsch))
                 if self.meinten_sie:
 
                     statement = "select vokabeln.deutsch, vokabeln.id from sprache \
                                 join buecher on (sprache.id=buecher.id_sprache) \
                                 join lektionen on (lektionen.idBuch = buecher.id) \
-                                join vokabeln on (vokabeln.idlektion=lektionen.id) where sprache.id like " +str(self.spracheid)
-                    liste = self.datenbank.getDataAsList(statement)# \
+                                join vokabeln on (vokabeln.idlektion=lektionen.id) \
+                                where sprache.id like " +str(self.spracheid)
+                    liste = self.datenbank.getDataAsList(statement)
 
                     self.treffer.setAktVergleich(liste, unicode(self.tfInput.text()), self.vokabel_ids[self.id_aktuell-1], 2)
 
                     daten = self.datenbank.getDataAsList("select fremd, deutsch from vokabeln \
-                    "+ self.ListeZuSql(self.treffer.getTreffer(), " id "))
+                    "+self.ListeZuSql(self.treffer.getTreffer(), " id "))
 
                     if self.treffer.directStrike():
 
@@ -417,7 +417,6 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                         self.labPunkte.setText(str(float(self.labPunkte.text()) + 0.5))
                     else:
                         #print "das Fensterding"
-        
                         liste = []
                         for i in daten:
                             liste.append(unicode(i[1])+" - "+unicode(i[0]))
