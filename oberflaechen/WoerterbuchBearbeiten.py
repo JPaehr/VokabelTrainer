@@ -75,7 +75,6 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         elif box.clickedButton() == btnNein:
             print u"nicht loeschen"
 
-
     def delete_with_close(self):
         self.delete_vocable(True)
 
@@ -159,7 +158,8 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         for i in daten:
             liste.append(i[1])
         #print liste
-        return liste.index(id)  
+        return liste.index(id)
+
     def neuenSatzSpeichern(self):
         neueSpracheId = self.Datenbank.getDataAsList("select Fremdsprache, id from sprache \
         limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'")[0][1]

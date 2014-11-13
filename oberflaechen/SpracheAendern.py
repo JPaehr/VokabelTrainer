@@ -26,6 +26,7 @@ class SpracheAendern(WindowSpracheAendern, QtGui.QWidget):
         self.cBSpracheAuswaehlen.setModel(model)
         self.TextfeldNeuZeichen()
         self.tfNeuerName.setFocus()
+
     def loeschenClicked(self):
 
         spracheId = self.getIdSprache()
@@ -83,6 +84,7 @@ class SpracheAendern(WindowSpracheAendern, QtGui.QWidget):
             liste.append(i[0])
 
         return liste
+
     def getIdsBuecher(self, feld, param):
         statement = "select buecher.id " \
                     "from buecher " \
@@ -108,6 +110,7 @@ class SpracheAendern(WindowSpracheAendern, QtGui.QWidget):
             liste.append(i[0])
 
         return liste
+
     def TextfeldNeuZeichen(self):
         self.tfNeuerName.setText(self.cBSpracheAuswaehlen.currentText())
         self.tfNeuerName.setFocus()
@@ -121,11 +124,13 @@ class SpracheAendern(WindowSpracheAendern, QtGui.QWidget):
         statement = "update sprache set fremdsprache='"+str(neuerName)+"' where id like '"+str(id)+"'"
         self.Datenbank.setData(statement)
         self.close()
+
     def getIdSprache(self):
         daten = self.Datenbank.getDataAsList("select fremdsprache, id from Sprache \
         limit '"+str(self.cBSpracheAuswaehlen.currentIndex())+"', '"+str(self.cBSpracheAuswaehlen.currentIndex()+1)+"'")
         id = daten[0][1]
         return id
+
     def ListeZuSql(self, liste, args):
         statement = "where "
         if len(liste) < 1:
