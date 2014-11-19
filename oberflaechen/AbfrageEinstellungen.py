@@ -84,8 +84,10 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
     def FortsetzenDisable(self):
         self.parent.FortsetzenDisable()
+
     def FortsetzenEnable(self):
         self.parent.FortsetzenEnable()
+
     def AbfrageStarten(self):
         #Einstellungen Speichern
         if len(self.lektions_liste) > 0:
@@ -193,6 +195,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         where sprache.id like '"+str(self.getIdSprache())+"' \
         limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'"
         return self.datenbank.getDataAsList(select_buch)[0][1]
+
     def getIdLektionen(self):
         select_lektion = "select lektionen.name, lektionen.id from lektionen \
         join Buecher on (Buecher.id = lektionen.idBuch) \
@@ -203,6 +206,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         for i in self.lvLektionen.selectedIndexes():
             liste.append(daten[i.row()][1])
         return liste
+
     def LektionZuAbfrageHinzu(self):
         #print self.getIdLektionen()
         for i in self.getIdLektionen():
@@ -220,6 +224,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             self.labKeineLektionGewaehlt.setVisible(True)
             self.labKeineLektionGewaehlt.setText(u"Sonderlektionen können nicht mit normalen Lektionen vermischt werden!")
             thread.start_new(self.showBottomWidget, ())
+        print("lektionslisteStop")
 
     def AbfrageNeuZeichen(self):
         #print self.lektionsListe
@@ -244,11 +249,12 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.lvGewaehlteLektionen.setModel(model)
         self.lvGewaehlteLektionen.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
         self.AnzahlVokabelnPaint()
+
     def BuchZuAbfrageHinzu(self):
         daten = self.datenbank.getDataAsList("select lektionen.id from buecher "
                                              "join Lektionen on (lektionen.idbuch = buecher.id) "
                                              "where buecher.id like "+str(self.getIdBuch()))
-        liste_zum_hinzufuegen = []
+        liste_zum_hinzufuegen = list()
 
         statement = "select buecher.name from buecher " \
                     "where id like "+str(self.getIdBuch())
@@ -261,6 +267,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
                 sonderbuch = False
         except:
             sonderbuch = False
+
         print "sondercheck: "+str(self.sonderCheck)
         print "sonderbuch: "+str(sonderbuch)
         print "normalCheck: "+str(self.normalCheck)
@@ -289,8 +296,6 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             self.labKeineLektionGewaehlt.setText(u"Sonderlektionen können nicht mit normalen Lektionen vermischt werden!")
             thread.start_new(self.showBottomWidget, ())
 
-
-
     def ListeZuSql(self, liste, args):
         statement = "where "
         if len(liste) < 1:
@@ -298,14 +303,18 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         for i in liste:
             statement += args+" like "+str(i)+" or "
         return statement[:-3]
+
     def LektionTrennen(self):
         pop_liste = []
-        for i in reversed(self.lvGewaehlteLektionen.selectedIndexes()):
+
+        for i in self.lvGewaehlteLektionen.selectedIndexes():
+
             pop_liste.append(i.row())
-        #print pop_liste
+
+        pop_liste = sorted(pop_liste, reverse=True)
         for i in pop_liste:
             self.lektions_liste.pop(i)
-        
+
         self.AbfrageNeuZeichen()
 
     def anzVokabeln(self):
@@ -325,10 +334,12 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
             counter += self.datenbank.getDataAsList(statement)[0][0]
         return counter
+
     def AnzahlVokabelnPaint(self):
         counter = self.anzVokabeln()
         self.labAnzahlVokabeln.setText(u"Anzahl Vokabeln:"+str(counter))
         self.AnzahlAbfragenPaint()
+
     def AnzahlAbfragenPaint(self):
         counter = self.anzVokabeln()
             
