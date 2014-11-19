@@ -115,11 +115,16 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
     def Abfragerichtung(self):
         #1 ist von Deutsch nach Fremd, 2 von Fremd nach Deutsch
         daten = QtCore.QStringList()
-        daten.append("Deutsch - "+str(self.cbSprache.currentText()))
-        daten.append(str(self.cbSprache.currentText())+" - Deutsch")
+        sprachenR1 = QtCore.QString("Deutsch - "+self.cbSprache.currentText())
+        #daten.append("Deutsch - "+str(self.cbSprache.currentText()))
+        daten.append(sprachenR1)
+        sprachenR2 = QtCore.QString(self.cbSprache.currentText()+" - Deutsch")
+        #daten.append(str(self.cbSprache.currentText())+" - Deutsch")
+        daten.append(sprachenR2)
         model = QtGui.QStringListModel(daten)
         self.cBAbfragerichtung.setModel(model)
         self.cBAbfragerichtung.setCurrentIndex(self.richtung-1)
+
     def SpracheZeichnen(self):
         select_sprache = "select fremdsprache, id from sprache"
         sprache_daten = self.datenbank.getDataAsQStringList(select_sprache)
@@ -248,10 +253,13 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         statement = "select buecher.name from buecher " \
                     "where id like "+str(self.getIdBuch())
         buchname = self.datenbank.getDataAsList(statement)[0][0]
-        if str(buchname).lower()[:6] == "sonder":
+        try:
+            if str(buchname).lower()[:6] == "sonder":
 
-            sonderbuch = True
-        else:
+                sonderbuch = True
+            else:
+                sonderbuch = False
+        except:
             sonderbuch = False
         print "sondercheck: "+str(self.sonderCheck)
         print "sonderbuch: "+str(sonderbuch)
