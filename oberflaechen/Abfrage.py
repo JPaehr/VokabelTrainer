@@ -43,7 +43,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         super(Abfrage, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
-        #self.showTime = showTime
+
         self.labZeit.setParent(self)
         self.labZeitEinblenden.setParent(self)
 
@@ -263,7 +263,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 self.labVokabelMeintenSie.setText(self.vokabel_fremd)
             
             self.labLektion.setText(unicode(self.lektion))
-            self.labBuch.setText(str(self.buch))
+            self.labBuch.setText(unicode(self.buch))
             self.labRichtigFalsch.setText("")
             self.labBitteEingeben.setText("Bitte eingeben")
             self.labWeitereVokabeln.setText("Noch "+str(len(self.vokabel_ids)-self.id_aktuell-1)+" weitere Vokabeln")

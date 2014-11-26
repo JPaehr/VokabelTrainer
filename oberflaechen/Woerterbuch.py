@@ -46,9 +46,10 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.redraw_table()
   
     def redraw_table(self):
-
-        datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
-        limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'")
+        statement = "select fremdsprache, id from SPRACHE \
+        limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'"
+        #print(statement)
+        datenidSprache = self.Datenbank.getDataAsList(statement)
 
         suchString = str(self.tfSuche.text().toUtf8()).decode("utf-8")
 
@@ -100,11 +101,13 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             vokabeln.fremd like '%"+suchString+"%' or \
             Buecher.name like '%"+suchString+"%')"
         # print(self.statement)
+        #print self.statementId
         IDListe = []
         for i in self.Datenbank.getDataAsList(self.statementId):
             IDListe.append(i[4])
-        self.index_id_allocate(IDListe)
 
+        self.index_id_allocate(IDListe)
+        #print self.statement
         self.daten = self.Datenbank.getDataAsList(self.statement)
         model = WoerterbuchModel.ModelListe(self.daten, self.headerDaten)
 

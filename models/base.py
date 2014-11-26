@@ -21,12 +21,12 @@ class base:
         #print self.cursor.fetchall()
         return self.cursor.fetchall()
 
-
     def setData(self, statement):
         #print "setData empfaegt: ", statement
         self.cursor.execute(statement)
         self.connection.commit()
         #print "setDataFunkt: ", statement
+
     def setDataWithoutCommit(self, statement):
 
         #print "setData empfaegt: ", statement
@@ -35,6 +35,7 @@ class base:
         #print "setDataFunkt: ", statement
     def commit(self):
         self.connection.commit()
+
     def delData(self, statement):
         self.cursor.execute(statement)
         self.connection.commit()
