@@ -29,5 +29,5 @@ class NeuesBuch(WindowBuchAnlegen, QtGui.QWidget):
         limit '"+str(self.cBSprache.currentIndex())+"', \
         '"+str(self.cBSprache.currentIndex()+1)+"'") 
         self.Datenbank.setData("insert into Buecher (name, id_sprache) \
-        values('"+str(self.tfBuchtitel.text())+"', '"+str(daten[0][1])+"')")
+        values('"+unicode(self.tfBuchtitel.text())+"', '"+unicode(daten[0][1])+"')")
         self.close()

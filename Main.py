@@ -74,18 +74,18 @@ class Programm(MainWindow, QtGui.QMainWindow):
             print("Datenbank aktualisiert")
 
         self.wStatistik = None
-        self.wLektionAendern= None
-        self.wAbfrageForsetzen= None
-        self.wVorsichtigSein= None
-        self.wBuch_aendern= None
-        self.wSprache_aendern= None
-        self.wAbfrage_einstellungen= None
-        self.wNeue_vokabel= None
-        self.wNeues_buch= None
-        self.wNeue_sprache= None
-        self.wNeue_lektion= None
-        self.wWoerterbuch= None
-        self.wMinFit= None
+        self.wLektionAendern = None
+        self.wAbfrageForsetzen = None
+        self.wVorsichtigSein = None
+        self.wBuch_aendern = None
+        self.wSprache_aendern = None
+        self.wAbfrage_einstellungen = None
+        self.wNeue_vokabel = None
+        self.wNeues_buch = None
+        self.wNeue_sprache = None
+        self.wNeue_lektion = None
+        self.wWoerterbuch = None
+        self.wMinFit = None
         self.wWoerterbuchSonder = None
 
         if os.stat('zwischenSpeicher.fs').st_size == 0:
