@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrage.ui'
 #
-# Created: Thu Apr 16 19:59:24 2015
+# Created: Thu Apr 16 20:42:37 2015
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -76,14 +76,12 @@ class Ui_Form(object):
         self.labBitteEingeben = QtGui.QLabel(Form)
         self.labBitteEingeben.setObjectName(_fromUtf8("labBitteEingeben"))
         self.horizontalLayout_6.addWidget(self.labBitteEingeben)
-        self.verticalLayout.addLayout(self.horizontalLayout_6)
-        self.verticalLayout_4 = QtGui.QVBoxLayout()
-        self.verticalLayout_4.setContentsMargins(10, -1, -1, -1)
-        self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
         self.labHint = QtGui.QLabel(Form)
         self.labHint.setObjectName(_fromUtf8("labHint"))
-        self.verticalLayout_4.addWidget(self.labHint)
-        self.verticalLayout.addLayout(self.verticalLayout_4)
+        self.horizontalLayout_6.addWidget(self.labHint)
+        self.horizontalLayout_6.setStretch(0, 1)
+        self.horizontalLayout_6.setStretch(1, 3)
+        self.verticalLayout.addLayout(self.horizontalLayout_6)
         self.horizontalLayout_5 = QtGui.QHBoxLayout()
         self.horizontalLayout_5.setContentsMargins(10, -1, -1, -1)
         self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
@@ -129,7 +127,7 @@ class Ui_Form(object):
         self.labRichtigFalsch.setObjectName(_fromUtf8("labRichtigFalsch"))
         self.verticalLayout.addWidget(self.labRichtigFalsch)
         self.verticalLayout.setStretch(0, 3)
-        self.verticalLayout.setStretch(7, 5)
+        self.verticalLayout.setStretch(6, 5)
         self.horizontalLayout.addLayout(self.verticalLayout)
         self.verticalLayout_3 = QtGui.QVBoxLayout()
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
