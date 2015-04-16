@@ -179,14 +179,46 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         self.connect(self.thread, QtCore.SIGNAL("finished()"), self.weitere_vokabel)
         self.connect(self.threadRichtig, QtCore.SIGNAL("finished()"), self.weitere_vokabel)
         self.connect(self.btnWeiter, QtCore.SIGNAL("clicked()"), self.weitereVokabelKlick)
+        self.connect(self.tfInput, QtCore.SIGNAL("textChanged(QString)"), self.repaintHint)
+
+
+        self.labHint.setText("")
+
         self.btnWeiter.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
 
         if speicher is 'None':
             self.weitere_vokabel()
 
+        self.repaintHint()
+
 
         self.WindowAuwertung = None
         self.windowMeintenSie = None
+
+    def repaintHint(self):
+        #print("repaint aufgerufen")
+
+        if self.richtung == 1:
+            compareVok = self.vokabel_fremd
+        else:
+            compareVok = self.vokabel_deutsch
+
+        textHilfe = str(len(self.tfInput.text()))
+        if len(compareVok) > len(self.tfInput.text()) and compareVok[len(self.tfInput.text())] == ' ':
+            textHilfe = textHilfe+"_"
+        if len(compareVok) > len(self.tfInput.text()) and compareVok[len(self.tfInput.text())] == ',':
+            textHilfe = textHilfe+","
+        if len(compareVok) > len(self.tfInput.text()) and compareVok[len(self.tfInput.text())] == '!':
+            textHilfe = textHilfe+"!"
+        if len(compareVok) > len(self.tfInput.text()) and compareVok[len(self.tfInput.text())] == '?':
+            textHilfe = textHilfe+"?"
+        if len(compareVok) > len(self.tfInput.text()) and compareVok[len(self.tfInput.text())] == '.':
+            textHilfe = textHilfe+"."
+
+        textHilfe = textHilfe+"/"+str(len(compareVok))
+
+        self.labHint.setText(textHilfe)
+
 
     def zeitSwitch(self):
         if self.zeitSichtbar:

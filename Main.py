@@ -229,7 +229,8 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.wMinFit = EinstellungenMindestTreffer.MindestTreffer(self)
         self.wMinFit.show()
 
-app = QtGui.QApplication(sys.argv) 
+
+app = QtGui.QApplication(sys.argv)
 dialog = Programm() 
 dialog.show() 
 sys.exit(app.exec_())
