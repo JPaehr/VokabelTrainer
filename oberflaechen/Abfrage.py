@@ -214,6 +214,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             textHilfe = textHilfe+"?"
         if len(compareVok) > len(self.tfInput.text()) and compareVok[len(self.tfInput.text())] == '.':
             textHilfe = textHilfe+"."
+        if len(compareVok) > len(self.tfInput.text()) and compareVok[len(self.tfInput.text())] == ':':
+            textHilfe = textHilfe+":"
 
         textHilfe = textHilfe+"/"+str(len(compareVok))
 
