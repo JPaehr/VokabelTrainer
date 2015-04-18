@@ -73,6 +73,33 @@ class Programm(MainWindow, QtGui.QMainWindow):
             self.datenbank.setData(statement)
             print("Datenbank aktualisiert")
 
+
+        try:
+            statement = "select richtig from vokabeln"
+            self.datenbank.getDataAsList(statement)
+        except:
+            print("kann richtig nicht aus Vokabeln lesen, weil nicht verfügbar")
+            print("spalte richtig wird erstellt")
+            tableUpdateStatement = "ALTER TABLE Vokabeln ADD COLUMN richtig INTEGER;"
+            self.datenbank.setData(tableUpdateStatement)
+            print("Datenbank aktualisiert")
+
+            print("spalte falsch wird erstellt")
+            tableUpdateStatement = "ALTER TABLE Vokabeln ADD COLUMN falsch INTEGER;"
+            self.datenbank.setData(tableUpdateStatement)
+            print("Datenbank aktualisiert")
+
+            print("spalte zuletztRichtig wird erstellt")
+            tableUpdateStatement = "ALTER TABLE Vokabeln ADD COLUMN zuletztRichtig INTEGER;"
+            self.datenbank.setData(tableUpdateStatement)
+            print("Datenbank aktualisiert")
+
+            #set initvalues
+            tableUpdateStatement = "update vokabeln set richtig=3, falsch=0, zuletztRichtig=1"
+            self.datenbank.setData(tableUpdateStatement)
+            print("Datenbank aktualisiert")
+
+
         self.wStatistik = None
         self.wLektionAendern = None
         self.wAbfrageForsetzen = None

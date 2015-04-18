@@ -221,7 +221,6 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         self.labHint.setText(textHilfe)
 
-
     def zeitSwitch(self):
         if self.zeitSichtbar:
             # unsichtbar machen
@@ -371,6 +370,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             if self.vokabel_fremd == str(self.tfInput.text().toUtf8()).decode("utf-8"):
                 # self.labRichtigFalsch.setText("Richtig")
                 self.labBitteEingeben.setText("Richtig")
+
+                updateStatement = "update vokabeln set richtig=richtig+1, zuletztrichtig=1 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
+                self.datenbank.setData(updateStatement)
+                print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
+
                 self.answer = True
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
                 if not self.sonderlektion:
@@ -382,6 +386,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     son.falsch()
                 # self.labRichtigFalsch.setText("Falsch")
                 self.labBitteEingeben.setText("Falsch")
+
+                updateStatement = "update vokabeln set falsch=falsch+1, zuletztrichtig=0 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
+                self.datenbank.setData(updateStatement)
+                print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
+
                 self.answer = False
                 if self.richtige_anzeigen:
                     self.labVokabelMeintenSie.setText(u"Richtig wäre: "+self.vokabel_fremd)
@@ -423,10 +432,21 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     self.Vergeleichsfaehigkeit(str(self.tfInput.text().toUtf8()).decode('utf-8')):
 
                 self.labBitteEingeben.setText("Richtig")
+
+                updateStatement = "update vokabeln set richtig=richtig+1, zuletztrichtig=1 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
+                self.datenbank.setData(updateStatement)
+                print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
+
+
                 self.answer = True
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
             else:
                 self.labBitteEingeben.setText("Falsch")
+
+                updateStatement = "update vokabeln set falsch=falsch+1, zuletztrichtig=0 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
+                self.datenbank.setData(updateStatement)
+                print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
+
                 self.answer = False
                 if self.richtige_anzeigen:
                     self.labVokabelMeintenSie.setText(unicode(u"Richtig wäre: ")+unicode(self.vokabel_deutsch))

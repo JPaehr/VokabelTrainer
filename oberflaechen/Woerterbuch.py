@@ -61,7 +61,8 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'")
             # print datenidBuch
 
-            self.statement = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd from sprache \
+            self.statement = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.richtig, " \
+                             "vokabeln.falsch, vokabeln.zuletztrichtig from sprache \
             join buecher on (sprache.id=buecher.id_sprache) \
             join lektionen on (lektionen.idBuch = buecher.id) \
             join vokabeln on (vokabeln.idlektion=lektionen.id) \
@@ -71,7 +72,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             vokabeln.deutsch like '%"+suchString+"%' or \
             vokabeln.fremd like '%"+suchString+"%')"
 
-            self.statementId = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd,vokabeln.id from sprache \
+            self.statementId = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.id from sprache \
             join buecher on (sprache.id=buecher.id_sprache) \
             join lektionen on (lektionen.idBuch = buecher.id) \
             join vokabeln on (vokabeln.idlektion=lektionen.id) \
@@ -91,7 +92,8 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             vokabeln.fremd like '%"+suchString+"%' or \
             Buecher.name like '%"+suchString+"%')"
 
-            self.statement = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd from sprache \
+            self.statement = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.richtig, " \
+                             "vokabeln.falsch, vokabeln.zuletztrichtig from sprache \
             join buecher on (sprache.id=buecher.id_sprache) \
             join lektionen on (lektionen.idBuch = buecher.id) \
             join vokabeln on (vokabeln.idlektion=lektionen.id) \
@@ -114,7 +116,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.tVWoerterbuch.setModel(model)
         #tableview.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.tVWoerterbuch.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
-
+        #self.tVWoerterbuch.setStyleSheet("background:red")
     def index_id_allocate(self, ids):
         self.IndexListe = []
         for i in ids:
