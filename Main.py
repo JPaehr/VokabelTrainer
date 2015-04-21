@@ -99,6 +99,16 @@ class Programm(MainWindow, QtGui.QMainWindow):
             self.datenbank.setData(tableUpdateStatement)
             print("Datenbank aktualisiert")
 
+        try:
+            statement = "select * from formhinweise"
+            self.datenbank.getDataAsList(statement)
+        except:
+            #create table
+            statement = "CREATE  TABLE formhinweise (id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , idSprache INTEGER, hint TEXT);"
+            self.datenbank.setData(statement)
+
+            updateStatement = "ALTER TABLE vokabeln ADD COLUMN idHint INTEGER;"
+            self.datenbank.setData(updateStatement)
 
         self.wStatistik = None
         self.wLektionAendern = None
