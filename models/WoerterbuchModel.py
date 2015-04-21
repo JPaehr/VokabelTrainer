@@ -27,7 +27,7 @@ class ModelListe(QtCore.QAbstractTableModel):
 
         if role == QtCore.Qt.ToolTipRole:
             if len(self.__daten[index.row()][index.column()]) > 150:
-                return self.__daten[index.row()][index.column()][:150]+"<br>"+ \ 
+                return self.__daten[index.row()][index.column()][:150]+"<br>"+ \
                        self.__daten[index.row()][index.column()][150:]
             else:
                 return self.__daten[index.row()][index.column()]

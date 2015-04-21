@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\MainWindow.ui'
 #
-# Created: Tue Nov 04 19:13:36 2014
-#      by: PyQt4 UI code generator 4.11.2
+# Created: Tue Apr 21 08:10:46 2015
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -141,7 +141,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "Vokabeltrainer von Heidi", None))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Vokabeltrainer", None))
         self.btnNeueSprache.setText(_translate("MainWindow", "Neue Sprache anlegen", None))
         self.btnNeuesBuch.setText(_translate("MainWindow", "Neues Buch anlegen", None))
         self.btnNeueLektion.setText(_translate("MainWindow", "Neue Lektion anlegen", None))
