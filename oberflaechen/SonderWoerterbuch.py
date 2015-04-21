@@ -6,7 +6,7 @@ Created on 08.10.2013
 '''
 from PyQt4 import QtGui, QtCore
 import models.base as Datenbank
-from models import WoerterbuchModel as WoerterbuchModel
+from models import SonderWoerterbuchModel as WoerterbuchModel
 from windows.WindowWoerterbuchSonderlektion import Ui_Form as WindowWoerterbuchSonderlektion
 
 class SonderWoerterbuch(WindowWoerterbuchSonderlektion, QtGui.QWidget):
