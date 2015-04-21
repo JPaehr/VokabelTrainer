@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowWoerterbuchBearbeiten.ui'
 #
-# Created: Tue Apr 15 14:53:58 2014
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Tue Apr 21 07:54:30 2015
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -78,6 +78,38 @@ class Ui_Form(object):
         self.verticalLayout_6.addWidget(self.tfFremd)
         self.horizontalLayout_3.addWidget(self.groupBox_5)
         self.verticalLayout_4.addLayout(self.horizontalLayout_3)
+        self.horizontalLayout_4 = QtGui.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
+        self.groupBox_6 = QtGui.QGroupBox(Form)
+        self.groupBox_6.setObjectName(_fromUtf8("groupBox_6"))
+        self.horizontalLayout_5 = QtGui.QHBoxLayout(self.groupBox_6)
+        self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
+        self.groupBox_7 = QtGui.QGroupBox(self.groupBox_6)
+        self.groupBox_7.setObjectName(_fromUtf8("groupBox_7"))
+        self.verticalLayout = QtGui.QVBoxLayout(self.groupBox_7)
+        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.labRichtig = QtGui.QLabel(self.groupBox_7)
+        self.labRichtig.setObjectName(_fromUtf8("labRichtig"))
+        self.verticalLayout.addWidget(self.labRichtig)
+        self.horizontalLayout_5.addWidget(self.groupBox_7)
+        self.groupBox_8 = QtGui.QGroupBox(self.groupBox_6)
+        self.groupBox_8.setObjectName(_fromUtf8("groupBox_8"))
+        self.verticalLayout_2 = QtGui.QVBoxLayout(self.groupBox_8)
+        self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
+        self.labFalsch = QtGui.QLabel(self.groupBox_8)
+        self.labFalsch.setObjectName(_fromUtf8("labFalsch"))
+        self.verticalLayout_2.addWidget(self.labFalsch)
+        self.horizontalLayout_5.addWidget(self.groupBox_8)
+        self.groupBox_9 = QtGui.QGroupBox(self.groupBox_6)
+        self.groupBox_9.setObjectName(_fromUtf8("groupBox_9"))
+        self.verticalLayout_3 = QtGui.QVBoxLayout(self.groupBox_9)
+        self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
+        self.labZuletzt = QtGui.QLabel(self.groupBox_9)
+        self.labZuletzt.setObjectName(_fromUtf8("labZuletzt"))
+        self.verticalLayout_3.addWidget(self.labZuletzt)
+        self.horizontalLayout_5.addWidget(self.groupBox_9)
+        self.horizontalLayout_4.addWidget(self.groupBox_6)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_4)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.btnAbbrechen = QtGui.QPushButton(Form)
@@ -101,6 +133,13 @@ class Ui_Form(object):
         self.groupBox_3.setTitle(_translate("Form", "Lektion", None))
         self.groupBox_4.setTitle(_translate("Form", "Deutsch", None))
         self.groupBox_5.setTitle(_translate("Form", "Fremdsprache", None))
+        self.groupBox_6.setTitle(_translate("Form", "Statistik", None))
+        self.groupBox_7.setTitle(_translate("Form", "Anzahl richtig", None))
+        self.labRichtig.setText(_translate("Form", "TextLabel", None))
+        self.groupBox_8.setTitle(_translate("Form", "Anzahl falsch", None))
+        self.labFalsch.setText(_translate("Form", "TextLabel", None))
+        self.groupBox_9.setTitle(_translate("Form", "zuletzt", None))
+        self.labZuletzt.setText(_translate("Form", "TextLabel", None))
         self.btnAbbrechen.setText(_translate("Form", "Abbrechen", None))
         self.btnVokabelLoeschenUSchliessen.setText(_translate("Form", "Vokabeln löschen und schließen", None))
         self.btnAnwenden.setText(_translate("Form", "Anwenden", None))

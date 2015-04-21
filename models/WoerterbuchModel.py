@@ -6,6 +6,7 @@ from PyQt4.uic.Compiler.qtproxies import QtGui
 class ModelListe(QtCore.QAbstractTableModel):
     def __init__(self, daten=[[]], headers=[],  parent=None):
         QtCore.QAbstractTableModel.__init__(self, parent)
+        #dataformat 4 richtig, 5 falsch, 6 zuletzt
         self.__daten = daten
         self.__headers = headers
 
@@ -26,13 +27,14 @@ class ModelListe(QtCore.QAbstractTableModel):
 
         if role == QtCore.Qt.ToolTipRole:
             if len(self.__daten[index.row()][index.column()]) > 150:
-                return self.__daten[index.row()][index.column()][:150]+"<br>"+ \
+                return self.__daten[index.row()][index.column()][:150]+"<br>"+ \ 
                        self.__daten[index.row()][index.column()][150:]
             else:
                 return self.__daten[index.row()][index.column()]
 
         if role == QtCore.Qt.BackgroundRole:
-            if self.__daten[index.row()][4] > self.__daten[index.row()][5] and self.__daten[index.row()][4] >= 3:
+            if self.__daten[index.row()][4] > self.__daten[index.row()][5] and self.__daten[index.row()][4] >= 3 and \
+                    not self.__daten[index.row()][6] == 0:
                 #green
                 return QBrush(QColor(0, 255, 0, 127))
 

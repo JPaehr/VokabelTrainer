@@ -41,9 +41,17 @@ class WoerterbuchBearbeiten(WindowWoerterbuchBearbeiten, QtGui.QWidget):
         self.SpracheID = daten[0][3]
         
         self.SpracheMachen()
-        vokabeln = self.Datenbank.getDataAsList("select deutsch, fremd from vokabeln where id like "+str(self.VokabelID))
+        vokabeln = self.Datenbank.getDataAsList("select deutsch, fremd, richtig, falsch, zuletztrichtig from vokabeln where id like "+str(self.VokabelID))
         self.tfDeutsch.setText(vokabeln[0][0])
         self.tfFremd.setText(vokabeln[0][1])
+        self.labRichtig.setText(str(vokabeln[0][2]))
+        self.labFalsch.setText(str(vokabeln[0][3]))
+
+        if vokabeln[0][4] == 1:
+            self.labZuletzt.setText("richtig")
+        else:
+            self.labZuletzt.setText("falsch")
+
 
     def delete_vocable(self, close=False):
 
