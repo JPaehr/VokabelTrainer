@@ -29,8 +29,8 @@ class Markierung(QtCore.QAbstractTableModel):
         if role == QtCore.Qt.BackgroundRole:
 
             if self.datesList[index.row()] == None or self.datesList[index.row()] == '':
-                #red
-                return QBrush(QColor(255, 0, 0, 157))
+                #gray
+                return QBrush(QColor(136, 136, 136, 157))
 
             date = self.datesList[index.row()].split('-')
 
