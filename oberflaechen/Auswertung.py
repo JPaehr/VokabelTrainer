@@ -36,6 +36,19 @@ class Auswertung(WindowAuswertung, QtGui.QWidget):
         if not self.sonderlektion:
             self.datenbank.setData(insert)
 
+        if not self.sonderlektion:
+            #update lektion zuletztAbgefragt
+
+            updateStatement = "update lektionen set zuletztAbgefragt='"+str(Datum.date.today())+"' where "
+            for i in int_liste_lektionen:
+                updateStatement = updateStatement + " id like "+str(i)+" or "
+
+            updateStatement = updateStatement[:-3]
+            #print(updateStatement)
+            self.datenbank.setData(updateStatement)
+
+
+
     def statistik_aufrufen(self):
         self.close()
         self.parent.close()

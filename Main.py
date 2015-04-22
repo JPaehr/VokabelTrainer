@@ -111,7 +111,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
             self.datenbank.setData(updateStatement)
 
         try:
-            statement = "select zueletztabgefragt from lektionen"
+            statement = "select zuletztabgefragt from lektionen"
             self.datenbank.getDataAsList(statement)
         except:
             updateStatement = "ALTER TABLE LEKTIONEN ADD COLUMN zuletztAbgefragt DATETIME"

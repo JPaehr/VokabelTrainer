@@ -145,7 +145,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.LektionZeichnen()
         
     def LektionZeichnen(self):
-        select_lektion = "select lektionen.name, lektionen.id from lektionen \
+        select_lektion = "select lektionen.name, lektionen.id, lektionen.zuletztAbgefragt from lektionen \
         join Buecher on (Buecher.id = lektionen.idBuch) \
         join Sprache on (sprache.id = buecher.id_sprache) \
         where buecher.id like "+str(self.getIdBuch())
@@ -178,7 +178,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
                 if selection[0][0] > 0:
                     liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
 
-        model = LectionsListModerQuerySettings.Markierung(liste)
+        model = LectionsListModerQuerySettings.Markierung(liste, dateList)
         self.lvLektionen.setModel(model)
         self.lvLektionen.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
 
@@ -236,13 +236,15 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
     def AbfrageNeuZeichen(self):
         #print self.lektionsListe
         datenliste = []
+        zuletztAbgefragt = []
         for i in self.lektions_liste:
-            daten = self.datenbank.getDataAsList("select Buecher.name, lektionen.name from lektionen "
+            daten = self.datenbank.getDataAsList("select Buecher.name, lektionen.name, lektionen.zuletztAbgefragt from lektionen "
                                                  "join buecher on (buecher.id=lektionen.idbuch) "
                                                  "where lektionen.id like "+str(i))
             #deutsch = str(self.tfDeutsch.text().toUtf8()).decode("utf-8").strip()
             #print daten[0][0], daten[0][1]
             datenliste.append(unicode(daten[0][0])+" - "+unicode(daten[0][1]))
+            zuletztAbgefragt.append(daten[0][2])
         #Checks neu lesen
         self.sonderCheck = False
         self.normalCheck = False
@@ -252,7 +254,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             else:
                 self.sonderCheck = True
 
-        model = Markierung.Markierung(datenliste)
+        model = LectionsListModerQuerySettings.Markierung(datenliste, zuletztAbgefragt)
         self.lvGewaehlteLektionen.setModel(model)
         self.lvGewaehlteLektionen.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
         self.AnzahlVokabelnPaint()
