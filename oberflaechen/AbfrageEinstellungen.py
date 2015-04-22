@@ -10,6 +10,7 @@ from windows.WindowAbfrageEinstellungen import Ui_Form as WindowAbfrageEinstellu
 import Abfrage as Abfrage
 import models.base as Datenbank
 import models.ListModel as Markierung
+import models.LectionListModelQuerySettings as LectionsListModerQuerySettings
 import time
 import thread
 
@@ -150,6 +151,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         where buecher.id like "+str(self.getIdBuch())
         daten = self.datenbank.getDataAsList(select_lektion)
         liste = []
+        dateList = list()
         for i in daten:
             #Vokabeln dahinter schreiben
 
@@ -161,6 +163,11 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             if not self.querySonderlektion(i[1]):
                 if selection[0][0] > 0:
                     liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
+                    try:
+                        dateList.append(i[2])
+                        #datetime.date.today()
+                    except:
+                        print("Datumsliste konnte nicht angelegt werden")
             else:
                 statement = "select count(*) from sondervokabeln " \
                         "join lektionen on (lektionen.id=sondervokabeln.idsonderlektion) " \
@@ -171,8 +178,8 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
                 if selection[0][0] > 0:
                     liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
 
-        model = Markierung.Markierung(liste)
-        self.lvLektionen.setModel(model) 
+        model = LectionsListModerQuerySettings.Markierung(liste)
+        self.lvLektionen.setModel(model)
         self.lvLektionen.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
 
     def querySonderlektion(self, id):

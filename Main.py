@@ -110,6 +110,13 @@ class Programm(MainWindow, QtGui.QMainWindow):
             updateStatement = "ALTER TABLE vokabeln ADD COLUMN idHint INTEGER;"
             self.datenbank.setData(updateStatement)
 
+        try:
+            statement = "select zueletztabgefragt from lektionen"
+            self.datenbank.getDataAsList(statement)
+        except:
+            updateStatement = "ALTER TABLE LEKTIONEN ADD COLUMN zuletztAbgefragt DATETIME"
+            self.datenbank.setData(updateStatement)
+
         self.wStatistik = None
         self.wLektionAendern = None
         self.wAbfrageForsetzen = None
