@@ -104,15 +104,29 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         join Buecher on (Buecher.id = lektionen.idBuch) \
         join Sprache on (sprache.id = buecher.id_sprache) \
         where buecher.id like "+str(self.getIdBuch())
-        daten = self.Datenbank.getDataAsQStringList(selectLektion)
-        model = QtGui.QStringListModel(daten)
-        self.cBLekion.setModel(model) 
+
+        daten = self.Datenbank.getDataAsList(selectLektion)
+        anzVokProLektion = list()
+        for i in daten:
+            statement = "select count(*) from lektionen " \
+                        "join vokabeln on (lektionen.id = vokabeln.idlektion) " \
+                        "where lektionen.id like "+str(i[1])
+            counterToAppend = self.Datenbank.getDataAsList(statement)[0][0]
+            anzVokProLektion.append(counterToAppend)
+
+        dataForModel = QtCore.QStringList()
+        for i in range(len(daten)):
+            strToAppend = daten[i][0] + " - "+str(anzVokProLektion[i]) + " Vokabeln "
+            dataForModel.append(strToAppend)
+
+        model = QtGui.QStringListModel(dataForModel)
+        self.cBLekion.setModel(model)
         self.AnzVokabelnZeichen()
-        
+
     def AnzVokabelnZeichen(self):
-        
+
         #Anzahl vokabeln berechen und zeichen
-        
+
         daten = self.Datenbank.getDataAsList("select count(*) from vokabeln \
         join lektionen on (lektionen.id = vokabeln.idlektion) \
         where lektionen.id like "+str(self.getIdLektion()))
@@ -123,7 +137,7 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
                 self.lbAnzVokabeln.setText(str(daten[0][0])+" Vokabel in dieser Lektion")
             else:
                 self.lbAnzVokabeln.setText(str(daten[0][0])+" Vokabeln in dieser Lektion")
-
+        
     def getIdSprache(self):
         selectSprache = "select fremdsprache, id from sprache \
         limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'" 
