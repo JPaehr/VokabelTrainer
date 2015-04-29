@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrage.ui'
 #
-# Created: Thu Apr 16 20:42:37 2015
+# Created: Wed Apr 29 11:53:37 2015
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -123,11 +123,18 @@ class Ui_Form(object):
         self.tfInput.setObjectName(_fromUtf8("tfInput"))
         self.verticalLayout_2.addWidget(self.tfInput)
         self.verticalLayout.addWidget(self.groupBox_4)
+        self.verticalLayout_4 = QtGui.QVBoxLayout()
+        self.verticalLayout_4.setContentsMargins(10, -1, -1, -1)
+        self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
+        self.labGrammarHint = QtGui.QLabel(Form)
+        self.labGrammarHint.setObjectName(_fromUtf8("labGrammarHint"))
+        self.verticalLayout_4.addWidget(self.labGrammarHint)
+        self.verticalLayout.addLayout(self.verticalLayout_4)
         self.labRichtigFalsch = QtGui.QLabel(Form)
         self.labRichtigFalsch.setObjectName(_fromUtf8("labRichtigFalsch"))
         self.verticalLayout.addWidget(self.labRichtigFalsch)
         self.verticalLayout.setStretch(0, 3)
-        self.verticalLayout.setStretch(6, 5)
+        self.verticalLayout.setStretch(7, 5)
         self.horizontalLayout.addLayout(self.verticalLayout)
         self.verticalLayout_3 = QtGui.QVBoxLayout()
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
@@ -192,6 +199,7 @@ class Ui_Form(object):
         self.labHint.setText(_translate("Form", "Hint", None))
         self.labVokabelMeintenSie.setText(_translate("Form", "Vokabel", None))
         self.labMeintenSie.setText(_translate("Form", "Meinten Sie", None))
+        self.labGrammarHint.setText(_translate("Form", "TextLabel", None))
         self.labRichtigFalsch.setText(_translate("Form", "Richtig Falsch", None))
         self.groupBox.setTitle(_translate("Form", "Punkte", None))
         self.cBPunkte.setText(_translate("Form", "Punkte", None))
