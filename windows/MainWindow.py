@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\MainWindow.ui'
 #
-# Created: Tue Apr 21 08:10:46 2015
+# Created: Wed Apr 29 14:54:06 2015
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -86,6 +86,9 @@ class Ui_MainWindow(object):
         self.btnBuecherBearbeiten = QtGui.QPushButton(self.centralwidget)
         self.btnBuecherBearbeiten.setObjectName(_fromUtf8("btnBuecherBearbeiten"))
         self.verticalLayout_3.addWidget(self.btnBuecherBearbeiten)
+        self.pBEditGrammarHints = QtGui.QPushButton(self.centralwidget)
+        self.pBEditGrammarHints.setObjectName(_fromUtf8("pBEditGrammarHints"))
+        self.verticalLayout_3.addWidget(self.pBEditGrammarHints)
         self.widget_3 = QtGui.QWidget(self.centralwidget)
         self.widget_3.setObjectName(_fromUtf8("widget_3"))
         self.verticalLayout_3.addWidget(self.widget_3)
@@ -155,6 +158,7 @@ class Ui_MainWindow(object):
         self.btnSpracheBeareiten.setText(_translate("MainWindow", "Sprachen bearbeiten", None))
         self.btnLektionbearbeiten.setText(_translate("MainWindow", "Lektionen bearbeiten", None))
         self.btnBuecherBearbeiten.setText(_translate("MainWindow", "Bücher bearbeiten", None))
+        self.pBEditGrammarHints.setText(_translate("MainWindow", "Formhinweise bearbeiten", None))
         self.labInfotext.setText(_translate("MainWindow", "<center>TextLabel</center>", None))
         self.menuDateu.setTitle(_translate("MainWindow", "Datei", None))
         self.menuEinstellungen.setTitle(_translate("MainWindow", "Einstellungen", None))
