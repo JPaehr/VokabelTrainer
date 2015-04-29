@@ -23,7 +23,9 @@ class FormhinweiseAendern(WindowGrammarChange, QtGui.QWidget):
         # self.connect(self.btnSpeichernUndSchliessen, QtCore.SIGNAL("clicked()"), self.Speichern)
         # self.connect(self.btnBuchLoeschen, QtCore.SIGNAL('clicked()'), self.loeschenClicked)
         self.connect(self.cBSpracheAuswaehlen, QtCore.SIGNAL("activated(int)"), self.preSelectNewLanguage)
+        self.connect(self.cBSpracheAuswaehlen, QtCore.SIGNAL("activated(int)"), self.paintHints)
         self.connect(self.cbGrammarHint, QtCore.SIGNAL("activated(int)"), self.preSelectTextfield)
+        self.connect(self.btnSpeichernUndSchliessen, QtCore.SIGNAL("clicked()"), self.saveAndExit)
 
 
         self.paintLanguage()
@@ -60,7 +62,8 @@ class FormhinweiseAendern(WindowGrammarChange, QtGui.QWidget):
         self.cBSpracheNeu.setCurrentIndex(self.cBSpracheAuswaehlen.currentIndex())
 
     def paintHints(self):
-        statement = "select hint, id from formhinweise"
+        statement = "select hint, id from formhinweise where idsprache like "+str(self.langIdList[self.cBSpracheAuswaehlen.currentIndex()])
+        #print(statement)
         data = self.Datenbank.getDataAsList(statement)
 
         self.hintIdList = list()
@@ -78,7 +81,13 @@ class FormhinweiseAendern(WindowGrammarChange, QtGui.QWidget):
         self.tfNeuerName.setText(self.cbGrammarHint.currentText())
 
     def saveAndExit(self):
-        idsprache = self.langIdList[self.cBSpracheAuswaehlen.currentIndex()]
-        statement = "update formhinweise set hint='"+self.tfNeuerName.text()+"', idsprache='"+str(idsprache)+"' " \
-                    " where id like "+str(self.hintIdList[self.cbGrammarHint.currentIndex()])
+        idsprache = self.langIdList[self.cBSpracheNeu.currentIndex()]
+        if len(self.hintIdList) < 1:
+            statement = "insert into formhinweise (hint, idsprache) values ('"+str(self.tfNeuerName.text())+"', '"+str(idsprache)+"')"
+
+        else:
+            statement = "update formhinweise set hint='"+str(self.tfNeuerName.text())+"', idsprache='"+str(idsprache)+"' " \
+                        " where id like "+str(self.hintIdList[self.cbGrammarHint.currentIndex()])
+        #print(statement)
         self.Datenbank.setData(statement)
+        self.close()
