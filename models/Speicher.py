@@ -5,13 +5,14 @@ class Speicher(object):
 
     def __init__(self,pBFortschritt, distance, meintenSie, verzoegerung, verzoegerungRichtig, id_aktuell,
                  richtige_anzeigen, richtung, labPunkte, vokIds, abfragenGesamt, lektionen_ids, lektion,
-                 vokabel_deutsch, vokabel_fremd, buch, zeit, sonderlektion):
+                 vokabel_deutsch, vokabel_fremd, buch, zeit, sonderlektion, grammarHint):
         self.lektion = lektion
         self.vokabel_deutsch = vokabel_deutsch
         self.vokabel_fremd = vokabel_fremd
         self.buch = buch
         self.zeit = zeit
         self.sonderlektion = sonderlektion
+        self.grammarHint = grammarHint
 
 
         self.Fortschritt = pBFortschritt
@@ -41,3 +42,4 @@ class Speicher(object):
         print "MeintenSie: ", self.meinten_sie
         print "Verzoegerung: ", self.verzoegerung
         print "Verzoegerung richtig: ", self.verzoegerungRichtig
+        print "GrammarHint", self.grammarHint

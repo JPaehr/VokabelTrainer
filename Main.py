@@ -26,6 +26,7 @@ import oberflaechen.Vorsichtig as Vorsichtig
 import oberflaechen.Statistik as Statistik
 import oberflaechen.SonderWoerterbuch as Sonderwoerterbuch
 import oberflaechen.Abfrage as Abfrage
+import oberflaechen.Grammar as Grammar
 import models.base as Datenbank
 import oberflaechen.EinstellungenMindestTreffer as EinstellungenMindestTreffer
 from models.InfoThreadMainWindow import InfoThreadMainWindow
@@ -51,6 +52,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.connect(self.btnFortsetzen, QtCore.SIGNAL("clicked()"), self.AbfrageFortsetzen)
         self.connect(self.btnZuruecksetzen, QtCore.SIGNAL("clicked()"), self.databaseReseet)
         self.connect(self.pbSonderlektion, QtCore.SIGNAL("clicked()"), self.woerterbuechSonderlektion)
+        self.connect(self.pBEditGrammarHints, QtCore.SIGNAL("clicked()"), self.grammar_edit)
         self.infothread = InfoThreadMainWindow(self)
 
         self.actionMindestuebereinstimmung.triggered.connect(self.MinFit)
@@ -131,6 +133,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.wWoerterbuch = None
         self.wMinFit = None
         self.wWoerterbuchSonder = None
+        self.wGrammarHints = None
 
         if os.stat('zwischenSpeicher.fs').st_size == 0:
             self.FortsetzenDisable()
@@ -204,6 +207,10 @@ class Programm(MainWindow, QtGui.QMainWindow):
         """
         self.wLektionAendern = LektionAendern.LektionAendern(self)
         self.wLektionAendern.show()
+
+    def grammar_edit(self):
+        self.wGrammarHints = Grammar.FormhinweiseAendern(self)
+        self.wGrammarHints.show()
     def AbfrageFortsetzen(self):
 
         self.wAbfrageForsetzen = Abfrage.Abfrage(self, '', '', '', '', '', '', '', '', '',  '1')

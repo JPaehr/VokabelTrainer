@@ -17,6 +17,7 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         self.setupUi(self)  
         
         self.connect(self.cBSprache, QtCore.SIGNAL("activated(int)"), self.BuchZeichnen)
+        self.connect(self.cBSprache, QtCore.SIGNAL("activated(int)"), self.paintGrammar)
         self.connect(self.cBBuch, QtCore.SIGNAL("activated(int)"), self.LektionZeichnen)
         self.connect(self.cBLekion, QtCore.SIGNAL("activated(int)"), self.AnzVokabelnZeichen)
         self.connect(self.btnAbbrechen, QtCore.SIGNAL("clicked()"), self.close)
@@ -32,6 +33,27 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         self.SpracheZeichnen()
 
+    def paintGrammar(self):
+        statement = "select formhinweise.hint, formhinweise.id from formhinweise where idsprache like "+str(self.getIdSprache())
+
+        data = self.Datenbank.getDataAsList(statement)
+        self.grammarData = QtCore.QStringList()
+        self.grammarDataIds = list()
+
+        self.grammarData.append("")
+        self.grammarDataIds.append("x")
+        for i in data:
+
+            self.grammarData.append(i[0])
+            self.grammarDataIds.append(i[1])
+
+        model = QtGui.QStringListModel(self.grammarData)
+        self.cBGrammar.setModel(model)
+
+    def getGrammarId(self):
+
+        return self.grammarDataIds[self.cBGrammar.currentIndex()]
+
     def ProgressBarUpdate(self, prozent):
         self.pBFileVok.setValue(prozent)
         self.AnzVokabelnZeichen()
@@ -41,6 +63,7 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
             self.pBFileVok.setVisible(True)
         else:
             self.pBFileVok.hide()
+
     def LoadFile(self):
         try:
             filepath = QtGui.QFileDialog.getOpenFileName(self, 'Open File', '.')
@@ -68,15 +91,39 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         else:
             self.labFelderAusfuellen.setText("")
             #deutsch = str(self.tfDeutsch.text())
-            #fremd = str(self.tfFremd.text())       
-            
-            insertVokabel = "insert into vokabeln (deutsch, fremd, idlektion) values ('"+deutsch+"', '"+fremd+"', '"+str(self.getIdLektion())+"')"
-            print type(insertVokabel)
+            #fremd = str(self.tfFremd.text())
+
+            if self.cBGrammar.currentIndex() == 0 and self.lEGrammar.text() == "":
+                insertVokabel = "insert into vokabeln (deutsch, fremd, idlektion) values ('"+deutsch+"', '"+fremd+"', '"+str(self.getIdLektion())+"')"
+
+            if self.cBGrammar.currentIndex() != 0 and self.lEGrammar.text() == "":
+                insertVokabel = "insert into vokabeln (deutsch, fremd, idlektion, idhint) values " \
+                                "('"+deutsch+"', '"+fremd+"', '"+str(self.getIdLektion())+"', "+str(self.grammarDataIds[self.cBGrammar.currentIndex()])+")"
+
+            if not self.lEGrammar.text() == "":
+                #new grammarhint
+                insertGrammar = "insert into formhinweise (idsprache, hint) values " \
+                                " ('"+str(self.getIdSprache())+"', '"+unicode(self.lEGrammar.text())+"')"
+                self.Datenbank.setData(insertGrammar)
+
+                #get id of new grammarhint
+                statement = "select id from formhinweise order by id DESC limit 1"
+                id = self.Datenbank.getDataAsList(statement)[0][0]
+                insertVokabel = "insert into vokabeln (deutsch, fremd, idlektion, idhint) values " \
+                                "('"+deutsch+"', '"+fremd+"', '"+str(self.getIdLektion())+"', "+str(id)+")"
+            if not self.lEGrammar.text() == "" and self.cBGrammar.currentIndex() != 0:
+                # ist eigentlich nicht vorgesehen
+                insertVokabel = "insert into vokabeln (deutsch, fremd, idlektion, idhint) values " \
+                                "('"+deutsch+"', '"+fremd+"', '"+str(self.getIdLektion())+"', "+str(self.grammarDataIds[self.cBGrammar.currentIndex()])+")"
+
+
             self.Datenbank.setData(insertVokabel)
             self.tfDeutsch.setText("")
             self.tfFremd.setText("")
+            self.lEGrammar.setText("")
+            self.cBGrammar.setCurrentIndex(0)
             self.tfDeutsch.setFocus()
-            
+
             self.AnzVokabelnZeichen()
             
     def speichernUndSchliessen(self):
@@ -89,6 +136,7 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         modelSprache = QtGui.QStringListModel(spracheDaten)
         self.cBSprache.setModel(modelSprache)
         self.BuchZeichnen()
+        self.paintGrammar()
         
     def BuchZeichnen(self):
         selectBuch = "select buecher.name, buecher.id from buecher \
@@ -150,6 +198,7 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         where sprache.id like '"+str(self.getIdSprache())+"' \
         limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'"
         return self.Datenbank.getDataAsList(selectBuch)[0][1]
+
     def getIdLektion(self):
         selectLektion = "select lektionen.name, lektionen.id from lektionen \
         join Buecher on (Buecher.id = lektionen.idBuch) \
@@ -157,8 +206,3 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
         where buecher.id like "+str(self.getIdBuch())+" \
         limit '"+str(self.cBLekion.currentIndex())+"', '"+str(self.cBLekion.currentIndex()+1)+"'"
         return self.Datenbank.getDataAsList(selectLektion)[0][1]
-    
-    """def enterEvent(self, event):
-        self.speichern()
-        return QtGui.QWidget.enterEvent(self, event)
-    """

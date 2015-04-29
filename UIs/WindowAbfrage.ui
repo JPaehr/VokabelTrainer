@@ -17,7 +17,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,1">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout" stretch="3,0,0,0,0,0,5">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="3,0,0,0,0,0,0,5">
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0,1,1">
          <item>
@@ -172,6 +172,20 @@
           </item>
          </layout>
         </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="leftMargin">
+          <number>10</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="labGrammarHint">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QLabel" name="labRichtigFalsch">

@@ -123,6 +123,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.pBFortschritt.setValue(speicher.Fortschritt)
             self.distance = speicher.distance
             self.treffer = leve.Treffer(speicher.distance)
+            self.labGrammarHint.setText(speicher.grammarHint)
             zeit = float(speicher.verzoegerung)*10**(-3)
             #print("verz:"+str(speicher.verzoegerungRichtig))
             zeitRichtig = float(speicher.verzoegerungRichtig)*10**(-3)
@@ -249,7 +250,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                                 self.verzoegerungRichtig,
                                 self.id_aktuell, self.richtige_anzeigen, self.richtung, self.labPunkte.text(), self.vokabel_ids,
                                 self.abfragenGesamt, self.lektion_ids, self.lektion, self.vokabel_deutsch, self.vokabel_fremd, self.buch,
-                                self.zeit.getTimeInSeconds(), self.sonderlektion)
+                                self.zeit.getTimeInSeconds(), self.sonderlektion, self.labGrammarHint.text())
 
         f = open("zwischenSpeicher.fs", 'w')
         pickle.dump(meinSpeicher, f)
@@ -281,20 +282,29 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         if self.id_aktuell < len(self.vokabel_ids):
 
-            daten = self.datenbank.getDataAsList("select lektionen.name, vokabeln.deutsch, vokabeln.fremd, buecher.name from vokabeln "
+            daten = self.datenbank.getDataAsList("select lektionen.name, vokabeln.deutsch, vokabeln.fremd, buecher.name, formhinweise.hint from vokabeln "
                                                  "join lektionen on (lektionen.id=vokabeln.idlektion) "
                                                  "join buecher on (buecher.id=lektionen.idBuch) "
+                                                 "left join formhinweise on (formhinweise.id = vokabeln.idHint)"
                                                  "where vokabeln.id like "+str(self.vokabel_ids[self.id_aktuell]))
             self.lektion = daten[0][0]
             self.vokabel_deutsch = unicode(daten[0][1])
             self.vokabel_fremd = daten[0][2]
             self.buch = daten[0][3]
 
+            self.grammarHint = daten[0][4]
+
+
+
             if self.richtung == 1:
                 self.labVokabelMeintenSie.setText(self.vokabel_deutsch)
             else:
                 self.labVokabelMeintenSie.setText(self.vokabel_fremd)
-            
+            if daten[0][4] == None:
+                self.labGrammarHint.setText("")
+            else:
+                self.labGrammarHint.setText(self.grammarHint)
+
             self.labLektion.setText(unicode(self.lektion))
             self.labBuch.setText(unicode(self.buch))
             self.labRichtigFalsch.setText("")
