@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowVokabelAnlegen.ui'
 #
-# Created: Tue Mar 25 17:20:55 2014
-#      by: PyQt4 UI code generator 4.9.6
+# Created: Thu Apr 23 08:03:21 2015
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -89,6 +89,20 @@ class Ui_Form(object):
         self.verticalLayout_7.addWidget(self.tfFremd)
         self.horizontalLayout_4.addWidget(self.groupBox_5)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
+        self.verticalLayout_8 = QtGui.QVBoxLayout()
+        self.verticalLayout_8.setObjectName(_fromUtf8("verticalLayout_8"))
+        self.groupBox_6 = QtGui.QGroupBox(Form)
+        self.groupBox_6.setObjectName(_fromUtf8("groupBox_6"))
+        self.verticalLayout_9 = QtGui.QVBoxLayout(self.groupBox_6)
+        self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
+        self.cBGrammar = QtGui.QComboBox(self.groupBox_6)
+        self.cBGrammar.setObjectName(_fromUtf8("cBGrammar"))
+        self.verticalLayout_9.addWidget(self.cBGrammar)
+        self.lEGrammar = QtGui.QLineEdit(self.groupBox_6)
+        self.lEGrammar.setObjectName(_fromUtf8("lEGrammar"))
+        self.verticalLayout_9.addWidget(self.lEGrammar)
+        self.verticalLayout_8.addWidget(self.groupBox_6)
+        self.verticalLayout.addLayout(self.verticalLayout_8)
         self.pBFileVok = QtGui.QProgressBar(Form)
         self.pBFileVok.setProperty("value", 24)
         self.pBFileVok.setObjectName(_fromUtf8("pBFileVok"))
@@ -117,6 +131,7 @@ class Ui_Form(object):
         self.verticalLayout.setStretch(0, 5)
         self.verticalLayout.setStretch(1, 5)
         self.verticalLayout.setStretch(2, 5)
+        self.verticalLayout.setStretch(3, 5)
         self.verticalLayout.setStretch(4, 2)
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
@@ -126,8 +141,11 @@ class Ui_Form(object):
         Form.setTabOrder(self.cBBuch, self.cBLekion)
         Form.setTabOrder(self.cBLekion, self.tfDeutsch)
         Form.setTabOrder(self.tfDeutsch, self.tfFremd)
-        Form.setTabOrder(self.tfFremd, self.btnAbbrechen)
-        Form.setTabOrder(self.btnAbbrechen, self.btnAnwenden)
+        Form.setTabOrder(self.tfFremd, self.cBGrammar)
+        Form.setTabOrder(self.cBGrammar, self.lEGrammar)
+        Form.setTabOrder(self.lEGrammar, self.btnAbbrechen)
+        Form.setTabOrder(self.btnAbbrechen, self.pBFile)
+        Form.setTabOrder(self.pBFile, self.btnAnwenden)
         Form.setTabOrder(self.btnAnwenden, self.btnAnwendenUndSchliessen)
 
     def retranslateUi(self, Form):
@@ -138,6 +156,7 @@ class Ui_Form(object):
         self.lbAnzVokabeln.setText(_translate("Form", "TextLabel", None))
         self.groupBox_4.setTitle(_translate("Form", "Deutsch", None))
         self.groupBox_5.setTitle(_translate("Form", "Fremdsprache", None))
+        self.groupBox_6.setTitle(_translate("Form", "Grammatik", None))
         self.labFelderAusfuellen.setText(_translate("Form", "Bitte alle Felder ausfüllen", None))
         self.btnAbbrechen.setText(_translate("Form", "schließen", None))
         self.pBFile.setText(_translate("Form", "Datei laden", None))
