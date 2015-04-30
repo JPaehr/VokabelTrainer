@@ -39,16 +39,18 @@ class ModelListe(QtCore.QAbstractTableModel):
                         not self.__daten[index.row()][6] == 0:
                     #green
                     return QBrush(QColor(0, 255, 0, 127))
+                if self.__daten[index.row()][4] < 3:
+                    #gray
+                    return QBrush(QColor(129, 129, 129, 157))
+                if self.__daten[index.row()][6] == 0 and self.__daten[index.row()][4] > self.__daten[index.row()][5]:
+                    #yellow
+                    return QBrush(QColor(233, 200, 0, 157))
 
                 if self.__daten[index.row()][6] == 0:
                     #red
                     return QBrush(QColor(255, 0, 0, 157))
 
-                if self.__daten[index.row()][4] < 3:
-                    #yellow
-                    return QBrush(QColor(233, 200, 0, 157))
                     #return self.__daten[index.row()][index.column()]
-
                 if role == QtCore.Qt.CheckStateRole:
                     return 0
                 if role == QtCore.Qt.ItemIsUserCheckable:

@@ -17,6 +17,9 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         self.connect(self.cBSprache, QtCore.SIGNAL("activated(int)"), self.rewrite_books)
         self.connect(self.cbColor, QtCore.SIGNAL("clicked()"), self.colorisedListener)
+        self.connect(self.cbSolid, QtCore.SIGNAL("clicked()"), self.colorisedListener)
+        self.connect(self.cbSufficient, QtCore.SIGNAL("clicked()"), self.colorisedListener)
+        self.connect(self.cbMiserable, QtCore.SIGNAL("clicked()"), self.colorisedListener)
         self.connect(self.cBBuch, QtCore.SIGNAL("activated(int)"), self.redraw_table)
         self.connect(self.chBBuch, QtCore.SIGNAL("clicked()"), self.redraw_table)
         self.connect(self.tfSuche, QtCore.SIGNAL("textChanged(QString)"), self.redraw_table)
@@ -34,20 +37,24 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.EditWindow = None
 
     def colorisedListener(self):
-        #print("color Check")
+        print(self.createSearchStatementFlags())
         self.redraw_table()
 
     def createSearchStatementFlags(self):
         attach = ""
         if self.cbColor.isChecked():
-            pass
-        if self.cbSolid.isChecked():
-            attach = attach + " vokabeln.richtig > vokabeln.falsch and vokabeln.zuletztrichtig like 1"
-        if self.cbSufficient.isChecked():
-            attach = attach + " vokabeln.richtig > vokabeln.falsch and vokabeln.zuletztrichtig like 0"
-        if self.cbMiserable.isChecked():
-            attach = attach + " vokabeln.richtig < vokabeln.falsch and vokabeln.zuletztrichtig like 0"
 
+
+            if self.cbSolid.isChecked():
+                attach = attach + " (vokabeln.richtig > vokabeln.falsch and vokabeln.zuletztrichtig like 1) or"
+            if self.cbSufficient.isChecked():
+                attach = attach + " (vokabeln.richtig > vokabeln.falsch and vokabeln.zuletztrichtig like 0) or"
+            if self.cbMiserable.isChecked():
+                attach = attach + " (vokabeln.richtig < vokabeln.falsch and vokabeln.zuletztrichtig like 0) or"
+        if len(attach) > 0:
+            attach = " ("+attach[:-2]+") "
+
+        return attach
 
     def rewrite_books(self):
 
@@ -79,7 +86,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             # print datenidBuch
 
             self.statement = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.richtig, " \
-                             "vokabeln.falsch, vokabeln.zuletztrichtig from sprache \
+                             "vokabeln.falsch, vokabeln.zuletztrichtig, vokabeln.id from sprache \
             join buecher on (sprache.id=buecher.id_sprache) \
             join lektionen on (lektionen.idBuch = buecher.id) \
             join vokabeln on (vokabeln.idlektion=lektionen.id) \
@@ -89,28 +96,28 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             vokabeln.deutsch like '%"+suchString+"%' or \
             vokabeln.fremd like '%"+suchString+"%')"
 
-            self.statementId = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.id from sprache \
-            join buecher on (sprache.id=buecher.id_sprache) \
-            join lektionen on (lektionen.idBuch = buecher.id) \
-            join vokabeln on (vokabeln.idlektion=lektionen.id) \
-            where buecher.id like "+str(datenidBuch[0][1])+"\
-            and sprache.id like "+str(datenidSprache[0][1])+"\
-            and (lektionen.name like '%"+suchString+"%' or \
-            vokabeln.deutsch like '%"+suchString+"%' or \
-            vokabeln.fremd like '%"+suchString+"%')"
+            # self.statementId = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.id from sprache \
+            # join buecher on (sprache.id=buecher.id_sprache) \
+            # join lektionen on (lektionen.idBuch = buecher.id) \
+            # join vokabeln on (vokabeln.idlektion=lektionen.id) \
+            # where buecher.id like "+str(datenidBuch[0][1])+"\
+            # and sprache.id like "+str(datenidSprache[0][1])+"\
+            # and (lektionen.name like '%"+suchString+"%' or \
+            # vokabeln.deutsch like '%"+suchString+"%' or \
+            # vokabeln.fremd like '%"+suchString+"%')"
         else:
-            self.statementId = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.id from sprache \
-            join buecher on (sprache.id=buecher.id_sprache) \
-            join lektionen on (lektionen.idBuch = buecher.id) \
-            join vokabeln on (vokabeln.idlektion=lektionen.id) \
-            where sprache.id like "+str(datenidSprache[0][1])+" \
-            and (lektionen.name like '%"+suchString+"%' or \
-            vokabeln.deutsch like '%"+suchString+"%' or \
-            vokabeln.fremd like '%"+suchString+"%' or \
-            Buecher.name like '%"+suchString+"%')"
+            # self.statementId = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.id from sprache \
+            # join buecher on (sprache.id=buecher.id_sprache) \
+            # join lektionen on (lektionen.idBuch = buecher.id) \
+            # join vokabeln on (vokabeln.idlektion=lektionen.id) \
+            # where sprache.id like "+str(datenidSprache[0][1])+" \
+            # and (lektionen.name like '%"+suchString+"%' or \
+            # vokabeln.deutsch like '%"+suchString+"%' or \
+            # vokabeln.fremd like '%"+suchString+"%' or \
+            # Buecher.name like '%"+suchString+"%')"
 
             self.statement = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.richtig, " \
-                             "vokabeln.falsch, vokabeln.zuletztrichtig from sprache \
+                             "vokabeln.falsch, vokabeln.zuletztrichtig, vokabeln.id from sprache \
             join buecher on (sprache.id=buecher.id_sprache) \
             join lektionen on (lektionen.idBuch = buecher.id) \
             join vokabeln on (vokabeln.idlektion=lektionen.id) \
@@ -121,14 +128,24 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             Buecher.name like '%"+suchString+"%')"
         # print(self.statement)
         #print self.statementId
-        IDListe = []
-        for i in self.Datenbank.getDataAsList(self.statementId):
-            IDListe.append(i[4])
+        self.IndexListe = list()
+        self.dataForModel = list()
+        flags = self.createSearchStatementFlags()
+        if len(flags) > 0:
+            self.statement = self.statement+" and "+flags
+        print(self.statement)
 
-        self.index_id_allocate(IDListe)
+        data = self.Datenbank.getDataAsList(self.statement)
+        for i in data:
+            self.IndexListe.append(i[7])
+            self.dataForModel.append([i[0], i[1], i[2], i[3], i[4], i[5], i[6]])
+
+        # self.index_id_allocate(IDListe)
         #print self.statement
-        self.daten = self.Datenbank.getDataAsList(self.statement)
-        model = WoerterbuchModel.ModelListe(self.daten, self.headerDaten, self.cbColor.isChecked())
+
+
+        # self.daten = self.Datenbank.getDataAsList(self.statement)
+        model = WoerterbuchModel.ModelListe(self.dataForModel, self.headerDaten, self.cbColor.isChecked())
 
         self.tVWoerterbuch.setModel(model)
         #tableview.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
