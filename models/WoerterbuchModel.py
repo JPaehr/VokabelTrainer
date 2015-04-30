@@ -4,11 +4,12 @@ from PyQt4.uic.Compiler.qtproxies import QtGui
 
 
 class ModelListe(QtCore.QAbstractTableModel):
-    def __init__(self, daten=[[]], headers=[],  parent=None):
+    def __init__(self, daten=[[]], headers=[], colored=True, parent=None):
         QtCore.QAbstractTableModel.__init__(self, parent)
         #dataformat 4 richtig, 5 falsch, 6 zuletzt
         self.__daten = daten
         self.__headers = headers
+        self.colored = colored
 
     def rowCount(self, parent):
         return len(self.__daten)
@@ -32,25 +33,26 @@ class ModelListe(QtCore.QAbstractTableModel):
             else:
                 return self.__daten[index.row()][index.column()]
 
-        if role == QtCore.Qt.BackgroundRole:
-            if self.__daten[index.row()][4] > self.__daten[index.row()][5] and self.__daten[index.row()][4] >= 3 and \
-                    not self.__daten[index.row()][6] == 0:
-                #green
-                return QBrush(QColor(0, 255, 0, 127))
+        if self.colored:
+            if role == QtCore.Qt.BackgroundRole:
+                if self.__daten[index.row()][4] > self.__daten[index.row()][5] and self.__daten[index.row()][4] >= 3 and \
+                        not self.__daten[index.row()][6] == 0:
+                    #green
+                    return QBrush(QColor(0, 255, 0, 127))
 
-            if self.__daten[index.row()][6] == 0:
-                #red
-                return QBrush(QColor(255, 0, 0, 157))
+                if self.__daten[index.row()][6] == 0:
+                    #red
+                    return QBrush(QColor(255, 0, 0, 157))
 
-            if self.__daten[index.row()][4] < 3:
-                #yellow
-                return QBrush(QColor(233, 200, 0, 157))
-                #return self.__daten[index.row()][index.column()]
+                if self.__daten[index.row()][4] < 3:
+                    #yellow
+                    return QBrush(QColor(233, 200, 0, 157))
+                    #return self.__daten[index.row()][index.column()]
 
-            if role == QtCore.Qt.CheckStateRole:
-                return 0
-            if role == QtCore.Qt.ItemIsUserCheckable:
-                return 0
+                if role == QtCore.Qt.CheckStateRole:
+                    return 0
+                if role == QtCore.Qt.ItemIsUserCheckable:
+                    return 0
 
     def flags(self, index):
         return QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled

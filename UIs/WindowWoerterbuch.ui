@@ -66,6 +66,38 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QCheckBox" name="cbColor">
+       <property name="text">
+        <string>Colorierung</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="cbSolid">
+       <property name="text">
+        <string>Solide</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="cbSufficient">
+       <property name="text">
+        <string>Ausreichend</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="cbMiserable">
+       <property name="text">
+        <string>Miserabel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QTableView" name="tVWoerterbuch"/>
    </item>
    <item>

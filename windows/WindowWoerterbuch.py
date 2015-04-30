@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Johannes\Documents\Python\VokabelTrainer\UIs\WindowWoerterbuch.ui'
+# Form implementation generated from reading ui file '.\UIs\WindowWoerterbuch.ui'
 #
-# Created: Mon Oct 14 22:22:39 2013
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Thu Apr 30 07:50:51 2015
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -67,6 +67,21 @@ class Ui_Form(object):
         self.horizontalLayout.setStretch(1, 1)
         self.horizontalLayout.setStretch(2, 2)
         self.verticalLayout_3.addLayout(self.horizontalLayout)
+        self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        self.cbColor = QtGui.QCheckBox(Form)
+        self.cbColor.setObjectName(_fromUtf8("cbColor"))
+        self.horizontalLayout_3.addWidget(self.cbColor)
+        self.cbSolid = QtGui.QCheckBox(Form)
+        self.cbSolid.setObjectName(_fromUtf8("cbSolid"))
+        self.horizontalLayout_3.addWidget(self.cbSolid)
+        self.cbSufficient = QtGui.QCheckBox(Form)
+        self.cbSufficient.setObjectName(_fromUtf8("cbSufficient"))
+        self.horizontalLayout_3.addWidget(self.cbSufficient)
+        self.cbMiserable = QtGui.QCheckBox(Form)
+        self.cbMiserable.setObjectName(_fromUtf8("cbMiserable"))
+        self.horizontalLayout_3.addWidget(self.cbMiserable)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_3)
         self.tVWoerterbuch = QtGui.QTableView(Form)
         self.tVWoerterbuch.setObjectName(_fromUtf8("tVWoerterbuch"))
         self.verticalLayout_3.addWidget(self.tVWoerterbuch)
@@ -85,5 +100,9 @@ class Ui_Form(object):
         self.groupBox.setTitle(_translate("Form", "Sprache", None))
         self.groupBox_2.setTitle(_translate("Form", "Buch", None))
         self.groupBox_3.setTitle(_translate("Form", "Suche", None))
+        self.cbColor.setText(_translate("Form", "Colorierung", None))
+        self.cbSolid.setText(_translate("Form", "Solide", None))
+        self.cbSufficient.setText(_translate("Form", "Ausreichend", None))
+        self.cbMiserable.setText(_translate("Form", "Miserabel", None))
         self.btnBearbeiten.setText(_translate("Form", "Bearbeiten", None))
 
