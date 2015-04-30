@@ -9,20 +9,21 @@ from models import WoerterbuchModel as WoerterbuchModel
 
 
 class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
-    
+
     def __init__(self, parent):
         super(Woerterbuch, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
-        self.setupUi(self)      
+        self.setupUi(self)
         self.Datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         self.connect(self.cBSprache, QtCore.SIGNAL("activated(int)"), self.rewrite_books)
+        self.connect(self.cbColor, QtCore.SIGNAL("clicked()"), self.colorisedListener)
         self.connect(self.cBBuch, QtCore.SIGNAL("activated(int)"), self.redraw_table)
         self.connect(self.chBBuch, QtCore.SIGNAL("clicked()"), self.redraw_table)
         self.connect(self.tfSuche, QtCore.SIGNAL("textChanged(QString)"), self.redraw_table)
         self.connect(self.btnBearbeiten, QtCore.SIGNAL("clicked()"), self.edit_selection)
-        
+
         self.headerDaten = ['Buch', 'Lektion', 'Deutsch', 'Fremdsprache']
-        
+
         datenSprache = self.Datenbank.getDataAsQStringList("select fremdsprache, id from SPRACHE")
         modelSprache = QtGui.QStringListModel(datenSprache)
         self.cBSprache.setModel(modelSprache)
@@ -32,19 +33,35 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.tVWoerterbuch.doubleClicked.connect(self.edit_selection)
         self.EditWindow = None
 
+    def colorisedListener(self):
+        #print("color Check")
+        self.redraw_table()
+
+    def createSearchStatementFlags(self):
+        attach = ""
+        if self.cbColor.isChecked():
+            pass
+        if self.cbSolid.isChecked():
+            attach = attach + " vokabeln.richtig > vokabeln.falsch and vokabeln.zuletztrichtig like 1"
+        if self.cbSufficient.isChecked():
+            attach = attach + " vokabeln.richtig > vokabeln.falsch and vokabeln.zuletztrichtig like 0"
+        if self.cbMiserable.isChecked():
+            attach = attach + " vokabeln.richtig < vokabeln.falsch and vokabeln.zuletztrichtig like 0"
+
+
     def rewrite_books(self):
-        
+
         datenidSprache = self.Datenbank.getDataAsList("select fremdsprache, id from SPRACHE \
-        limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'") 
-        
+        limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'")
+
         datenBuch = self.Datenbank.getDataAsQStringList("select Buecher.name, Buecher.id from Buecher \
         join sprache on (sprache.id=Buecher.id_sprache) \
         where Sprache.id like "+str(datenidSprache[0][1])+" " \
-        "and Buecher.name not like 'Sonder%'")
+                                                          "and Buecher.name not like 'Sonder%'")
         modelBuch = QtGui.QStringListModel(datenBuch)
         self.cBBuch.setModel(modelBuch)
         self.redraw_table()
-  
+
     def redraw_table(self):
         statement = "select fremdsprache, id from SPRACHE \
         limit '"+str(self.cBSprache.currentIndex())+"', '"+str(self.cBSprache.currentIndex()+1)+"'"
@@ -56,7 +73,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         if self.chBBuch.isChecked():
             datenidBuch =  self.Datenbank.getDataAsList("select Buecher.name, Buecher.id from Buecher \
             join sprache on (sprache.id=Buecher.id_sprache) "
-            "where Sprache.id like "+str(datenidSprache[0][1])+" \
+                                                        "where Sprache.id like "+str(datenidSprache[0][1])+" \
             and Buecher.name not like 'Sonder%' \
             limit '"+str(self.cBBuch.currentIndex())+"', '"+str(self.cBBuch.currentIndex()+1)+"'")
             # print datenidBuch
@@ -111,19 +128,20 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.index_id_allocate(IDListe)
         #print self.statement
         self.daten = self.Datenbank.getDataAsList(self.statement)
-        model = WoerterbuchModel.ModelListe(self.daten, self.headerDaten)
+        model = WoerterbuchModel.ModelListe(self.daten, self.headerDaten, self.cbColor.isChecked())
 
         self.tVWoerterbuch.setModel(model)
         #tableview.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.tVWoerterbuch.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         #self.tVWoerterbuch.setStyleSheet("background:red")
+
     def index_id_allocate(self, ids):
         self.IndexListe = []
         for i in ids:
             self.IndexListe.append(i)
 
     def edit_selection(self):
-        
+
         data = self.tVWoerterbuch.selectedIndexes()
         if len(data) > 0:
             row = data[0].row()
