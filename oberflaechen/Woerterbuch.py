@@ -96,26 +96,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             vokabeln.deutsch like '%"+suchString+"%' or \
             vokabeln.fremd like '%"+suchString+"%')"
 
-            # self.statementId = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.id from sprache \
-            # join buecher on (sprache.id=buecher.id_sprache) \
-            # join lektionen on (lektionen.idBuch = buecher.id) \
-            # join vokabeln on (vokabeln.idlektion=lektionen.id) \
-            # where buecher.id like "+str(datenidBuch[0][1])+"\
-            # and sprache.id like "+str(datenidSprache[0][1])+"\
-            # and (lektionen.name like '%"+suchString+"%' or \
-            # vokabeln.deutsch like '%"+suchString+"%' or \
-            # vokabeln.fremd like '%"+suchString+"%')"
         else:
-            # self.statementId = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.id from sprache \
-            # join buecher on (sprache.id=buecher.id_sprache) \
-            # join lektionen on (lektionen.idBuch = buecher.id) \
-            # join vokabeln on (vokabeln.idlektion=lektionen.id) \
-            # where sprache.id like "+str(datenidSprache[0][1])+" \
-            # and (lektionen.name like '%"+suchString+"%' or \
-            # vokabeln.deutsch like '%"+suchString+"%' or \
-            # vokabeln.fremd like '%"+suchString+"%' or \
-            # Buecher.name like '%"+suchString+"%')"
-
             self.statement = "select Buecher.name, Lektionen.name, vokabeln.deutsch, vokabeln.fremd, vokabeln.richtig, " \
                              "vokabeln.falsch, vokabeln.zuletztrichtig, vokabeln.id from sprache \
             join buecher on (sprache.id=buecher.id_sprache) \
