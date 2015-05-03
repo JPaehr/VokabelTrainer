@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowGrammarAendern.ui'
 #
-# Created: Wed Apr 29 14:45:11 2015
-#      by: PyQt4 UI code generator 4.11.3
+# Created: Sun May 03 22:57:32 2015
+#      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -94,12 +94,12 @@ class Ui_Form(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(_translate("Form", "Formhinweise ändern", None))
-        self.groupBox.setTitle(_translate("Form", "Sprache auswählen", None))
-        self.groupBox_4.setTitle(_translate("Form", "Neue Sprache", None))
-        self.groupBox_3.setTitle(_translate("Form", "Formhinweis auswählen", None))
-        self.groupBox_2.setTitle(_translate("Form", "Neuer Formhinweis", None))
+        Form.setWindowTitle(_translate("Form", "Grammatik ändern", None))
+        self.groupBox.setTitle(_translate("Form", "Aktuelle Sprache auswählen", None))
+        self.groupBox_4.setTitle(_translate("Form", "Neue Sprache auswählen", None))
+        self.groupBox_3.setTitle(_translate("Form", "Alter Grammatikhinweis auswählen", None))
+        self.groupBox_2.setTitle(_translate("Form", "Neuer Grammatikhinweis", None))
         self.btnAbbrechen.setText(_translate("Form", "Abbrechen", None))
-        self.btnGrammarHintDel.setText(_translate("Form", "Formhinweis löschen", None))
+        self.btnGrammarHintDel.setText(_translate("Form", "Grammatik löschen", None))
         self.btnSpeichernUndSchliessen.setText(_translate("Form", "Speichern und Schließen", None))
 

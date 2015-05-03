@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Formhinweise ändern</string>
+   <string>Grammatik ändern</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_6">
    <item>
@@ -21,7 +21,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
-          <string>Sprache auswählen</string>
+          <string>Aktuelle Sprache auswählen</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
@@ -33,7 +33,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_4">
          <property name="title">
-          <string>Neue Sprache</string>
+          <string>Neue Sprache auswählen</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
@@ -49,7 +49,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_3">
          <property name="title">
-          <string>Formhinweis auswählen</string>
+          <string>Alter Grammatikhinweis auswählen</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
@@ -61,7 +61,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
-          <string>Neuer Formhinweis</string>
+          <string>Neuer Grammatikhinweis</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
@@ -84,7 +84,7 @@
        <item>
         <widget class="QPushButton" name="btnGrammarHintDel">
          <property name="text">
-          <string>Formhinweis löschen</string>
+          <string>Grammatik löschen</string>
          </property>
         </widget>
        </item>
