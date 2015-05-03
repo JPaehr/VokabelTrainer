@@ -37,7 +37,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         self.EditWindow = None
 
     def colorisedListener(self):
-        print(self.createSearchStatementFlags())
+        # print(self.createSearchStatementFlags())
         self.redraw_table()
 
     def createSearchStatementFlags(self):
@@ -114,7 +114,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         flags = self.createSearchStatementFlags()
         if len(flags) > 0:
             self.statement = self.statement+" and "+flags
-        print(self.statement)
+        #print(self.statement)
 
         data = self.Datenbank.getDataAsList(self.statement)
         for i in data:
