@@ -127,7 +127,7 @@
         <item>
          <widget class="QPushButton" name="pBEditGrammarHints">
           <property name="text">
-           <string>Formhinweise bearbeiten</string>
+           <string>Grammatik</string>
           </property>
          </widget>
         </item>

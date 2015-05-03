@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\MainWindow.ui'
 #
-# Created: Wed Apr 29 14:54:06 2015
+# Created: Sun May 03 23:14:02 2015
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -158,7 +158,7 @@ class Ui_MainWindow(object):
         self.btnSpracheBeareiten.setText(_translate("MainWindow", "Sprachen bearbeiten", None))
         self.btnLektionbearbeiten.setText(_translate("MainWindow", "Lektionen bearbeiten", None))
         self.btnBuecherBearbeiten.setText(_translate("MainWindow", "Bücher bearbeiten", None))
-        self.pBEditGrammarHints.setText(_translate("MainWindow", "Formhinweise bearbeiten", None))
+        self.pBEditGrammarHints.setText(_translate("MainWindow", "Grammatik", None))
         self.labInfotext.setText(_translate("MainWindow", "<center>TextLabel</center>", None))
         self.menuDateu.setTitle(_translate("MainWindow", "Datei", None))
         self.menuEinstellungen.setTitle(_translate("MainWindow", "Einstellungen", None))
