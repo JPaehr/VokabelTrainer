@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrage.ui'
 #
-# Created: Wed Apr 29 11:53:37 2015
+# Created: Mon May 04 14:54:55 2015
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -76,7 +76,7 @@ class Ui_Form(object):
         self.labBitteEingeben = QtGui.QLabel(Form)
         self.labBitteEingeben.setObjectName(_fromUtf8("labBitteEingeben"))
         self.horizontalLayout_6.addWidget(self.labBitteEingeben)
-        self.labHint = QtGui.QLabel(Form)
+        self.labHint = HintLabel(Form)
         self.labHint.setObjectName(_fromUtf8("labHint"))
         self.horizontalLayout_6.addWidget(self.labHint)
         self.horizontalLayout_6.setStretch(0, 1)
@@ -214,3 +214,4 @@ class Ui_Form(object):
 from models.CLabel import CLabel
 from models.LabWeitereVok import LabWeitereVok
 from models.Progressbar import Progressbar
+from models.hintLabel import HintLabel

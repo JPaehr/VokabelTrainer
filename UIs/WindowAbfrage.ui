@@ -95,7 +95,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="labHint">
+          <widget class="HintLabel" name="labHint">
            <property name="text">
             <string>Hint</string>
            </property>
@@ -307,6 +307,11 @@
    <class>CLabel</class>
    <extends>QLabel</extends>
    <header>models.CLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>HintLabel</class>
+   <extends>QLabel</extends>
+   <header>models.hintLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

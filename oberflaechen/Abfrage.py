@@ -87,6 +87,12 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.labZeitEinblenden.hide()
 
 
+        #initiate hintfield charactercount
+        self.labHint.setParent(self)
+        self.labHint.setText("")
+        self.hintVisible = True
+
+
         if speicher is 'None':
             open('zwischenSpeicher.fs', 'w').close()
             self.pBFortschritt.setValue(0)
@@ -164,6 +170,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.labMeintenSie.setText("")
             self.labMeintenSie.setText("")
 
+            self.labHint.setWordWrap(True)
+
             # speicher.Info()
 
         spracheid_statement = "select sprache.id from sprache \
@@ -183,7 +191,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         self.connect(self.tfInput, QtCore.SIGNAL("textChanged(QString)"), self.repaintHint)
 
 
-        self.labHint.setText("")
+
 
         self.btnWeiter.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
 
@@ -195,6 +203,15 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         self.WindowAuwertung = None
         self.windowMeintenSie = None
+
+    def hintSwitch(self):
+        print("clicked on Hintfield")
+        if self.hintVisible:
+            self.hintVisible = False
+        else:
+            self.hintVisible = True
+
+        self.repaintHint()
 
     def repaintHint(self):
         #print("repaint aufgerufen")
@@ -220,7 +237,12 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
         textHilfe = textHilfe+"/"+str(len(compareVok))
 
-        self.labHint.setText(textHilfe)
+        if self.hintVisible:
+            self.labHint.setText(textHilfe)
+        else:
+            text = "Hinweis einblenden"
+            self.labHint.setText(text)
+
 
     def zeitSwitch(self):
         if self.zeitSichtbar:

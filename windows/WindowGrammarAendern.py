@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowGrammarAendern.ui'
 #
-# Created: Sun May 03 22:57:32 2015
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Sun May 03 23:13:14 2015
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
