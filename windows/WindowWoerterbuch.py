@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowWoerterbuch.ui'
 #
-# Created: Thu Apr 30 07:50:51 2015
+# Created: Wed May 13 11:47:44 2015
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -88,6 +88,9 @@ class Ui_Form(object):
         self.btnBearbeiten = QtGui.QPushButton(Form)
         self.btnBearbeiten.setObjectName(_fromUtf8("btnBearbeiten"))
         self.verticalLayout_3.addWidget(self.btnBearbeiten)
+        self.pBCreateQueryFromSelection = QtGui.QPushButton(Form)
+        self.pBCreateQueryFromSelection.setObjectName(_fromUtf8("pBCreateQueryFromSelection"))
+        self.verticalLayout_3.addWidget(self.pBCreateQueryFromSelection)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -105,4 +108,5 @@ class Ui_Form(object):
         self.cbSufficient.setText(_translate("Form", "Ausreichend", None))
         self.cbMiserable.setText(_translate("Form", "Miserabel", None))
         self.btnBearbeiten.setText(_translate("Form", "Bearbeiten", None))
+        self.pBCreateQueryFromSelection.setText(_translate("Form", "erstelle Abfrage aus Auswahl", None))
 
