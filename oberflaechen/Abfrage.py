@@ -407,6 +407,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 self.datenbank.setData(updateStatement)
                 print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
 
+                #voc history
+                insertStatement = "insert into history (idvokabel, datum, richtig) " \
+                                  "values ("+str(self.vokabel_ids[self.id_aktuell-1])+", " \
+                                  " datetime(), " \
+                                  "1)"
+                self.datenbank.setData(insertStatement)
+
                 self.answer = True
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
                 if not self.sonderlektion:
@@ -422,6 +429,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 updateStatement = "update vokabeln set falsch=falsch+1, zuletztrichtig=0 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
                 self.datenbank.setData(updateStatement)
                 print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
+
+                #voc history
+                insertStatement = "insert into history (idvokabel, datum, richtig) " \
+                                  "values ("+str(self.vokabel_ids[self.id_aktuell-1])+", " \
+                                  " datetime(), " \
+                                  "0)"
+                self.datenbank.setData(insertStatement)
 
                 self.answer = False
                 if self.richtige_anzeigen:
@@ -469,6 +483,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 self.datenbank.setData(updateStatement)
                 print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
 
+                #voc history
+                insertStatement = "insert into history (idvokabel, datum, richtig) " \
+                                  "values ("+str(self.vokabel_ids[self.id_aktuell-1])+", " \
+                                  " datetime(), " \
+                                  "1)"
+                self.datenbank.setData(insertStatement)
+
 
                 self.answer = True
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
@@ -478,6 +499,13 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 updateStatement = "update vokabeln set falsch=falsch+1, zuletztrichtig=0 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
                 self.datenbank.setData(updateStatement)
                 print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
+
+                #voc history
+                insertStatement = "insert into history (idvokabel, datum, richtig) " \
+                                  "values ("+str(self.vokabel_ids[self.id_aktuell-1])+", " \
+                                  " datetime(), " \
+                                  "0)"
+                self.datenbank.setData(insertStatement)
 
                 self.answer = False
                 if self.richtige_anzeigen:

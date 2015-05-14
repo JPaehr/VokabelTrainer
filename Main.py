@@ -119,6 +119,19 @@ class Programm(MainWindow, QtGui.QMainWindow):
             updateStatement = "ALTER TABLE LEKTIONEN ADD COLUMN zuletztAbgefragt DATETIME"
             self.datenbank.setData(updateStatement)
 
+        try:
+            statement = "select id from history limit 1"
+            self.datenbank.getDataAsList(statement)
+        except:
+            print("table history will be created")
+            statement = "CREATE  TABLE history (id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL, " \
+                        "idvokabel INTEGER, " \
+                        "datum DATETIME, " \
+                        "richtig BOOL);"
+            self.datenbank.setData(statement)
+            print("table history has been created")
+
+
         self.wStatistik = None
         self.wLektionAendern = None
         self.wAbfrageForsetzen = None
