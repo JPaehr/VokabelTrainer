@@ -63,9 +63,9 @@ class ModelListe(QtCore.QAbstractTableModel):
         if role != QtCore.Qt.EditRole:
             return False
 
-        self.__daten[index.row()][index.column()] = value
-        self.dataChanged.emit(index, index)
-        return True
+            self.__daten[index.row()][index.column()] = value
+            self.dataChanged.emit(index, index)
+            return True
 
     def headerData(self, section, orientation, role):
 

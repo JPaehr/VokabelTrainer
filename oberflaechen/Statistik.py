@@ -4,7 +4,7 @@ __author__ = 'Johannes'
 from PyQt4 import QtGui, QtCore
 from windows.WindowStatistik import Ui_Form as WindowStatistik
 import models.base as Datenbank
-import models.WoerterbuchModel as StatistikModel
+import models.StatistikModel as StatistikModel
 
 
 class Statistik(WindowStatistik, QtGui.QWidget):
