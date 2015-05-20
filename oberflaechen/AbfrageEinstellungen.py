@@ -40,8 +40,6 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
-        self.sonderCheck = False #keine Sondervokabeln dabei
-        self.normalCheck = False #keine normalen Vokabeln dabei
 
         statement = "select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, " \
                     "distanz, zeitZeigen, warteZeitRichtig from Einstellungen where id like 1"
@@ -160,23 +158,14 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
                         "where idlektion like "+str(i[1])
 
             selection = self.datenbank.getDataAsList(statement)
-            if not self.querySonderlektion(i[1]):
-                if selection[0][0] > 0:
-                    liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
-                    try:
-                        dateList.append(i[2])
-                        #datetime.date.today()
-                    except:
-                        print("Datumsliste konnte nicht angelegt werden")
-            else:
-                statement = "select count(*) from sondervokabeln " \
-                        "join lektionen on (lektionen.id=sondervokabeln.idsonderlektion) " \
-                        "where lektionen.id like "+str(i[1])+" " \
-                        " and lektionen.name like 'sonder%' " \
-                        "and sondervokabeln.show like 1"
-                selection = self.datenbank.getDataAsList(statement)
-                if selection[0][0] > 0:
-                    liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
+
+            if selection[0][0] > 0:
+                liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
+                try:
+                    dateList.append(i[2])
+                    #datetime.date.today()
+                except:
+                    print("Datumsliste konnte nicht angelegt werden")
 
         model = LectionsListModerQuerySettings.Markierung(liste, dateList)
         self.lvLektionen.setModel(model)
@@ -216,22 +205,11 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
     def LektionZuAbfrageHinzu(self):
         #print self.getIdLektionen()
-        for i in self.getIdLektionen():
-            if not self.querySonderlektion(i):
-                self.normalCheck = True
-            else:
-                self.sonderCheck = True
 
-        if (self.normalCheck and not self.sonderCheck) or self.sonderCheck and not self.normalCheck:
-            self.lektions_liste.extend(self.getIdLektionen())
-            #print self.lektions_liste
-            self.AbfrageNeuZeichen()
-            self.lvLektionen.clearSelection()
-        else:
-            self.labKeineLektionGewaehlt.setVisible(True)
-            self.labKeineLektionGewaehlt.setText(u"Sonderlektionen können nicht mit normalen Lektionen vermischt werden!")
-            thread.start_new(self.showBottomWidget, ())
-        print("lektionslisteStop")
+        self.lektions_liste.extend(self.getIdLektionen())
+        #print self.lektions_liste
+        self.AbfrageNeuZeichen()
+        self.lvLektionen.clearSelection()
 
     def AbfrageNeuZeichen(self):
         #print self.lektionsListe
@@ -245,14 +223,6 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
             #print daten[0][0], daten[0][1]
             datenliste.append(unicode(daten[0][0])+" - "+unicode(daten[0][1]))
             zuletztAbgefragt.append(daten[0][2])
-        #Checks neu lesen
-        self.sonderCheck = False
-        self.normalCheck = False
-        for i in self.getIdLektionen():
-            if not self.querySonderlektion(i):
-                self.normalCheck = True
-            else:
-                self.sonderCheck = True
 
         model = LectionsListModerQuerySettings.Markierung(datenliste, zuletztAbgefragt)
         self.lvGewaehlteLektionen.setModel(model)
@@ -268,42 +238,17 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         statement = "select buecher.name from buecher " \
                     "where id like "+str(self.getIdBuch())
         buchname = self.datenbank.getDataAsList(statement)[0][0]
-        try:
-            if str(buchname).lower()[:6] == "sonder":
 
-                sonderbuch = True
-            else:
-                sonderbuch = False
-        except:
-            sonderbuch = False
 
-        print "sondercheck: "+str(self.sonderCheck)
-        print "sonderbuch: "+str(sonderbuch)
-        print "normalCheck: "+str(self.normalCheck)
 
-        if not self.sonderCheck and not sonderbuch:
+        for i in daten:
+            liste_zum_hinzufuegen.append(i[0])
 
-            for i in daten:
-                liste_zum_hinzufuegen.append(i[0])
+        self.lektions_liste.extend(liste_zum_hinzufuegen)
+        #print self.lektionsListe
 
-            self.lektions_liste.extend(liste_zum_hinzufuegen)
-            #print self.lektionsListe
-
-            self.AbfrageNeuZeichen()
-            self.normalCheck = True
-        elif not self.normalCheck and sonderbuch:
-            for i in daten:
-                liste_zum_hinzufuegen.append(i[0])
-
-            self.lektions_liste.extend(liste_zum_hinzufuegen)
-            #print self.lektionsListe
-
-            self.AbfrageNeuZeichen()
-            self.sonderCheck = True
-        else:
-            self.labKeineLektionGewaehlt.setVisible(True)
-            self.labKeineLektionGewaehlt.setText(u"Sonderlektionen können nicht mit normalen Lektionen vermischt werden!")
-            thread.start_new(self.showBottomWidget, ())
+        self.AbfrageNeuZeichen()
+        self.normalCheck = True
 
     def ListeZuSql(self, liste, args):
         statement = "where "
@@ -329,16 +274,10 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
     def anzVokabeln(self):
         counter = 0
         for i in self.lektions_liste:
-            if not self.querySonderlektion(i):
-                statement = "select count(*) from lektionen " \
-                            "join vokabeln on (vokabeln.idlektion=lektionen.id) " \
-                            "where lektionen.id like "+str(i)
-            else:
-                statement = "select count(*) from lektionen " \
-                            "join sondervokabeln on (sondervokabeln.idsonderlektion=lektionen.id) " \
-                            "where lektionen.id like "+str(i)+" " \
-                            " and sondervokabeln.show like 1"
-                #print statement
+            statement = "select count(*) from lektionen " \
+                        "join vokabeln on (vokabeln.idlektion=lektionen.id) " \
+                        "where lektionen.id like "+str(i)
+            #print statement
 
 
             counter += self.datenbank.getDataAsList(statement)[0][0]
