@@ -131,6 +131,15 @@ class Programm(MainWindow, QtGui.QMainWindow):
             self.datenbank.setData(statement)
             print("table history has been created")
 
+        try:
+            statement = "select malRichtigAbfragen from einstellungen"
+            self.datenbank.getDataAsList(statement)
+        except:
+            updateStatement = "ALTER TABLE Einstellungen ADD COLUMN malRichtigAbfragen INTEGER"
+            self.datenbank.setData(updateStatement)
+            updateStatement = "ALTER TABLE Einstellungen ADD COLUMN richtigAbfragen BOOL"
+            self.datenbank.setData(updateStatement)
+
 
         self.wStatistik = None
         self.wLektionAendern = None

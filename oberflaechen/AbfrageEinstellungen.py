@@ -28,8 +28,6 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.lektions_liste = []
         self.labKeineLektionGewaehlt.hide()
 
-        self.lETimesRight.setDisabled(True)
-        
         self.connect(self.btnAbbrechen, QtCore.SIGNAL("clicked()"), self.close)
         self.connect(self.cbSprache, QtCore.SIGNAL("activated(int)"), self.BuchZeichnen)
         self.connect(self.cbSprache, QtCore.SIGNAL("activated(int)"), self.Abfragerichtung)
@@ -39,22 +37,24 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.connect(self.btnAbfrageStarten, QtCore.SIGNAL("clicked()"), self.AbfrageStarten)
         self.connect(self.tfHaeufigkeit, QtCore.SIGNAL("textChanged(QString)"), self.AnzahlAbfragenPaint)
         self.connect(self.btnBuchZuAbfrage, QtCore.SIGNAL("clicked()"), self.BuchZuAbfrageHinzu)
+        self.connect(self.cBTimesRight, QtCore.SIGNAL("stateChanged(int)"), self.appendVocUntilRight)
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
 
 
         statement = "select meintenSie, rgva, warteZeit, haeufigkeit, richtung, wiederholen, " \
-                    "distanz, zeitZeigen, warteZeitRichtig from Einstellungen where id like 1"
+                    "distanz, zeitZeigen, warteZeitRichtig, richtigAbfragen, malRichtigAbfragen " \
+                    "from Einstellungen where id like 1"
         voreinstellungen = self.datenbank.getDataAsList(statement)
 
         self.zeitPro10Voks = self.datenbank.getDataAsList("select secPro10Vok from zeit")[0][0]
         #print self.zeitPro10Voks
-        
+
         if voreinstellungen[0][0] == "True":
             self.chBMeintenSie.setChecked(True)
         else:
             self.chBMeintenSie.setChecked(False)
-        
+
         if voreinstellungen[0][1] == "True":
             self.chBRichtigGeschriebeneAnzeigen.setChecked(True)
         else:
@@ -65,6 +65,14 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         else:
             self.chShowTime.setChecked(False)
 
+        if voreinstellungen[0][9] == "True":
+            self.cBTimesRight.setChecked(True)
+            self.lETimesRight.setDisabled(False)
+        else:
+            self.lETimesRight.setDisabled(True)
+            self.cBTimesRight.setChecked(False)
+
+        self.lETimesRight.setText(str(voreinstellungen[0][10]))
         self.tfZeitWarten.setText(str(voreinstellungen[0][2]))
         self.tfHaeufigkeit.setText(str(voreinstellungen[0][3]))
         self.tfDistanz.setText(str(voreinstellungen[0][6]))
@@ -73,10 +81,15 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.richtung = voreinstellungen[0][4]
         self.labEstTime.setWordWrap(True)
 
-
         self.SpracheZeichnen()
         self.Abfragerichtung()
         self.windowAbfrage = None
+
+    def appendVocUntilRight(self):
+        if self.cBTimesRight.isChecked():
+            self.lETimesRight.setDisabled(False)
+        else:
+            self.lETimesRight.setDisabled(True)
 
     def showBottomWidget(self):
 
@@ -100,15 +113,17 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
                                 richtung = "+str(int(int(self.cBAbfragerichtung.currentIndex())+1))+", \
                                 distanz = "+str(int(self.tfDistanz.text()))+",  \
                                 warteZeitRichtig = "+str(int(self.tfZeitWartenRichtig.text()))+",  \
-                                zeitZeigen = '"+str(self.chShowTime.isChecked())+"' \
-                                where id like 1"
+                                zeitZeigen = '"+str(self.chShowTime.isChecked())+"', " \
+                                "richtigAbfragen = '"+str(self.cBTimesRight.isChecked())+"', " \
+                                "malRichtigAbfragen = '"+str(self.lETimesRight.text())+"' " \
+                                "where id like 1"
             self.datenbank.setData(updateStatement)
             self.close()
 
             self.windowAbfrage = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(),
                                     self.tfZeitWarten.text(), self.tfZeitWartenRichtig.text(),
                                     self.chBMeintenSie.isChecked(), self.chBRichtigGeschriebeneAnzeigen.isChecked(),
-                                    self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text(), self.sonderCheck)
+                                    self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text())
             self.windowAbfrage.show()
         else:
             self.labKeineLektionGewaehlt.setVisible(True)

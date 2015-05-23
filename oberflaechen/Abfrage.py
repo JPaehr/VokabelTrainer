@@ -39,7 +39,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
     Fenster für die Abfrage
     """
     def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, verzoegerungRichtig, meintenSie,
-                 RichtigeAnzeigen, Richtung, distanz, sonderlektion, speicher='None'):
+                 RichtigeAnzeigen, Richtung, distanz, speicher='None'):
         super(Abfrage, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
@@ -48,7 +48,6 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         self.labZeitEinblenden.setParent(self)
 
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
-        self.sonderlektion = sonderlektion
 
         self.pBFortschritt.hilfsWidgets(self.hilfsWidget1, self.hilfsWidget2)
 
@@ -370,15 +369,10 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         vokabelIds = []
 
         for i in idliste:
-            if not self.sonderlektion:
-                daten = self.datenbank.getDataAsList("select vokabeln.id from vokabeln "
-                                                     "join lektionen on (vokabeln.idlektion=lektionen.id) "
-                                                     "where lektionen.id like "+str(i))
-            else:
-                daten = self.datenbank.getDataAsList("select sondervokabeln.idvokabeln from sondervokabeln "
-                                                     "join lektionen on (sondervokabeln.idsonderlektion=lektionen.id) "
-                                                     "where lektionen.id like "+str(i)+" and "\
-                                                     "sondervokabeln.show like 1")
+
+            daten = self.datenbank.getDataAsList("select vokabeln.id from vokabeln "
+                                                 "join lektionen on (vokabeln.idlektion=lektionen.id) "
+                                                 "where lektionen.id like "+str(i))
 
             for n in daten:
                 for k in range(haeufigkeit):
