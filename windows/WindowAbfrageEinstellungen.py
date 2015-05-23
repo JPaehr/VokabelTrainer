@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowAbfrageEinstellungen.ui'
 #
-# Created: Thu Nov 06 20:10:46 2014
-#      by: PyQt4 UI code generator 4.11.2
+# Created: Wed May 20 16:10:17 2015
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -63,6 +63,21 @@ class Ui_Form(object):
         self.chShowTime = QtGui.QCheckBox(Form)
         self.chShowTime.setObjectName(_fromUtf8("chShowTime"))
         self.verticalLayout_8.addWidget(self.chShowTime)
+        self.horizontalLayout_9 = QtGui.QHBoxLayout()
+        self.horizontalLayout_9.setObjectName(_fromUtf8("horizontalLayout_9"))
+        self.cBTimesRight = QtGui.QCheckBox(Form)
+        self.cBTimesRight.setObjectName(_fromUtf8("cBTimesRight"))
+        self.horizontalLayout_9.addWidget(self.cBTimesRight)
+        self.lETimesRight = QtGui.QLineEdit(Form)
+        self.lETimesRight.setMinimumSize(QtCore.QSize(40, 0))
+        self.lETimesRight.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.lETimesRight.setObjectName(_fromUtf8("lETimesRight"))
+        self.horizontalLayout_9.addWidget(self.lETimesRight)
+        self.label_5 = QtGui.QLabel(Form)
+        self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.horizontalLayout_9.addWidget(self.label_5)
+        self.horizontalLayout_9.setStretch(2, 1)
+        self.verticalLayout_8.addLayout(self.horizontalLayout_9)
         self.horizontalLayout_8 = QtGui.QHBoxLayout()
         self.horizontalLayout_8.setObjectName(_fromUtf8("horizontalLayout_8"))
         self.tfZeitWartenRichtig = QtGui.QLineEdit(Form)
@@ -224,6 +239,8 @@ class Ui_Form(object):
         self.chBMeintenSie.setText(_translate("Form", "\"Meinten Sie\" Hinweis einblenden", None))
         self.chBRichtigGeschriebeneAnzeigen.setText(_translate("Form", "richtig geschriebene Vokabeln anzeigen", None))
         self.chShowTime.setText(_translate("Form", "Zeit anzeigen", None))
+        self.cBTimesRight.setText(_translate("Form", "Vokabel abfragen bis mindestens ", None))
+        self.label_5.setText(_translate("Form", " mal richtig beantwortet", None))
         self.label_4.setText(_translate("Form", "Zeit in ms warten wenn Vokabel richtig", None))
         self.label.setText(_translate("Form", "Zeit in ms warten wenn Vokabel falsch", None))
         self.label_2.setText(_translate("Form", "Häufigkeit der Abfrage", None))

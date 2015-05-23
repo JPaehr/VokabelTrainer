@@ -27,6 +27,8 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
         self.abfrage_einstellung = 0
         self.lektions_liste = []
         self.labKeineLektionGewaehlt.hide()
+
+        self.lETimesRight.setDisabled(True)
         
         self.connect(self.btnAbbrechen, QtCore.SIGNAL("clicked()"), self.close)
         self.connect(self.cbSprache, QtCore.SIGNAL("activated(int)"), self.BuchZeichnen)

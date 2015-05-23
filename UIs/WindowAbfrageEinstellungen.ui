@@ -70,6 +70,40 @@
           </widget>
          </item>
          <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0,1">
+           <item>
+            <widget class="QCheckBox" name="cBTimesRight">
+             <property name="text">
+              <string>Vokabel abfragen bis mindestens </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lETimesRight">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>16777215</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string> mal richtig beantwortet</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,5">
            <item>
             <widget class="QLineEdit" name="tfZeitWartenRichtig"/>
