@@ -50,7 +50,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             if self.cbSufficient.isChecked():
                 attach = attach + " (vokabeln.richtig > vokabeln.falsch and vokabeln.zuletztrichtig like 0) or"
             if self.cbMiserable.isChecked():
-                attach = attach + " (vokabeln.richtig < vokabeln.falsch and vokabeln.zuletztrichtig like 0) or"
+                attach = attach + " (vokabeln.richtig <= vokabeln.falsch and vokabeln.zuletztrichtig like 0) or"
         if len(attach) > 0:
             attach = " ("+attach[:-2]+") "
 
@@ -107,7 +107,7 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
             vokabeln.deutsch like '%"+suchString+"%' or \
             vokabeln.fremd like '%"+suchString+"%' or \
             Buecher.name like '%"+suchString+"%')"
-        # print(self.statement)
+        #print(self.statement)
         #print self.statementId
         self.IndexListe = list()
         self.dataForModel = list()
