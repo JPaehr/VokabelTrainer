@@ -10,7 +10,7 @@ from windows.WindowAbfrage import Ui_Form as WindowAbfrage
 import models.base as Datenbank
 import models.Leve as leve
 from time import sleep
-from random import shuffle as zufall
+from random import shuffle
 from oberflaechen.MeintenSie import MeintenSie
 from oberflaechen.Auswertung import Auswertung
 from models.zeiten import Zeiten
@@ -38,8 +38,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
     """
     Fenster für die Abfrage
     """
-    def __init__(self, parent, lektionen_ids, abfrage_haeufigkeit, verzoegerung, verzoegerungRichtig, meintenSie,
-                 RichtigeAnzeigen, Richtung, distanz, speicher='None'):
+    def __init__(self, parent, vok_ids, abfrage_haeufigkeit, verzoegerung, verzoegerungRichtig, meintenSie,
+                 RichtigeAnzeigen, Richtung, distanz, timesRightBool, timesRightNumber, speicher='None'):
         super(Abfrage, self).__init__(parent)
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
@@ -85,15 +85,15 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.zeitSichtbar = True
             self.labZeitEinblenden.hide()
 
-
         #initiate hintfield charactercount
         self.labHint.setParent(self)
         self.labHint.setText("")
         self.hintVisible = True
 
-
         if speicher is 'None':
             open('zwischenSpeicher.fs', 'w').close()
+            self.timesRightBool = timesRightBool
+            self.timesRightNumber = timesRightNumber
             self.pBFortschritt.setValue(0)
             self.distance = distanz
             self.treffer = leve.Treffer(distanz)
@@ -113,17 +113,26 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.lektion = ""
             self.buch = ""
             self.vokabel_deutsch = ""
-            self.vokabel_ids = self.lektionsid_to_vokid(lektionen_ids, int(abfrage_haeufigkeit))
+            self.vokabel_ids = list()
+            for vok in vok_ids:
+                for i in range(int(abfrage_haeufigkeit)):
+                    self.vokabel_ids.append(vok)
+            shuffle(self.vokabel_ids)
             #self.abfragenGesamt = int(len(self.vokabel_ids)*int(abfrage_haeufigkeit))
             self.abfragenGesamt = len(self.vokabel_ids)
-            self.lektion_ids = lektionen_ids
+            #self.lektion_ids = lektionen_ids
+
+            self.history = {}
+            for i in vok_ids:
+                # richtig, falsch
+                self.history[i] = [0, 0]
+
         else:
             file = open('zwischenSpeicher.fs', 'r')
             speicher = pickle.load(file)
             file.close()
 
             self.zeit.setTimeInSecouds(speicher.zeit)
-            self.sonderlektion = self.sonderlektion
 
             self.pBFortschritt.setValue(speicher.Fortschritt)
             self.distance = speicher.distance
@@ -135,7 +144,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.thread = ZeitThread(zeit)
             self.threadRichtig = ZeitThread(zeitRichtig)
             self.meinten_sie = speicher.meinten_sie
-            self.lektionsliste = []
+            #self.lektionsliste = []
             self.verzoegerung = speicher.verzoegerung
             self.verzoegerungRichtig = speicher.verzoegerungRichtig
             self.id_aktuell = speicher.id_aktuell
@@ -149,11 +158,14 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.vokabel_deutsch = ""
             self.vokabel_ids = speicher.vokabel_ids
             self.abfragenGesamt = speicher.abfragenGesamt
-            self.lektion_ids = speicher.lektion_ids
+            #self.lektion_ids = speicher.lektion_ids
             self.vokabel_fremd = speicher.vokabel_fremd
             self.vokabel_deutsch = speicher.vokabel_deutsch
             self.buch = speicher.buch
-            self.lektion = speicher.lektion
+            self.vokabel_ids = speicher.vokabel_ids
+            self.timesRightBool = speicher.timesRightBool
+            self.timesRightNumber = speicher.timesRightNumber
+            self.history = speicher.history
 
             self.labLektion.setText(unicode(self.lektion))
             self.labBuch.setText(str(self.buch))
@@ -189,16 +201,12 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         self.connect(self.btnWeiter, QtCore.SIGNAL("clicked()"), self.weitereVokabelKlick)
         self.connect(self.tfInput, QtCore.SIGNAL("textChanged(QString)"), self.repaintHint)
 
-
-
-
         self.btnWeiter.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
 
         if speicher is 'None':
             self.weitere_vokabel()
 
         self.repaintHint()
-
 
         self.WindowAuwertung = None
         self.windowMeintenSie = None
@@ -211,6 +219,18 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.hintVisible = True
 
         self.repaintHint()
+
+    def shuffleIndex(self, liste, untilIndex):
+        # IMPORTANT: append wrong voc first
+        shuffleList = liste[untilIndex:]
+        shuffle(shuffleList)
+        listToReturn = list()
+        for i in range(untilIndex):
+            listToReturn.append(liste[i])
+        for i in range(len(shuffleList)):
+            listToReturn.append(shuffleList[i])
+
+        return listToReturn
 
     def repaintHint(self):
         #print("repaint aufgerufen")
@@ -270,8 +290,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
         meinSpeicher = Speicher(self.pBFortschritt.value(), str(self.distance), str(self.meinten_sie), self.verzoegerung,
                                 self.verzoegerungRichtig,
                                 self.id_aktuell, self.richtige_anzeigen, self.richtung, self.labPunkte.text(), self.vokabel_ids,
-                                self.abfragenGesamt, self.lektion_ids, self.lektion, self.vokabel_deutsch, self.vokabel_fremd, self.buch,
-                                self.zeit.getTimeInSeconds(), self.sonderlektion, self.labGrammarHint.text())
+                                self.abfragenGesamt, self.vokabel_deutsch, self.vokabel_fremd, self.buch,
+                                self.zeit.getTimeInSeconds(), self.sonderlektion, self.labGrammarHint.text(), self.history)
 
         f = open("zwischenSpeicher.fs", 'w')
         pickle.dump(meinSpeicher, f)
@@ -316,7 +336,6 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.grammarHint = daten[0][4]
 
 
-
             if self.richtung == 1:
                 self.labVokabelMeintenSie.setText(self.vokabel_deutsch)
             else:
@@ -358,8 +377,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.datenbank.setData(updateStatement)
 
             self.close()
-            self.WindowAuwertung = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids,
-                                              self.sonderlektion)
+            self.WindowAuwertung = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids))
+            #todo error correct
             self.WindowAuwertung.show()
 
     def lektionsid_to_vokid(self, idliste, haeufigkeit):
@@ -378,7 +397,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 for k in range(haeufigkeit):
                     vokabelIds.append(n[0])
 
-        zufall(vokabelIds)
+        shuffle(vokabelIds)
         # print vokabelIds
         return vokabelIds
 
@@ -396,7 +415,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             if self.vokabel_fremd == str(self.tfInput.text().toUtf8()).decode("utf-8"):
                 # self.labRichtigFalsch.setText("Richtig")
                 self.labBitteEingeben.setText("Richtig")
-
+                self.history[str(self.vokabel_ids[self.id_aktuell-1])][0] += 1
                 updateStatement = "update vokabeln set richtig=richtig+1, zuletztrichtig=1 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
                 self.datenbank.setData(updateStatement)
                 print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
@@ -410,16 +429,16 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
                 self.answer = True
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
-                if not self.sonderlektion:
-                    son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
-                    son.richtig()
+
+                son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
+                son.richtig()
             else:
-                if not self.sonderlektion:
-                    son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
-                    son.falsch()
+
+                son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
+                son.falsch()
                 # self.labRichtigFalsch.setText("Falsch")
                 self.labBitteEingeben.setText("Falsch")
-
+                self.history[str(self.vokabel_ids[self.id_aktuell-1])][1] += 1
                 updateStatement = "update vokabeln set falsch=falsch+1, zuletztrichtig=0 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
                 self.datenbank.setData(updateStatement)
                 print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
@@ -473,6 +492,8 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
                 self.labBitteEingeben.setText("Richtig")
 
+                self.history[str(self.vokabel_ids[self.id_aktuell-1])][0] += 1
+
                 updateStatement = "update vokabeln set richtig=richtig+1, zuletztrichtig=1 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
                 self.datenbank.setData(updateStatement)
                 print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
@@ -493,7 +514,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 updateStatement = "update vokabeln set falsch=falsch+1, zuletztrichtig=0 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
                 self.datenbank.setData(updateStatement)
                 print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
-
+                self.history[str(self.vokabel_ids[self.id_aktuell-1])][1] += 1
                 #voc history
                 insertStatement = "insert into history (idvokabel, datum, richtig) " \
                                   "values ("+str(self.vokabel_ids[self.id_aktuell-1])+", " \

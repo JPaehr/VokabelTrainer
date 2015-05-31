@@ -4,15 +4,17 @@ __author__ = 'JPaehr'
 class Speicher(object):
 
     def __init__(self,pBFortschritt, distance, meintenSie, verzoegerung, verzoegerungRichtig, id_aktuell,
-                 richtige_anzeigen, richtung, labPunkte, vokIds, abfragenGesamt, lektionen_ids, lektion,
-                 vokabel_deutsch, vokabel_fremd, buch, zeit, sonderlektion, grammarHint):
-        self.lektion = lektion
+                 richtige_anzeigen, richtung, labPunkte, vokIds, abfragenGesamt,
+                 vokabel_deutsch, vokabel_fremd, buch, zeit, sonderlektion, grammarHint, timesRightBool,
+                 timesRightNumber, history):
+        #self.lektion = lektion
         self.vokabel_deutsch = vokabel_deutsch
         self.vokabel_fremd = vokabel_fremd
         self.buch = buch
         self.zeit = zeit
         self.sonderlektion = sonderlektion
         self.grammarHint = grammarHint
+        self.vokabel_ids = vokIds
 
 
         self.Fortschritt = pBFortschritt
@@ -29,10 +31,15 @@ class Speicher(object):
         self.labPunkte = labPunkte
         self.vokabel_ids = vokIds
         self.abfragenGesamt = abfragenGesamt
-        self.lektion_ids = lektionen_ids
+
+        self.timesRightBool = timesRightBool
+        self.timesRightNumber = timesRightNumber
+        self.history = history
+
+        #self.lektion_ids = lektionen_ids
 
     def Info(self):
-        print "Lektion: ", self.lektion
+        print "VokabelIds: ", self.vokabel_ids
         print "Vokabel_deutsch: ", self.vokabel_deutsch
         print "vokabel_fremd: ", self.vokabel_fremd
         print "Buch: ", self.buch

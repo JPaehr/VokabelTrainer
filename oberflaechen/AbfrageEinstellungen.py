@@ -119,11 +119,19 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
                                 "where id like 1"
             self.datenbank.setData(updateStatement)
             self.close()
+            statement = "select vokabeln.id from vokabeln " \
+                        "join lektionen on (vokabeln.idlektion=lektionen.id) "+self.ListeZuSql(self.lektions_liste, "lektionen.id")
 
-            self.windowAbfrage = Abfrage.Abfrage(self, self.lektions_liste, self.tfHaeufigkeit.text(),
+            data = self.datenbank.getDataAsList(statement)
+            vokids = list()
+            for i in data:
+                vokids.append(i[0])
+
+            self.windowAbfrage = Abfrage.Abfrage(self, vokids, self.tfHaeufigkeit.text(),
                                     self.tfZeitWarten.text(), self.tfZeitWartenRichtig.text(),
                                     self.chBMeintenSie.isChecked(), self.chBRichtigGeschriebeneAnzeigen.isChecked(),
-                                    self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text())
+                                    self.cBAbfragerichtung.currentIndex()+1, self.tfDistanz.text(),
+                                    self.cBTimesRight.isChecked(), self.lETimesRight.text())
             self.windowAbfrage.show()
         else:
             self.labKeineLektionGewaehlt.setVisible(True)

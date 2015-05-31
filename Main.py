@@ -162,9 +162,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
         else:
             self.FortsetzenEnable()
 
-
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
-
 
         self.setInfoInvisible()
     def closeProgram(self):
