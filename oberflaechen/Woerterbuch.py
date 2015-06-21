@@ -119,6 +119,8 @@ class Woerterbuch(WindowWoerterbuch, QtGui.QWidget):
         data = self.Datenbank.getDataAsList(self.statement)
         for i in data:
             self.IndexListe.append(i[7])
+            # Buecher.name [0], Lektionen.name [1], vokabeln.deutsch [2], vokabeln.fremd [3], vokabeln.richtig [4],
+            # vokabeln.falsch [5], vokabeln.zuletztrichtig [6], vokabeln.id [7]
             self.dataForModel.append([i[0], i[1], i[2], i[3], i[4], i[5], i[6]])
 
         # self.index_id_allocate(IDListe)
