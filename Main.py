@@ -120,6 +120,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
             self.datenbank.setData(updateStatement)
 
         try:
+
             statement = "select id from history limit 1"
             self.datenbank.getDataAsList(statement)
         except:
@@ -141,6 +142,7 @@ class Programm(MainWindow, QtGui.QMainWindow):
             self.datenbank.setData(updateStatement)
 
         try:
+
             statement = "select count(*) from vokabeln where richtig is NULL"
             data = self.datenbank.getDataAsList(statement)
             if data[0][0] > 0:
@@ -156,7 +158,6 @@ class Programm(MainWindow, QtGui.QMainWindow):
         except:
             print("Datenbankaenderung fehlgeschagen! Defaultwerte fuer richig und falsch aus vokabeln sollten"
                   " auf 0 gesetzt werden")
-
 
         self.wStatistik = None
         self.wLektionAendern = None
