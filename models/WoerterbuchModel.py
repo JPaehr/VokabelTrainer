@@ -35,6 +35,9 @@ class ModelListe(QtCore.QAbstractTableModel):
 
         if self.colored:
             if role == QtCore.Qt.BackgroundRole:
+                # Buecher.name [0], Lektionen.name [1], vokabeln.deutsch [2], vokabeln.fremd [3], vokabeln.richtig [4],
+                # vokabeln.falsch [5], vokabeln.zuletztrichtig [6], vokabeln.id [7]
+
                 if self.__daten[index.row()][4] > self.__daten[index.row()][5] and self.__daten[index.row()][4] >= 3 and \
                         not self.__daten[index.row()][6] == 0:
                     #green
@@ -45,6 +48,10 @@ class ModelListe(QtCore.QAbstractTableModel):
                 if self.__daten[index.row()][6] == 0 and self.__daten[index.row()][4] > self.__daten[index.row()][5]:
                     #yellow
                     return QBrush(QColor(233, 200, 0, 157))
+
+                if self.__daten[index.row()][6] == 1 and self.__daten[index.row()][4] < self.__daten[index.row()][5]:
+                    #orange
+                    return QBrush(QColor(255, 153, 0, 200))
 
                 if self.__daten[index.row()][6] == 0:
                     #red

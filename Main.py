@@ -82,12 +82,12 @@ class Programm(MainWindow, QtGui.QMainWindow):
         except:
             print("kann richtig nicht aus Vokabeln lesen, weil nicht verfügbar")
             print("spalte richtig wird erstellt")
-            tableUpdateStatement = "ALTER TABLE Vokabeln ADD COLUMN richtig INTEGER;"
+            tableUpdateStatement = "ALTER TABLE Vokabeln ADD COLUMN richtig INTEGER DEFAULT 0;"
             self.datenbank.setData(tableUpdateStatement)
             print("Datenbank aktualisiert")
 
             print("spalte falsch wird erstellt")
-            tableUpdateStatement = "ALTER TABLE Vokabeln ADD COLUMN falsch INTEGER;"
+            tableUpdateStatement = "ALTER TABLE Vokabeln ADD COLUMN falsch INTEGER DEFAULT 0"
             self.datenbank.setData(tableUpdateStatement)
             print("Datenbank aktualisiert")
 
@@ -139,6 +139,23 @@ class Programm(MainWindow, QtGui.QMainWindow):
             self.datenbank.setData(updateStatement)
             updateStatement = "ALTER TABLE Einstellungen ADD COLUMN richtigAbfragen BOOL"
             self.datenbank.setData(updateStatement)
+
+        try:
+            statement = "select count(*) from vokabeln where richtig is NULL"
+            data = self.datenbank.getDataAsList(statement)
+            if data[0][0] > 0:
+                statement = "update Vokabeln set richtig=0 where richtig is null"
+                self.datenbank.setData(statement)
+
+            statement = "select count(*) from vokabeln where falsch is NULL"
+            data = self.datenbank.getDataAsList(statement)
+            if data[0][0] > 0:
+                statement = "update Vokabeln set falsch=0 where falsch is null"
+                self.datenbank.setData(statement)
+
+        except:
+            print("Datenbankaenderung fehlgeschagen! Defaultwerte fuer richig und falsch aus vokabeln sollten"
+                  " auf 0 gesetzt werden")
 
 
         self.wStatistik = None

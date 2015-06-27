@@ -118,6 +118,23 @@ class NeueVokabelAnlegen(WindowVokabelAnlegen, QtGui.QWidget):
 
 
             self.Datenbank.setData(insertVokabel)
+
+            ################################
+            #Fehlerbehandlung -> spalte richtig und falsch aus vokabelntabelle koennen defaultwert von null haben,
+            #welche =richtig+1 nicht zulassen -> Korrekturblock
+            ################################
+            statement = "select count(*) from vokabeln where richtig is NULL"
+            data = self.datenbank.getDataAsList(statement)
+            if data[0][0] > 0:
+                statement = "update Vokabeln set richtig=0 where richtig is null"
+                self.datenbank.setData(statement)
+
+            statement = "select count(*) from vokabeln where falsch is NULL"
+            data = self.datenbank.getDataAsList(statement)
+            if data[0][0] > 0:
+                statement = "update Vokabeln set falsch=0 where falsch is null"
+                self.datenbank.setData(statement)
+            ################################
             self.tfDeutsch.setText("")
             self.tfFremd.setText("")
             self.lEGrammar.setText("")
