@@ -415,7 +415,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             if self.vokabel_fremd == str(self.tfInput.text().toUtf8()).decode("utf-8"):
                 # self.labRichtigFalsch.setText("Richtig")
                 self.labBitteEingeben.setText("Richtig")
-                self.history[str(self.vokabel_ids[self.id_aktuell-1])][0] += 1
+                self.history[self.vokabel_ids[self.id_aktuell-1]][0] += 1
                 updateStatement = "update vokabeln set richtig=richtig+1, zuletztrichtig=1 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
                 self.datenbank.setData(updateStatement)
                 print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
@@ -438,7 +438,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 son.falsch()
                 # self.labRichtigFalsch.setText("Falsch")
                 self.labBitteEingeben.setText("Falsch")
-                self.history[str(self.vokabel_ids[self.id_aktuell-1])][1] += 1
+                self.history[self.vokabel_ids[self.id_aktuell-1]][1] += 1
                 updateStatement = "update vokabeln set falsch=falsch+1, zuletztrichtig=0 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
                 self.datenbank.setData(updateStatement)
                 print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
@@ -492,7 +492,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
                 self.labBitteEingeben.setText("Richtig")
 
-                self.history[str(self.vokabel_ids[self.id_aktuell-1])][0] += 1
+                self.history[self.vokabel_ids[self.id_aktuell-1]][0] += 1
 
                 updateStatement = "update vokabeln set richtig=richtig+1, zuletztrichtig=1 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
                 self.datenbank.setData(updateStatement)
@@ -514,7 +514,7 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 updateStatement = "update vokabeln set falsch=falsch+1, zuletztrichtig=0 where id like "+str(self.vokabel_ids[self.id_aktuell-1])
                 self.datenbank.setData(updateStatement)
                 print("vok with id "+str(self.vokabel_ids[self.id_aktuell-1])+" updated")
-                self.history[str(self.vokabel_ids[self.id_aktuell-1])][1] += 1
+                self.history[self.vokabel_ids[self.id_aktuell-1]][1] += 1
                 #voc history
                 insertStatement = "insert into history (idvokabel, datum, richtig) " \
                                   "values ("+str(self.vokabel_ids[self.id_aktuell-1])+", " \
