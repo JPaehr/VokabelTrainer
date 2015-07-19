@@ -410,11 +410,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 self.answer = True
                 self.labPunkte.setText(str(float(self.labPunkte.text()) + 1))
                 if not self.sonderlektion:
-                    son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
+                    son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 0)
                     son.richtig()
             else:
                 if not self.sonderlektion:
-                    son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 1)
+                    son = SonderFall(self.vokabel_ids[self.id_aktuell-1], 0)
                     son.falsch()
                 # self.labRichtigFalsch.setText("Falsch")
                 self.labBitteEingeben.setText("Falsch")
