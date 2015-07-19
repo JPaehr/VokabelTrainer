@@ -132,6 +132,20 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="pBDraw">
+          <property name="text">
+           <string>Zeichnen (testButton)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pBDrawQuery">
+          <property name="text">
+           <string>ZeichnenAbfrage (testButton)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QWidget" name="widget_3" native="true"/>
         </item>
        </layout>
