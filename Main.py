@@ -27,9 +27,12 @@ import oberflaechen.Statistik as Statistik
 import oberflaechen.SonderWoerterbuch as Sonderwoerterbuch
 import oberflaechen.Abfrage as Abfrage
 import oberflaechen.Grammar as Grammar
+import oberflaechen.DrawQuery as DrawQuery
+import oberflaechen.Draw as Draw
 import models.base as Datenbank
 import oberflaechen.EinstellungenMindestTreffer as EinstellungenMindestTreffer
 from models.InfoThreadMainWindow import InfoThreadMainWindow
+
 
 
 class Programm(MainWindow, QtGui.QMainWindow):
@@ -53,6 +56,8 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.connect(self.btnZuruecksetzen, QtCore.SIGNAL("clicked()"), self.databaseReseet)
         self.connect(self.pbSonderlektion, QtCore.SIGNAL("clicked()"), self.woerterbuechSonderlektion)
         self.connect(self.pBEditGrammarHints, QtCore.SIGNAL("clicked()"), self.grammar_edit)
+        self.connect(self.pBDraw, QtCore.SIGNAL("clicked()"), self.draw)
+        self.connect(self.pBDrawQuery, QtCore.SIGNAL("clicked()"), self.drawQuery)
         self.infothread = InfoThreadMainWindow(self)
 
         self.actionMindestuebereinstimmung.triggered.connect(self.MinFit)
@@ -151,6 +156,8 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.wMinFit = None
         self.wWoerterbuchSonder = None
         self.wGrammarHints = None
+        self.wDraw = None
+        self.wDrawQuery = None
 
         if os.stat('zwischenSpeicher.fs').st_size == 0:
             self.FortsetzenDisable()
@@ -225,9 +232,18 @@ class Programm(MainWindow, QtGui.QMainWindow):
         self.wLektionAendern = LektionAendern.LektionAendern(self)
         self.wLektionAendern.show()
 
+    def draw(self):
+        self.wDraw = Draw.Draw(self, 1)
+        self.wDraw.show()
+
     def grammar_edit(self):
         self.wGrammarHints = Grammar.FormhinweiseAendern(self)
         self.wGrammarHints.show()
+
+    def drawQuery(self):
+        self.wDrawQuery = DrawQuery.DrawQuery(self, 1)
+        self.wDrawQuery.show()
+
     def AbfrageFortsetzen(self):
 
         self.wAbfrageForsetzen = Abfrage.Abfrage(self, '', '', '', '', '', '', '', '', '',  '1')
