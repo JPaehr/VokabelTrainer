@@ -11,6 +11,7 @@ import threading
 from time import sleep
 from copy import deepcopy
 from models.DrawThread import DrawThread
+from models.CharModel import Char
 
 
 class Draw(Ui_MainWindow, QtGui.QMainWindow):
@@ -19,8 +20,6 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
         QtGui.QWidget.__init__(self, parent=None)
         self.setupUi(self)
 
-
-        #self.connect(self.btnAbbrechen, QtCore.SIGNAL("clicked()"), QtCore.SLOT('close()'))
         self.connect(self.pBLoeschen, QtCore.SIGNAL("clicked()"), self.delCanvas)
         self.connect(self.pBSave, QtCore.SIGNAL("clicked()"), self.save)
         self.connect(self.pBSimulate, QtCore.SIGNAL("clicked()"), self.simulate)
@@ -31,27 +30,31 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
 
         self.database = Datenbank.base("Zeichen.sqlite")
 
-        # self.setupUi(self)
-        # self.initUI()
-        self.drawList = list()
+        self.ctr = 0
         self.lock = threading.Lock()
         statement = "select x, y from punkte where idvokabel like %d" % self.vokabelId
-        self.drawList = self.database.getDataAsList(statement)
-        #print(self.drawList)
+
+        data = self.database.getDataAsList(statement)
+        self.drawObj = Char()
+        self.drawObj.setData(data)
+        self.simulationRunning = False
+
+        self.mousePressed = False
         self.update()
 
-
     def simulate(self):
-        if self.threadFinished:
 
-            self.threadFinished = False
-            self.pBSimulate.setText("simulation stoppen")
-
-            self.simlation = DrawThread(self, self.lock)
-            self.simlation.start()
-        else:
+        if self.simulationRunning:
             self.pBSimulate.setText(self.simulationText)
-            self.simlation.stop()
+            self.simulation.stop()
+            self.simulationRunning = False
+            self.update()
+        else:
+            self.simulation = DrawThread(self.lock, self.drawObj.getNumberOfItems(), self)
+            self.simulationRunning = True
+            self.newestSegment = 1
+            self.simulation.start()
+            self.pBSimulate.setText("simulation stoppen")
 
     def save(self):
         statement = "delete from punkte where idvokabel like "+str(self.vokabelId)
@@ -67,6 +70,7 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
 
     def delCanvas(self):
         self.drawList = []
+        self.drawObj.delData()
         self.update()
 
     def initUI(self):
@@ -76,49 +80,122 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
         self.show()
 
     def mousePressEvent(self, event):
-        # print(event.pos())
-        self.x = event.pos().x()
-        self.y = event.pos().y()
+
+        pass
 
     def mouseReleaseEvent(self, e):
-        self.drawList.append(["-1", "-1"])
-        #print(len(self.drawList))
+        self.mousePressed = False
 
     def mouseMoveEvent(self, args):
 
-        #line = QtCore.QLine(0, 0, x2, 30)
-
         x = args.pos().x()
         y = args.pos().y()
-        self.drawList.append([x, y])
-        #print("listOrg.append([%d, %d])" % (x, y))
+        xOffset = self.drawWidget.pos().x()
+        yOffset = self.drawWidget.pos().y()
 
-
+        if self.mousePressed == False:
+            self.drawObj.appendItemToNewSegment([-xOffset+x, -yOffset+y])
+            self.mousePressed = True
+        else:
+            self.drawObj.appendItemToLastSegment([-xOffset+x, -yOffset+y])
         self.update()
-        #print(args.pos())
+
 
     def paintEvent(self, e):
 
+        xOffset = self.drawWidget.pos().x()
+        yOffset = self.drawWidget.pos().y()
+
+
+        #draw grid
         pen = QtGui.QPen()
-        pen.setWidth(5)
+        pen.setWidth(1)
 
-        painter = QtGui.QPainter(self)
-        painter.setRenderHint(QtGui.QPainter.Antialiasing)
-        painter.setPen(pen)
-        with self.lock:
-            for i in range(len(self.drawList)):
-                if i == 0:
-                    previous = 0
-                else:
-                    previous = i-1
-                if int(self.drawList[previous][0]) == -1 or int(self.drawList[previous][1]) == -1 or int(self.drawList[i][0]) == -1:
-                    #stift abgesetzt
-                    pass
-                else:
-                    painter.drawLine(int(self.drawList[previous][0]), int(self.drawList[previous][1]),
-                                     int(self.drawList[i][0]), int(self.drawList[i][1]))
+        painterGrid = QtGui.QPainter(self)
+        painterGrid.setRenderHint(QtGui.QPainter.Antialiasing)
+        painterGrid.setPen(pen)
+        width = self.drawWidget.width()
+        height = self.drawWidget.height()
 
-                    painter.drawPoint(int(self.drawList[i][0]), int(self.drawList[i][1]))
+        horizontalLines = 4
+        verticalLines = 4
+        for i in range(verticalLines):
+            painterGrid.drawLine(xOffset+width/(verticalLines+1)*(i+1), yOffset, xOffset+width/(verticalLines+1)*(i+1), yOffset+height)
 
-        # painter.setPen(QtGui.QColor(168, 34, 3))
-        # painter.drawLine(20, 20, 100, 100)
+        for i in range(horizontalLines):
+            painterGrid.drawLine(xOffset, yOffset+height/(horizontalLines+1)*(i+1), xOffset+width, yOffset+height/(horizontalLines+1)*(i+1))
+
+        if not self.simulationRunning:
+            pen = QtGui.QPen()
+            pen.setWidth(5)
+
+            painter = QtGui.QPainter(self)
+            painter.setRenderHint(QtGui.QPainter.Antialiasing)
+            painter.setPen(pen)
+
+
+            xScale = float(self.drawWidget.width()) / 300
+            yScale = float(self.drawWidget.height()) / 300
+
+
+            previous = [-1, -1]
+            for segment in self.drawObj.getSegments():
+                for item in segment:
+                    if previous[0] == -1:
+                        previous[0] = item[0]
+                        previous[1] = item[1]
+
+                    painter.drawLine(xOffset + previous[0]*xScale, yOffset + previous[1]*yScale, xOffset + item[0]*xScale, yOffset + item[1]*yScale)
+                    previous[0] = item[0]
+                    previous[1] = item[1]
+
+                previous[0] = -1
+                previous[1] = -1
+        else:
+
+            pen = QtGui.QPen()
+            pen.setWidth(5)
+
+            painter = QtGui.QPainter(self)
+            painter.setRenderHint(QtGui.QPainter.Antialiasing)
+            painter.setPen(pen)
+
+
+            xScale = float(self.drawWidget.width()) / 300
+            yScale = float(self.drawWidget.height()) / 300
+
+            previous = [-1, -1]
+            localctr = 0
+            bigbrake = False
+
+            segcounter = 0
+
+
+            for segment in self.drawObj.getSegments():
+                segcounter += 1
+                if bigbrake:
+                    break
+                for item in segment:
+                    with self.lock:
+                        if localctr < self.ctr:
+                            if previous[0] == -1:
+                                previous[0] = item[0]
+                                previous[1] = item[1]
+                            if self.newestSegment == segcounter:
+                                pen = QtGui.QPen()
+                                pen.setWidth(5)
+                                pen.setColor(QtGui.QColor(26, 132, 57, 157))
+
+                                painter.setPen(pen)
+
+                            painter.drawLine(xOffset + previous[0]*xScale, yOffset + previous[1]*yScale, xOffset + item[0]*xScale, yOffset + item[1]*yScale)
+                            previous[0] = item[0]
+                            previous[1] = item[1]
+                            localctr += 1
+                        else:
+                            bigbrake = True
+                            break
+                if segcounter > self.newestSegment:
+                    self.newestSegment = segcounter
+                previous[0] = -1
+                previous[1] = -1

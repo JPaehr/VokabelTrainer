@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
     <item>
-     <widget class="QWidget" name="widget" native="true">
+     <widget class="QWidget" name="drawWidget" native="true">
       <property name="minimumSize">
        <size>
         <width>300</width>

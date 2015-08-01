@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file '.\UIs\WindowDraw.ui'
 #
-# Created: Thu Jul 16 20:58:46 2015
-#      by: PyQt4 UI code generator 4.11.3
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -32,11 +31,11 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.widget = QtGui.QWidget(self.centralwidget)
-        self.widget.setMinimumSize(QtCore.QSize(300, 300))
-        self.widget.setMaximumSize(QtCore.QSize(700, 700))
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.verticalLayout.addWidget(self.widget)
+        self.drawWidget = QtGui.QWidget(self.centralwidget)
+        self.drawWidget.setMinimumSize(QtCore.QSize(300, 300))
+        self.drawWidget.setMaximumSize(QtCore.QSize(700, 700))
+        self.drawWidget.setObjectName(_fromUtf8("drawWidget"))
+        self.verticalLayout.addWidget(self.drawWidget)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.pBLoeschen = QtGui.QPushButton(self.centralwidget)
