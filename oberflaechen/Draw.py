@@ -61,7 +61,8 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
         self.database.setData(statement)
 
         with self.lock:
-            for i in self.drawList:
+            rawdata = self.drawObj.getRawData()
+            for i in rawdata:
 
                 statement = "insert into punkte (x, y, idvokabel) values (%d, %d, %d)" % (int(i[0]), int(i[1]), int(self.vokabelId))
                 #print(statement)
@@ -90,14 +91,19 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
 
         x = args.pos().x()
         y = args.pos().y()
+
         xOffset = self.drawWidget.pos().x()
         yOffset = self.drawWidget.pos().y()
 
+        xScale = 300 / float(self.drawWidget.width())
+        yScale = 300 / float(self.drawWidget.height())
+
+
         if self.mousePressed == False:
-            self.drawObj.appendItemToNewSegment([-xOffset+x, -yOffset+y])
+            self.drawObj.appendItemToNewSegment([(-xOffset+x)*xScale, (-yOffset+y)*yScale])
             self.mousePressed = True
         else:
-            self.drawObj.appendItemToLastSegment([-xOffset+x, -yOffset+y])
+            self.drawObj.appendItemToLastSegment([(-xOffset+x)*xScale, (-yOffset+y)*yScale])
         self.update()
 
 
@@ -138,6 +144,7 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
             yScale = float(self.drawWidget.height()) / 300
 
 
+
             previous = [-1, -1]
             for segment in self.drawObj.getSegments():
                 for item in segment:
@@ -163,6 +170,8 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
 
             xScale = float(self.drawWidget.width()) / 300
             yScale = float(self.drawWidget.height()) / 300
+
+
 
             previous = [-1, -1]
             localctr = 0
