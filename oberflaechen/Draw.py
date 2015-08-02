@@ -88,23 +88,24 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
         self.mousePressed = False
 
     def mouseMoveEvent(self, args):
+        if not self.simulationRunning:
 
-        x = args.pos().x()
-        y = args.pos().y()
+            x = args.pos().x()
+            y = args.pos().y()
 
-        xOffset = self.drawWidget.pos().x()
-        yOffset = self.drawWidget.pos().y()
+            xOffset = self.drawWidget.pos().x()
+            yOffset = self.drawWidget.pos().y()
 
-        xScale = 300 / float(self.drawWidget.width())
-        yScale = 300 / float(self.drawWidget.height())
+            xScale = 300 / float(self.drawWidget.width())
+            yScale = 300 / float(self.drawWidget.height())
 
 
-        if self.mousePressed == False:
-            self.drawObj.appendItemToNewSegment([(-xOffset+x)*xScale, (-yOffset+y)*yScale])
-            self.mousePressed = True
-        else:
-            self.drawObj.appendItemToLastSegment([(-xOffset+x)*xScale, (-yOffset+y)*yScale])
-        self.update()
+            if self.mousePressed == False:
+                self.drawObj.appendItemToNewSegment([(-xOffset+x)*xScale, (-yOffset+y)*yScale])
+                self.mousePressed = True
+            else:
+                self.drawObj.appendItemToLastSegment([(-xOffset+x)*xScale, (-yOffset+y)*yScale])
+            self.update()
 
 
     def paintEvent(self, e):

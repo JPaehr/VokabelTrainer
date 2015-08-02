@@ -56,8 +56,9 @@ class DrawThread(Thread):
                 self.parent.update()
             else:
                 self.parent.simulationRunning = False
+                self.parent.pBSimulate.setText(self.parent.simulationText)
                 self.parent.update()
-                print("Thread zu ende")
+
                 break
 
 
