@@ -52,6 +52,13 @@ class Char(object):
     def delElement(self, index):
         return self.data.pop(index)
 
+    def delLastElement(self):
+        try:
+            self.data.pop()
+        except:
+            pass
+        return
+
     def getNumberOfItems(self):
         ctr = 0
         for i in self.data:

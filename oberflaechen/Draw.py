@@ -42,6 +42,10 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
         self.mousePressed = False
         self.update()
 
+        self.mouseLeftPressed = False
+        self.mouseRightPressed = False
+
+
     def simulate(self):
 
         if self.simulationRunning:
@@ -80,32 +84,52 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
         self.setWindowTitle('Points')
         self.show()
 
-    def mousePressEvent(self, event):
 
-        pass
+    def mousePressEvent(self, e):
+
+        if(e.button() == QtCore.Qt.RightButton):
+            self.mouseRightPressed = True
+        if e.button() == QtCore.Qt.LeftButton:
+            self.mouseLeftPressed = True
 
     def mouseReleaseEvent(self, e):
+        if(e.button() == QtCore.Qt.RightButton):
+            self.mouseRightPressed = False
+            self.drawObj.delLastElement()
+            self.update()
+        if e.button() == QtCore.Qt.LeftButton:
+            self.mouseLeftPressed = False
         self.mousePressed = False
 
-    def mouseMoveEvent(self, args):
-        if not self.simulationRunning:
+    def mouseMoveEvent(self, e):
 
-            x = args.pos().x()
-            y = args.pos().y()
+        # if e.button() == QtCore.Qt.RightButton:
+        #     print("rechtsklick")
+        # elif e.button() == QtCore.Qt.LeftButton:
+        #     print("linksklick")
+        # else:
+        #     print("irgendein klick")
 
-            xOffset = self.drawWidget.pos().x()
-            yOffset = self.drawWidget.pos().y()
+        if self.mouseLeftPressed:
 
-            xScale = 300 / float(self.drawWidget.width())
-            yScale = 300 / float(self.drawWidget.height())
+            if not self.simulationRunning:
+
+                x = e.pos().x()
+                y = e.pos().y()
+
+                xOffset = self.drawWidget.pos().x()
+                yOffset = self.drawWidget.pos().y()
+
+                xScale = 300 / float(self.drawWidget.width())
+                yScale = 300 / float(self.drawWidget.height())
 
 
-            if self.mousePressed == False:
-                self.drawObj.appendItemToNewSegment([(-xOffset+x)*xScale, (-yOffset+y)*yScale])
-                self.mousePressed = True
-            else:
-                self.drawObj.appendItemToLastSegment([(-xOffset+x)*xScale, (-yOffset+y)*yScale])
-            self.update()
+                if self.mousePressed == False:
+                    self.drawObj.appendItemToNewSegment([(-xOffset+x)*xScale, (-yOffset+y)*yScale])
+                    self.mousePressed = True
+                else:
+                    self.drawObj.appendItemToLastSegment([(-xOffset+x)*xScale, (-yOffset+y)*yScale])
+                self.update()
 
 
     def paintEvent(self, e):
