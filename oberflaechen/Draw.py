@@ -155,14 +155,19 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
 
         for i in range(horizontalLines):
             painterGrid.drawLine(xOffset, yOffset+height/(horizontalLines+1)*(i+1), xOffset+width, yOffset+height/(horizontalLines+1)*(i+1))
+        #end draw grid
+
+        #brush = QtGui.QBrush(QtGui.Qt.Dens)
 
         if not self.simulationRunning:
             pen = QtGui.QPen()
             pen.setWidth(5)
-
+            pen.setCapStyle(QtCore.Qt.RoundCap)
+            pen.setJoinStyle(QtCore.Qt.RoundJoin)
             painter = QtGui.QPainter(self)
             painter.setRenderHint(QtGui.QPainter.Antialiasing)
             painter.setPen(pen)
+            #painter.setBrush(Qt)
 
 
             xScale = float(self.drawWidget.width()) / 300
@@ -178,6 +183,7 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
                         previous[1] = item[1]
 
                     painter.drawLine(xOffset + previous[0]*xScale, yOffset + previous[1]*yScale, xOffset + item[0]*xScale, yOffset + item[1]*yScale)
+                    #painter.drawPoint(xOffset + item[0]*xScale, yOffset + item[1]*yScale)
                     previous[0] = item[0]
                     previous[1] = item[1]
 
@@ -187,6 +193,9 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
 
             pen = QtGui.QPen()
             pen.setWidth(5)
+            pen.setCapStyle(QtCore.Qt.RoundCap)
+            pen.setJoinStyle(QtCore.Qt.RoundJoin)
+
 
             painter = QtGui.QPainter(self)
             painter.setRenderHint(QtGui.QPainter.Antialiasing)
@@ -219,6 +228,9 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
                                 pen = QtGui.QPen()
                                 pen.setWidth(5)
                                 pen.setColor(QtGui.QColor(26, 132, 57, 157))
+                                pen.setCapStyle(QtCore.Qt.RoundCap)
+                                pen.setJoinStyle(QtCore.Qt.RoundJoin)
+
 
                                 painter.setPen(pen)
 
