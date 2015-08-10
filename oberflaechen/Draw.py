@@ -227,7 +227,7 @@ class Draw(Ui_MainWindow, QtGui.QMainWindow):
                             if self.newestSegment == segcounter:
                                 pen = QtGui.QPen()
                                 pen.setWidth(5)
-                                pen.setColor(QtGui.QColor(26, 132, 57, 157))
+                                pen.setColor(QtGui.QColor(26, 132, 57, 255))
                                 pen.setCapStyle(QtCore.Qt.RoundCap)
                                 pen.setJoinStyle(QtCore.Qt.RoundJoin)
 
