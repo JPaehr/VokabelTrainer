@@ -161,8 +161,8 @@ class LektionAendern(WindowLektionAendern, QtGui.QWidget):
         neuerName = str(self.tfNeuerName.text().toUtf8()).decode("utf-8")
                 
         self.getIdLektion()
-        statement = "update Lektionen set name='"+str(neuerName)+"', idBuch='"+str(self.getIdBuchNeu())+"' \
+        statement = "update Lektionen set name='"+unicode(neuerName)+"', idBuch='"+str(self.getIdBuchNeu())+"' \
         where id like '"+str(self.getIdLektion())+"'"
-        #print statement
+        print statement
         self.Datenbank.setData(statement)
         self.close()
