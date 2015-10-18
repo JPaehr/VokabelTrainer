@@ -161,7 +161,7 @@ class AbfrageEinstellungen(WindowAbfrageEinstellungen, QtGui.QWidget):
 
             selection = self.datenbank.getDataAsList(statement)
             if not self.querySonderlektion(i[1]):
-                if selection[0][0] > 0:
+                if selection[0][0] >= 0:
                     liste.append(i[0]+" - "+str(selection[0][0])+" Vokabeln")
                     try:
                         dateList.append(i[2])
