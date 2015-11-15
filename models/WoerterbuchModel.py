@@ -42,7 +42,7 @@ class ModelListe(QtCore.QAbstractTableModel):
                         not self.__daten[index.row()][6] == 0:
                     #green
                     return QBrush(QColor(0, 255, 0, 127))
-                if self.__daten[index.row()][4] < 3:
+                if self.__daten[index.row()][4] + self.__daten[index.row()][5] < 3:
                     #gray
                     return QBrush(QColor(129, 129, 129, 157))
                 if self.__daten[index.row()][6] == 0 and self.__daten[index.row()][4] > self.__daten[index.row()][5]:
