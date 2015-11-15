@@ -341,10 +341,11 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
             self.zeit.setRemainVok(self.abfragenGesamt-self.id_aktuell)
 
             self.tfInput.setText("")
-            self.tfInput.setFocus()    
+            self.tfInput.setFocus()
             self.labMeintenSie.setText("")
-            
+
             self.id_aktuell += 1
+            self.repaintHint()
         else:
             self.inGame = False
             print "fertig mit Abfragen"
