@@ -22,7 +22,7 @@ class Statistik(WindowStatistik, QtGui.QWidget):
         self.datenbank = Datenbank.base("VokabelDatenbank.sqlite")
         statement = "select datum, richtig, gesamt, lektionen from statistik order by id desc"
         daten = self.datenbank.getDataAsList(statement)
-        print(daten)
+        # print(daten)
         #print daten
 
         ### create lookup table for lektion_id -> lektionen.name
@@ -32,7 +32,7 @@ class Statistik(WindowStatistik, QtGui.QWidget):
         for i in names:
             # lektionen_id : lektionen.name
             lektionen_dict[i[1]] = i[0]
-        print(lektionen_dict)
+        #print(lektionen_dict)
         header = ['datum', 'richtig/von', 'in Prozent', 'lektionen']
 
         datenZumAnzeigen = []
