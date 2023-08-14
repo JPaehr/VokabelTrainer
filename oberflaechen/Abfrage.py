@@ -295,72 +295,24 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
     def weitere_vokabel(self):
         """
-        weitere Vokabel ziehen
+        get next vocable
         """
         try:
-            print("Aktuelle id: "+str(self.vokabel_ids[self.id_aktuell]))
+            print("current id: "+str(self.vokabel_ids[self.id_aktuell]))
         except:
-            print("in die hose gegangen")
+            print("no current id available :(")
 
         if self.id_aktuell < len(self.vokabel_ids):
-
-
-            try:
-
-                daten = self.datenbank.getDataAsList("select lektionen.name, vokabeln.deutsch, vokabeln.fremd, buecher.name, formhinweise.hint from vokabeln "
-                                                 "join lektionen on (lektionen.id=vokabeln.idlektion) "
-                                                 "join buecher on (buecher.id=lektionen.idBuch) "
-                                                 "left join formhinweise on (formhinweise.id = vokabeln.idHint)"
-                                                 "where vokabeln.id like "+str(self.vokabel_ids[self.id_aktuell]))
             
-                self.lektion = daten[0][0]
-                self.vokabel_deutsch = unicode(daten[0][1])
-                self.vokabel_fremd = daten[0][2]
-                self.buch = daten[0][3]
+            while self.id_aktuell < len(self.vokabel_ids):
 
-                self.grammarHint = daten[0][4]
-
-
-
-                if self.richtung == 1:
-                    self.labVokabelMeintenSie.setText(self.vokabel_deutsch)
-                else:
-                    self.labVokabelMeintenSie.setText(self.vokabel_fremd)
-                if daten[0][4] == None:
-                    self.labGrammarHint.setText("")
-                else:
-                    self.labGrammarHint.setText(self.grammarHint)
-
-                self.labLektion.setText(unicode(self.lektion))
-                self.labBuch.setText(unicode(self.buch))
-                self.labRichtigFalsch.setText("")
-                self.labBitteEingeben.setText("Bitte eingeben")
-                self.labWeitereVokabeln.setText("Noch "+str(len(self.vokabel_ids)-self.id_aktuell-1)+" weitere Vokabeln")
-
-                print "id_aktuell: "+ str(self.id_aktuell)
-                # print "Vokabelids: "+ str(self.vokabel_ids)
-
-                self.pBFortschritt.setValue(int(round(float(str((self.abfragenGesamt-(len(self.vokabel_ids)-self.id_aktuell)) / self.abfragenGesamt*100)), 0)))
-
-                self.zeit.setRemainVok(self.abfragenGesamt-self.id_aktuell)
-
-                self.tfInput.setText("")
-                self.tfInput.setFocus()
-                self.labMeintenSie.setText("")
-
-                self.id_aktuell += 1
-                self.repaintHint()
-            except:
-                # check if next id is available
-
-                self.id_aktuell += 1
-                if self.id_aktuell < len(self.vokabel_ids):
-
+                try:
+                    # statement can fail if vocable got removed while a query is in progress
                     daten = self.datenbank.getDataAsList("select lektionen.name, vokabeln.deutsch, vokabeln.fremd, buecher.name, formhinweise.hint from vokabeln "
-                                                    "join lektionen on (lektionen.id=vokabeln.idlektion) "
-                                                    "join buecher on (buecher.id=lektionen.idBuch) "
-                                                    "left join formhinweise on (formhinweise.id = vokabeln.idHint)"
-                                                    "where vokabeln.id like "+str(self.vokabel_ids[self.id_aktuell]))
+                                                        "join lektionen on (lektionen.id=vokabeln.idlektion) "
+                                                        "join buecher on (buecher.id=lektionen.idBuch) "
+                                                        "left join formhinweise on (formhinweise.id = vokabeln.idHint)"
+                                                        "where vokabeln.id like "+str(self.vokabel_ids[self.id_aktuell]))
                 
                     self.lektion = daten[0][0]
                     self.vokabel_deutsch = unicode(daten[0][1])
@@ -368,8 +320,6 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                     self.buch = daten[0][3]
 
                     self.grammarHint = daten[0][4]
-
-
 
                     if self.richtung == 1:
                         self.labVokabelMeintenSie.setText(self.vokabel_deutsch)
@@ -399,24 +349,12 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
 
                     self.id_aktuell += 1
                     self.repaintHint()
-                else:
-                    self.inGame = False
-                    print "fertig mit Abfragen"
-                    self.FortsetzenDisable()
-                    open("zwischenSpeicher.fs", 'w').close()
+                    break 
+                except: 
+                    # if statement failed try next id
+                    self.id_aktuell += 1
 
-                    Zeit10Voks, gewicht = self.datenbank.getDataAsList("select secPro10Vok, gewichtung from zeit")[0]
-
-                    zeit10Neu = (Zeit10Voks * gewicht + self.zeit.getTimeInSeconds()/self.abfragenGesamt *10)/(gewicht + 1)
-                    zeit10Neu = round(zeit10Neu, 0)
-                    updateStatement = "update zeit set secPro10Vok="+str(zeit10Neu)+", gewichtung="+str(gewicht+1)+" where id like 1"
-                    self.datenbank.setData(updateStatement)
-
-                    self.close()
-                    self.WindowAuwertung = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids,
-                                                    self.sonderlektion)
-                    self.WindowAuwertung.show()
-        else:
+        else: # no id available anymore
             self.inGame = False
             print "fertig mit Abfragen"
             self.FortsetzenDisable()
