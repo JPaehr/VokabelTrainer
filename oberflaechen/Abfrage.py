@@ -353,10 +353,31 @@ class Abfrage(WindowAbfrage, QtGui.QWidget):
                 except: 
                     # if statement failed try next id
                     self.id_aktuell += 1
+                    # check if next id is existing
+                    if self.id_aktuell < len(self.vokabel_ids):
+                        pass
+                    else:
+                        self.inGame = False
+                        print "query done"
+                        self.FortsetzenDisable()
+                        open("zwischenSpeicher.fs", 'w').close()
 
+                        Zeit10Voks, gewicht = self.datenbank.getDataAsList("select secPro10Vok, gewichtung from zeit")[0]
+
+                        zeit10Neu = (Zeit10Voks * gewicht + self.zeit.getTimeInSeconds()/self.abfragenGesamt *10)/(gewicht + 1)
+                        zeit10Neu = round(zeit10Neu, 0)
+                        updateStatement = "update zeit set secPro10Vok="+str(zeit10Neu)+", gewichtung="+str(gewicht+1)+" where id like 1"
+                        self.datenbank.setData(updateStatement)
+
+                        self.close()
+                        self.WindowAuwertung = Auswertung(self, self.labPunkte.text(), len(self.vokabel_ids), self.lektion_ids,
+                                                        self.sonderlektion)
+                        self.WindowAuwertung.show()
+
+            
         else: # no id available anymore
             self.inGame = False
-            print "fertig mit Abfragen"
+            print "query done"
             self.FortsetzenDisable()
             open("zwischenSpeicher.fs", 'w').close()
 
